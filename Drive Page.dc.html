@@ -104,7 +104,7 @@
         <div style="position:relative; margin-bottom:18px;">
           <div style="position:absolute; left:-44px; top:22px; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:{{ lesson.dotBg }}; border:2px solid {{ lesson.dotBorder }}; color:{{ lesson.dotColor }};">{{ lesson.dotLabel }}</div>
 
-          <a href="{{ lesson.href }}" class="lesson-row {{ lesson.rowClass }}" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:{{ lesson.bg }}; border:1px solid {{ lesson.border }}; border-radius:4px; padding:22px 26px; opacity:{{ lesson.opacity }};">
+          <a href="{{ lesson.href }}" class="lesson-row {{ lesson.rowClass }}" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:{{ lesson.bg }}; border:1px solid {{ lesson.border }}; border-radius:4px; padding:22px 26px; opacity:{{ lesson.opacity }}; pointer-events:{{ lesson.pointerEvents }}; cursor:{{ lesson.pointerEvents === 'none' ? 'not-allowed' : 'pointer' }};">
             <div style="display:flex; align-items:baseline; gap:18px; min-width:0;">
               <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">L{{ lesson.number }}</div>
               <div style="min-width:0;">
@@ -197,19 +197,22 @@ class Component extends DCLogic {
     const lessons = raw.map((l, i) => {
       const isDone = l.state === 'done';
       const isCurrent = l.state === 'current';
+      const isLocked = l.state === 'locked';
       return {
         ...l,
+        href: isLocked ? '#' : `Lesson Page.dc.html?drive=${driveNum}&lesson=${l.number}`,
         dotLabel: isDone ? '✓' : String(i + 1),
         dotBg: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-bg-mid)' : 'var(--cg-bg-mid)'),
         dotBorder: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-bg-line)'),
         dotColor: isDone ? 'var(--cg-bg)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
         bg: isCurrent ? 'var(--cg-bg-mid)' : (isDone ? '#0F2842' : 'var(--cg-bg)'),
         border: isCurrent ? 'var(--cg-accent-bright)' : (isDone ? 'var(--cg-bg-line)' : '#1A2C42'),
-        opacity: l.state === 'locked' ? 0.55 : 1,
-        titleColor: l.state === 'locked' ? 'var(--cg-text-mute)' : 'var(--cg-text)',
+        opacity: isLocked ? 0.55 : 1,
+        titleColor: isLocked ? 'var(--cg-text-mute)' : 'var(--cg-text)',
         statusColor: isDone ? 'var(--cg-text-mute)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
         status: isDone ? 'COMPLETE' : (isCurrent ? 'CONTINUE →' : 'LOCKED'),
         rowClass: isDone ? 'is-done' : (isCurrent ? 'is-active' : 'is-locked'),
+        pointerEvents: isLocked ? 'none' : 'auto',
       };
     });
     const downloadSummary = () => {

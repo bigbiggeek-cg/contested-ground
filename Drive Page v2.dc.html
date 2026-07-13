@@ -17,14 +17,18 @@
   a { color: inherit; }
   .yard-divider { height: 1px; background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px); }
   .nav-link { transition: color .15s ease; }
-  .cta-btn { transition: background .15s ease, transform .15s ease; }
-  .cta-btn:hover { transform: translateY(-1px); }
-  .lesson-row { transition: border-color .2s ease, transform .2s ease; }
-  .lesson-row.is-active:hover, .lesson-row.is-done:hover { border-color: var(--cg-accent); transform: translateX(2px); }
+  .play-btn { transition: transform .12s ease, background .15s ease; }
+  .play-btn:hover { transform: scale(1.05); }
+  .quiz-opt { transition: border-color .15s ease, background .15s ease; cursor: pointer; }
+  .quiz-opt:hover { border-color: var(--cg-text-mute); }
+  .related-card { transition: border-color .2s ease; }
+  .related-card:hover { border-color: var(--cg-accent); }
+  article p { margin: 0 0 20px; }
+  article h3 { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 24px; text-transform: uppercase; letter-spacing: -0.005em; margin: 40px 0 16px; color: var(--cg-text); }
 </style>
 </helmet>
 
-<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Drive Page">
+<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Lesson Page">
 
   <!-- NAV -->
   <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
@@ -33,7 +37,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </div>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Drives</a>
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -44,95 +48,168 @@
     </div>
   </div>
 
-  <!-- BREADCRUMB -->
-  <div style="max-width:1100px; margin:0 auto; padding:28px 56px 0;">
-    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim);">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVE 02</span>
+  <!-- BREADCRUMB + PROGRESS -->
+  <div style="max-width:820px; margin:0 auto; padding:28px 32px 0;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <a href="Drive Page.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVE 02 — DETECTION &amp; RESPONSE</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON 07</span>
     </div>
-  </div>
-
-  <!-- DRIVE INTRO -->
-  <div style="max-width:1100px; margin:0 auto; padding:26px 56px 50px;">
-    <div style="display:flex; align-items:center; gap:10px; margin-bottom:22px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">2ND & 7 · INTERMEDIATE</div>
-    </div>
-    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DRIVE 02</div>
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,58px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 22px; text-transform:uppercase; max-width:780px;">Detection & Response</h1>
-    <p style="font-size:18px; line-height:1.65; color:var(--cg-text-mute); max-width:640px; margin:0 0 12px;">
-      What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.
-    </p>
-    <p style="font-size:16px; line-height:1.6; color:var(--cg-text-dim); max-width:640px; margin:0;">
-      Why it matters: Firewalls and antivirus were never the finish line.
-    </p>
-
-    <div style="display:flex; gap:40px; margin-top:36px; padding-top:28px; border-top:1px solid var(--cg-bg-line);">
-      <div>
-        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:28px; color:var(--cg-accent-bright);">7</div>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); text-transform:uppercase; margin-top:4px;">Lessons</div>
-      </div>
-      <div>
-        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:28px; color:var(--cg-accent-bright);">~1H 30M</div>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); text-transform:uppercase; margin-top:4px;">Total Time</div>
-      </div>
-    </div>
-
-    <!-- PROGRESS TRACKER -->
-    <div style="margin-top:32px;">
-      <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase;">2 of 7 lessons complete</div>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">29%</div>
-      </div>
-      <div style="height:6px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:3px; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:36px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson 2 of 7 in this Drive</div>
+      <div style="flex:1; height:4px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:2px; overflow:hidden;">
         <div style="height:100%; width:29%; background:var(--cg-accent);"></div>
       </div>
     </div>
   </div>
 
-  <div class="yard-divider"></div>
+  <!-- HEADER -->
+  <div style="max-width:820px; margin:0 auto; padding:0 32px 40px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">2ND &amp; 7 · INTERMEDIATE</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">15 MIN READ · 12 MIN LISTEN</div>
+    </div>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(32px,5vw,50px); line-height:1.05; letter-spacing:-0.01em; margin:0; text-transform:uppercase;">Reading Logs Like an Analyst</h1>
+    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); margin:16px 0 0;">The Event IDs every IT pro should recognize on sight — and what they're actually telling you.</p>
+  </div>
 
-  <!-- PLAY SEQUENCE -->
-  <div style="max-width:1100px; margin:0 auto; padding:60px 56px 80px;">
-    <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0 0 40px;">The Drive · Lesson Sequence</h2>
+  <!-- AUDIO PLAYER -->
+  <div style="max-width:820px; margin:0 auto; padding:0 32px 48px;">
+    <div style="background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:6px; padding:22px 26px; display:flex; align-items:center; gap:20px;">
+      <div class="play-btn" onClick="{{ togglePlay }}" style="flex:none; width:52px; height:52px; border-radius:50%; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--cg-bg); font-size:16px;">
+        <div>{{ playIcon }}</div>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.03em; text-transform:uppercase; margin-bottom:8px;">{{ playerLabel }}</div>
+        <div style="height:5px; background:var(--cg-bg); border-radius:3px; overflow:hidden;">
+          <div style="height:100%; width:{{ playProgress }}%; background:var(--cg-accent-bright); transition:width .3s linear;"></div>
+        </div>
+      </div>
+      <div style="flex:none; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); text-align:right;">AI NARRATION<br/>Web Speech API</div>
+    </div>
+  </div>
 
-    <div style="position:relative; padding-left:44px;">
-      <div style="position:absolute; left:15px; top:8px; bottom:8px; width:1px; background-image:repeating-linear-gradient(to bottom, var(--cg-bg-line) 0, var(--cg-bg-line) 8px, transparent 8px, transparent 16px);"></div>
+  <div class="yard-divider" style="max-width:820px; margin:0 auto;"></div>
 
-      <sc-for list="{{ lessons }}" as="lesson" hint-placeholder-count="7">
-        <div style="position:relative; margin-bottom:18px;">
-          <div style="position:absolute; left:-44px; top:22px; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:{{ lesson.dotBg }}; border:2px solid {{ lesson.dotBorder }}; color:{{ lesson.dotColor }};">{{ lesson.dotLabel }}</div>
-
-          <a href="{{ lesson.href }}" class="lesson-row {{ lesson.rowClass }}" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:{{ lesson.bg }}; border:1px solid {{ lesson.border }}; border-radius:4px; padding:22px 26px; opacity:{{ lesson.opacity }};">
-            <div style="display:flex; align-items:baseline; gap:18px; min-width:0;">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">L{{ lesson.number }}</div>
-              <div style="min-width:0;">
-                <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; margin:0 0 4px; text-transform:uppercase; color:{{ lesson.titleColor }};">{{ lesson.title }}</h4>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em; color:var(--cg-text-dim);">{{ lesson.marker }} · {{ lesson.time }}</div>
-              </div>
-            </div>
-            <div style="flex:none; font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:{{ lesson.statusColor }};">{{ lesson.status }}</div>
-          </a>
+  <!-- KEY TAKEAWAYS -->
+  <div style="max-width:820px; margin:0 auto; padding:44px 32px 0;">
+    <div style="background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:6px; padding:30px 32px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-accent-bright); text-transform:uppercase; margin-bottom:16px;">Key Takeaways</div>
+      <sc-for list="{{ takeaways }}" as="t" hint-placeholder-count="4">
+        <div style="display:flex; gap:12px; margin-bottom:12px; font-size:15px; line-height:1.55; color:var(--cg-text);">
+          <div style="flex:none; color:var(--cg-accent); font-family:'JetBrains Mono',monospace;">→</div>
+          <div>{{ t }}</div>
         </div>
       </sc-for>
     </div>
   </div>
 
-  <div class="yard-divider"></div>
+  <!-- ARTICLE BODY -->
+  <article style="max-width:820px; margin:0 auto; padding:48px 32px 0; font-size:17px; line-height:1.75; color:var(--cg-text-body);">
+    <p>Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it's already inside the network — because that story is written in the logs, and almost nobody reads them until something's already on fire.</p>
+    <p>You don't need to be a SOC analyst to get real value out of Windows Event Logs. You need to recognize a small, high-signal set of Event IDs and know what question each one answers.</p>
 
-  <!-- PREV/NEXT DRIVE -->
-  <div style="max-width:1100px; margin:0 auto; padding:44px 56px 70px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
-    <a href="Drives.dc.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">← PREVIOUS DRIVE</div>
-      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-text-mute);">01 — Foundations</div>
-    </a>
-    <a href="Drive Page.dc.html?drive=03" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; text-align:right;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">NEXT DRIVE →</div>
-      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-accent-bright);">03 — Cloud & Modern Surface</div>
-    </a>
+    <h3>The Five You Should Know Cold</h3>
+
+    <div style="display:flex; flex-direction:column; gap:1px; background:var(--cg-bg-line); margin:24px 0; border-radius:4px; overflow:hidden;">
+      <sc-for list="{{ eventIds }}" as="ev" hint-placeholder-count="5">
+        <div style="display:flex; gap:20px; align-items:baseline; background:var(--cg-bg-mid); padding:16px 20px;">
+          <div style="flex:none; font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600; color:var(--cg-accent-bright); width:70px;">{{ ev.id }}</div>
+          <div style="flex:none; font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:0.02em; color:var(--cg-text); width:180px; text-transform:uppercase;">{{ ev.name }}</div>
+          <div style="flex:1; font-family:'Source Serif 4',serif; font-size:15px; color:var(--cg-text-mute);">{{ ev.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <p>None of these are exciting in isolation. A 4624 fires constantly — every legitimate logon generates one. The signal isn't in any single event; it's in the pattern. A 4625 storm followed by a 4624 on the same account is a brute-force that landed. A 4688 spawning <span style="font-family:'JetBrains Mono',monospace; color:var(--cg-text);">powershell.exe -enc</span> from a process that has no business touching PowerShell is worth stopping to look at.</p>
+
+    <h3>Why This Matters Without a SOC</h3>
+    <p>You probably don't have a 24/7 detection team combing through this for you. That's fine — you don't need volume, you need recognition. If you can glance at a log and immediately know "that's a 4720 I didn't expect" or "that 1102 wasn't me clearing anything," you've already outpaced most of the org.</p>
+    <p>The goal of this lesson isn't to turn you into an analyst overnight. It's to make sure the next time you're staring at Event Viewer during an incident, you're not starting from zero.</p>
+  </article>
+
+  <!-- QUIZ -->
+  <div style="max-width:820px; margin:0 auto; padding:56px 32px 0;">
+    <div class="yard-divider" style="margin-bottom:48px;"></div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-accent); text-transform:uppercase; margin-bottom:8px;">Knowledge Check</div>
+    <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:26px; margin:0 0 32px; text-transform:uppercase;">Before You Move On</h3>
+
+    <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="2">
+      <div style="margin-bottom:36px;">
+        <div style="font-size:17px; margin-bottom:16px; color:var(--cg-text);">{{ q.question }}</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <sc-for list="{{ q.options }}" as="opt" hint-placeholder-count="3">
+            <div class="quiz-opt" onClick="{{ opt.select }}" style="padding:14px 18px; border:1px solid {{ opt.borderColor }}; border-radius:4px; background:{{ opt.bg }}; font-size:15px; color:{{ opt.textColor }}; display:flex; align-items:center; justify-content:space-between;">
+              <div>{{ opt.label }}</div>
+              <sc-if value="{{ opt.showMark }}"><div style="font-family:'JetBrains Mono',monospace; font-weight:600;">{{ opt.mark }}</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div class="yard-divider" style="max-width:820px; margin:16px auto 0;"></div>
+
+  <!-- RELATED / UP NEXT -->
+  <div style="max-width:820px; margin:0 auto; padding:48px 32px 130px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:20px;">Continue the Drive</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+      <a href="Drive Page.dc.html" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">← LESSON 06</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-text-mute);">What Your SOC Actually Sees</div>
+      </a>
+      <a href="Drive Page.dc.html" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px; text-align:right;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">LESSON 08 →</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-accent-bright);">Lateral Movement 101</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- STICKY PREV/NEXT BAR -->
+  <div style="position:fixed; left:0; right:0; bottom:0; z-index:20; background:color-mix(in srgb, var(--cg-bg) 96%, transparent); backdrop-filter:blur(6px); border-top:1px solid var(--cg-bg-line);">
+    <div style="max-width:820px; margin:0 auto; padding:14px 32px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="Drive Page.dc.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-text-mute); min-width:0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:14px; flex:none;">←</div>
+        <div style="min-width:0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim);">PREV</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">SOC Actually Sees</div>
+        </div>
+      </a>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson 2 of 7</div>
+      <a href="Drive Page.dc.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
+        <div style="min-width:0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim); text-align:right;">NEXT</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Lateral Movement 101</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:14px; flex:none;">→</div>
+      </a>
+    </div>
   </div>
 </div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;], &quot;options&quot;: [[&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;],[&quot;#FFFFFF&quot;,&quot;#F4F5F7&quot;,&quot;#D8DCE1&quot;,&quot;#1A56DB&quot;,&quot;#2563EB&quot;,&quot;#1F2937&quot;,&quot;#4B5563&quot;,&quot;#6B7280&quot;,&quot;#374151&quot;],[&quot;#1C1B1E&quot;,&quot;#292629&quot;,&quot;#423E43&quot;,&quot;#C1443C&quot;,&quot;#E06B5E&quot;,&quot;#F5EFE6&quot;,&quot;#B8AFA9&quot;,&quot;#8C837D&quot;,&quot;#D8CFC7&quot;]], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;}}">
+const ARTICLE_TEXT = "Reading Logs Like an Analyst. Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it's already inside the network, because that story is written in the logs, and almost nobody reads them until something's already on fire. You don't need to be a SOC analyst to get real value out of Windows Event Logs. You need to recognize a small, high-signal set of Event IDs and know what question each one answers. The five you should know cold: Event 4624, a successful logon, answers who got in and how. Event 4625, a failed logon, answers who's trying and failing. Event 4688, a new process was created, answers what ran and from where. Event 4720, a user account was created, answers who just got a new identity on this box. Event 1102, the audit log was cleared, answers who's trying to cover their tracks. None of these are exciting in isolation. A 4624 fires constantly. The signal isn't in any single event, it's in the pattern. The goal of this lesson isn't to turn you into an analyst overnight. It's to make sure the next time you're staring at Event Viewer during an incident, you're not starting from zero.";
+
+const QUIZ_DATA = [
+  {
+    question: 'Which Event ID indicates a Windows audit log was cleared \u2014 a classic anti-forensics move?',
+    options: [
+      { label: 'Event 4624', correct: false },
+      { label: 'Event 1102', correct: true },
+      { label: 'Event 4688', correct: false },
+    ],
+  },
+  {
+    question: 'A spike in Event 4625 followed immediately by a 4624 on the same account most likely indicates:',
+    options: [
+      { label: 'Routine password rotation', correct: false },
+      { label: 'A brute-force attempt that succeeded', correct: true },
+      { label: 'A scheduled task running', correct: false },
+    ],
+  },
+];
+
+const CG_VARS = ['--cg-bg','--cg-bg-mid','--cg-bg-line','--cg-accent','--cg-accent-bright','--cg-text','--cg-text-mute','--cg-text-dim','--cg-text-body'];
 const CG_DEFAULT_PALETTE = ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'];
 const CG_PALETTES = [
   { name: 'Navy & Burnt Orange', colors: ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'] },
@@ -141,11 +218,16 @@ const CG_PALETTES = [
 ];
 
 class Component extends DCLogic {
-  state = { paletteOverride: null, driveNum: '02' };
+  state = {
+    isPlaying: false,
+    playProgress: 0,
+    quizAnswers: {},
+    paletteOverride: null,
+  };
 
   componentDidMount() {
-    const driveNum = new URLSearchParams(window.location.search).get('drive') || '02';
-    this.setState({ driveNum });
+    this._utterance = null;
+    this._progressTimer = null;
     const savedName = localStorage.getItem('cg-palette-name');
     const found = savedName && CG_PALETTES.find(p => p.name === savedName);
     if (found) this.setState({ paletteOverride: found.colors }, () => this.applyPalette());
@@ -159,9 +241,53 @@ class Component extends DCLogic {
   }
   applyPalette() {
     const p = this.getActivePalette();
-    const vars = ['--cg-bg', '--cg-bg-mid', '--cg-bg-line', '--cg-accent', '--cg-accent-bright', '--cg-text', '--cg-text-mute', '--cg-text-dim', '--cg-text-body'];
-    vars.forEach((v, i) => document.documentElement.style.setProperty(v, p[i]));
+    CG_VARS.forEach((v, i) => document.documentElement.style.setProperty(v, p[i]));
   }
+
+  componentWillUnmount() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    if (this._progressTimer) clearInterval(this._progressTimer);
+  }
+
+  togglePlay = () => {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+
+    if (this.state.isPlaying) {
+      synth.cancel();
+      if (this._progressTimer) clearInterval(this._progressTimer);
+      this.setState({ isPlaying: false, playProgress: 0 });
+      return;
+    }
+
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(ARTICLE_TEXT);
+    utter.rate = 1.0;
+    const estimatedMs = (ARTICLE_TEXT.length / 14) * 1000;
+    const startedAt = Date.now();
+
+    utter.onend = () => {
+      if (this._progressTimer) clearInterval(this._progressTimer);
+      this.setState({ isPlaying: false, playProgress: 0 });
+    };
+    utter.onerror = () => {
+      if (this._progressTimer) clearInterval(this._progressTimer);
+      this.setState({ isPlaying: false, playProgress: 0 });
+    };
+
+    this._progressTimer = setInterval(() => {
+      const pct = Math.min(99, ((Date.now() - startedAt) / estimatedMs) * 100);
+      this.setState({ playProgress: pct });
+    }, 200);
+
+    synth.speak(utter);
+    this.setState({ isPlaying: true, playProgress: 0 });
+  };
+
+  selectAnswer = (qIndex, oIndex) => {
+    this.setState(s => ({ quizAnswers: { ...s.quizAnswers, [qIndex]: oIndex } }));
+  };
+
   renderVals() {
     const activePalette = this.getActivePalette();
     const swatches = CG_PALETTES.map(pal => ({
@@ -170,37 +296,59 @@ class Component extends DCLogic {
       ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
       select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
     }));
-    const driveNum = this.state.driveNum;
-    const drivesData = {
-      '01': { title: 'Foundations', marker: '1ST & 10', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', summary: 'Core concepts that make everything else make sense.', lessons: [{ number: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN', state: 'done', href: 'Lesson Page.dc.html?drive=01&lesson=01' }, { number: '02', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN', state: 'done', href: '#' }, { number: '03', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN', state: 'current', href: '#' }, { number: '04', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN', state: 'locked', href: '#' }, { number: '05', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN', state: 'locked', href: '#' }] },
-      '02': { title: 'Detection & Response', marker: '2ND & 7', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', summary: 'Firewalls and antivirus were never the finish line.', lessons: [{ number: '06', title: 'What Your SOC Actually Sees (and What It Doesn\u2019t)', marker: '1ST & 10', time: '12 MIN', state: 'done', href: '#' }, { number: '07', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN', state: 'done', href: 'Lesson Page.dc.html?drive=02&lesson=07' }, { number: '08', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN', state: 'current', href: '#' }, { number: '09', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN', state: 'locked', href: '#' }, { number: '10', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN', state: 'locked', href: '#' }, { number: '11', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN', state: 'locked', href: '#' }, { number: '12', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN', state: 'locked', href: '#' }] },
-      '03': { title: 'Cloud & Modern Surface', marker: '2ND & 7', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', summary: 'Your infrastructure is no longer four walls.', lessons: [{ number: '13', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN', state: 'done', href: '#' }, { number: '14', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN', state: 'done', href: '#' }, { number: '15', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN', state: 'locked', href: '#' }, { number: '16', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN', state: 'locked', href: '#' }, { number: '17', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN', state: 'locked', href: '#' }, { number: '18', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN', state: 'locked', href: '#' }] },
-      '04': { title: 'Practical Defense & Career', marker: '2ND & 7', description: 'Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.', summary: 'Shift from theory to action.', lessons: [{ number: '19', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN', state: 'done', href: '#' }, { number: '20', title: 'Vendor Risk: Buying Security Isn\u2019t Enough', marker: '2ND & 7', time: '16 MIN', state: 'locked', href: '#' }, { number: '21', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN', state: 'locked', href: '#' }, { number: '22', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN', state: 'locked', href: '#' }, { number: '23', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN', state: 'locked', href: '#' }] },
-      '05': { title: 'The Human Element', marker: '3RD & LONG', description: 'Social engineering, building a security culture people don\u2019t hate, insider threats, and phishing sims done right.', summary: 'Most breaches start with a person.', lessons: [{ number: '24', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN', state: 'locked', href: '#' }, { number: '25', title: 'Building a Security Culture People Don\u2019t Hate', marker: '3RD & LONG', time: '23 MIN', state: 'locked', href: '#' }, { number: '26', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN', state: 'locked', href: '#' }, { number: '27', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN', state: 'locked', href: '#' }] },
-      '06': { title: 'Compliance & Governance', marker: '3RD & LONG', description: 'Compliance isn\u2019t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', summary: 'Compliance is a tool, not the goal.', lessons: [{ number: '28', title: 'Compliance vs. Security: Why They\u2019re Different', marker: '2ND & 7', time: '14 MIN', state: 'locked', href: '#' }, { number: '29', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN', state: 'locked', href: '#' }, { number: '30', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN', state: 'locked', href: '#' }] },
-    };
-    const drive = drivesData[driveNum] || drivesData['02'];
-    const raw = drive.lessons;
-    const lessons = raw.map((l, i) => {
-      const isDone = l.state === 'done';
-      const isCurrent = l.state === 'current';
-      return {
-        ...l,
-        dotLabel: isDone ? '✓' : String(i + 1),
-        dotBg: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-bg-mid)' : 'var(--cg-bg-mid)'),
-        dotBorder: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-bg-line)'),
-        dotColor: isDone ? 'var(--cg-bg)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
-        bg: isCurrent ? 'var(--cg-bg-mid)' : (isDone ? '#0F2842' : 'var(--cg-bg)'),
-        border: isCurrent ? 'var(--cg-accent-bright)' : (isDone ? 'var(--cg-bg-line)' : '#1A2C42'),
-        opacity: l.state === 'locked' ? 0.55 : 1,
-        titleColor: l.state === 'locked' ? 'var(--cg-text-mute)' : 'var(--cg-text)',
-        statusColor: isDone ? 'var(--cg-text-mute)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
-        status: isDone ? 'COMPLETE' : (isCurrent ? 'CONTINUE →' : 'LOCKED'),
-        rowClass: isDone ? 'is-done' : (isCurrent ? 'is-active' : 'is-locked'),
-      };
-    });
-    return { lessons, swatches };
+    const takeaways = [
+      'A small set of Event IDs (4624, 4625, 4688, 4720, 1102) covers most of what you need to recognize day-to-day.',
+      'The signal is rarely in one event \u2014 it\u2019s in the pattern across a short window of time.',
+      'You don\u2019t need a SOC budget to build detection instincts; you need repetition and a checklist.',
+      'Recognizing an anomaly fast, even without deep analysis skill, puts you ahead of most IT pros.',
+    ];
 
+    const eventIds = [
+      { id: '4624', name: 'Successful Logon', desc: 'An account successfully logged on. Baseline noise \u2014 but the source, time, and logon type matter.' },
+      { id: '4625', name: 'Failed Logon', desc: 'An account failed to log on. A burst against one account is brute-force; a burst across many is spray.' },
+      { id: '4688', name: 'Process Created', desc: 'A new process started. Watch for uncommon parent-child pairs, like Office spawning a shell.' },
+      { id: '4720', name: 'Account Created', desc: 'A new user account was created. Unexpected creation outside change windows deserves a look.' },
+      { id: '1102', name: 'Audit Log Cleared', desc: 'The security log was cleared. Rare in legitimate operations \u2014 treat as high priority.' },
+    ];
+
+    const quizAnswers = this.state.quizAnswers;
+    const quiz = QUIZ_DATA.map((q, qi) => {
+      const selected = quizAnswers[qi];
+      const options = q.options.map((opt, oi) => {
+        const isSelected = selected === oi;
+        const revealed = selected !== undefined;
+        let borderColor = 'var(--cg-bg-line)';
+        let bg = 'var(--cg-bg-mid)';
+        let textColor = 'var(--cg-text)';
+        let showMark = false;
+        let mark = '';
+        if (revealed) {
+          if (isSelected && opt.correct) { borderColor = 'var(--cg-accent)'; bg = '#1A2C1F'; showMark = true; mark = 'CORRECT'; textColor = 'var(--cg-accent-bright)'; }
+          else if (isSelected && !opt.correct) { borderColor = 'var(--cg-text-mute)'; bg = 'var(--cg-bg-mid)'; showMark = true; mark = 'INCORRECT'; textColor = 'var(--cg-text-mute)'; }
+          else if (opt.correct) { borderColor = 'var(--cg-accent)'; textColor = 'var(--cg-accent-bright)'; }
+        }
+        return {
+          label: opt.label,
+          borderColor, bg, textColor, showMark, mark,
+          select: () => this.selectAnswer(qi, oi),
+        };
+      });
+      return { question: q.question, options };
+    });
+
+    return {
+      swatches,
+      takeaways,
+      eventIds,
+      quiz,
+      togglePlay: this.togglePlay,
+      isPlaying: this.state.isPlaying,
+      playIcon: this.state.isPlaying ? '⏸' : '▶',
+      playerLabel: this.state.isPlaying ? 'Playing \u2014 Reading Logs Like an Analyst' : 'Listen to This Lesson',
+      playProgress: this.state.playProgress,
+    };
+  }
+}
 </script>
 </body>
 </html>
