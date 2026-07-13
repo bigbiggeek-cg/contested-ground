@@ -90,21 +90,23 @@
     </div>
     <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 30px; text-transform:uppercase; letter-spacing:-0.01em;">Every Drive Moves You Down the Field</h3>
 
-    <a href="Lesson Page.dc.html" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-accent); border-radius:4px; padding:22px 28px; margin-bottom:36px;">
-      <div style="display:flex; align-items:center; gap:20px; min-width:0;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--cg-accent-bright); border:1px solid var(--cg-accent-bright); padding:5px 9px; border-radius:2px; flex:none;">CONTINUE</div>
-        <div style="min-width:0;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:4px;">DRIVE {{ continueLesson.driveNumber }} — {{ continueLesson.driveTitle }} · {{ continueLesson.lessonOf }}</div>
-          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; text-transform:uppercase;">{{ continueLesson.lessonTitle }}</div>
+    <sc-if value="{{ continueLesson }}" hint-placeholder-val="{{ true }}">
+      <a href="Lesson Page.dc.html" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-accent); border-radius:4px; padding:22px 28px; margin-bottom:36px;">
+        <div style="display:flex; align-items:center; gap:20px; min-width:0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--cg-accent-bright); border:1px solid var(--cg-accent-bright); padding:5px 9px; border-radius:2px; flex:none;">CONTINUE</div>
+          <div style="min-width:0;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:4px;">DRIVE {{ continueLesson.driveNumber }} — {{ continueLesson.driveTitle }} · {{ continueLesson.lessonOf }}</div>
+            <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; text-transform:uppercase;">{{ continueLesson.lessonTitle }}</div>
+          </div>
         </div>
-      </div>
-      <div style="flex:none; display:flex; align-items:center; gap:16px;">
-        <div style="width:120px; height:5px; background:var(--cg-bg); border-radius:3px; overflow:hidden;">
-          <div style="height:100%; width:{{ continueLesson.progress }}%; background:var(--cg-accent);"></div>
+        <div style="flex:none; display:flex; align-items:center; gap:16px;">
+          <div style="width:120px; height:5px; background:var(--cg-bg); border-radius:3px; overflow:hidden;">
+            <div style="height:100%; width:{{ continueLesson.progress }}%; background:var(--cg-accent);"></div>
+          </div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:var(--cg-accent-bright); white-space:nowrap;">Resume →</div>
         </div>
-        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:var(--cg-accent-bright); white-space:nowrap;">Resume →</div>
-      </div>
-    </a>
+      </a>
+    </sc-if>
 
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
       <sc-for list="{{ drives }}" as="drive" hint-placeholder-count="6">
@@ -241,13 +243,7 @@ class Component extends DCLogic {
       { value: '4', label: 'Flagship Pieces' },
       { value: '100%', label: 'Vendor-Neutral' },
     ];
-    const continueLesson = {
-      driveNumber: '02',
-      driveTitle: 'Detection & Response',
-      lessonTitle: 'Lateral Movement 101',
-      lessonOf: 'Lesson 3 of 7',
-      progress: 29,
-    };
+    const continueLesson = null;
     return { drives, flagship, stats, swatches, continueLesson };
   }
 }
