@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" data-resource-id="googleFonts" />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cg-bg: #0B1F33;
+    --cg-bg-mid: #142C46;
+    --cg-bg-line: #2A4361;
+    --cg-accent: #D2571E;
+    --cg-accent-bright: #F2894E;
+    --cg-text: #F5EFE6;
+    --cg-text-mute: #8CA2BC;
+    --cg-text-dim: #5E7591;
+    --cg-text-body: #DCD2C0;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--cg-bg);
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--cg-text);
+  }
+  ::selection {
+    background: var(--cg-accent);
+    color: var(--cg-text);
+  }
+  a {
+    color: inherit;
+  }
+  .yard-divider {
+    height: 1px;
+    background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px);
+  }
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 56px;
+    background: color-mix(in srgb, var(--cg-bg) 92%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--cg-bg-line);
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    background: var(--cg-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--cg-bg);
+  }
+  .nav-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cg-text-mute);
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover {
+    color: var(--cg-text);
+  }
+  .cta-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cg-bg);
+    background: var(--cg-accent);
+    padding: 16px 30px;
+    border-radius: 2px;
+    transition: background 0.15s ease, transform 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-btn:hover {
+    transform: translateY(-1px);
+    background: var(--cg-accent-bright);
+  }
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 120px 56px 90px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .hero-backdrop {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(140, 162, 188, 0.06) 79px, rgba(140, 162, 188, 0.06) 80px);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--cg-accent);
+    border: 1px solid var(--cg-accent);
+    padding: 5px 10px;
+    border-radius: 2px;
+  }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--cg-text-dim);
+    letter-spacing: 0.04em;
+  }
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 28px;
+    max-width: 820px;
+    text-transform: uppercase;
+  }
+  .hero p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--cg-text-mute);
+    max-width: 600px;
+    margin: 0 0 40px;
+  }
+  .hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .stat-bar {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+  .stat {
+    border-left: 1px solid var(--cg-bg-line);
+    padding-left: 20px;
+  }
+  .stat-value {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--cg-accent-bright);
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--cg-text-dim);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 90px 56px 70px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cg-accent);
+    margin: 0;
+  }
+  .section-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--cg-text-dim);
+  }
+  .section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 38px;
+    margin: 0 0 30px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .drive-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--cg-bg-mid);
+    border: 1px solid var(--cg-bg-line);
+    border-radius: 4px;
+    padding: 28px;
+    min-height: 220px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .drive-card:hover {
+    border-color: var(--cg-accent);
+    transform: translateY(-2px);
+  }
+  .drives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .drive-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .drive-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--cg-text-dim);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .drive-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+  }
+  .drive-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+  }
+  .drive-card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--cg-text-mute);
+    margin: 0 0 20px;
+  }
+  .drive-lessons {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--cg-text-dim);
+  }
+  .footer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 56px 56px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .footer-brand {
+    max-width: 420px;
+  }
+  .footer-brand h4 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--cg-text-dim);
+    margin: 0;
+  }
+  .footer-links {
+    display: flex;
+    gap: 64px;
+  }
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--cg-text-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .footer-link {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--cg-text-mute);
+    transition: color 0.15s ease;
+  }
+  .footer-link:hover {
+    color: var(--cg-text);
+  }
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#0B1F33">
+  <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" fill="#0B1F33"/>
+    <rect x="25" y="30" width="70" height="60" fill="none" stroke="#D2571E" stroke-width="3" rx="4"/>
+    <circle cx="60" cy="60" r="8" fill="#F2894E"/>
+    <text x="60" y="100" font-family="sans-serif" font-size="12" fill="#F5EFE6" text-anchor="middle" letter-spacing="1">CG</text>
+  </svg>
+</template>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">CG</div>
+    <div class="nav-title">Contested Ground</div>
+  </div>
+  <div class="nav-links">
+    <a href="#drives" class="nav-link">Drives</a>
+    <a href="#flagship" class="nav-link">Flagship</a>
+    <a href="#about" class="nav-link">About</a>
+    <button class="cta-btn">Start a Drive</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-backdrop"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge">1ST & 10</div>
+      <div class="hero-tag">SECURITY TRAINING FOR IT PROS</div>
+    </div>
+    <h1>The security knowledge nobody explicitly taught you.</h1>
+    <p>Practical, vendor-neutral cybersecurity training for IT professionals — written lessons and podcast-style audio, organized into Drives so you always know where you stand on the field.</p>
+    <div class="hero-buttons">
+      <button class="cta-btn">Run the First Drive</button>
+      <a href="#flagship" style="text-decoration: none; color: var(--cg-text); padding: 16px 8px; border-bottom: 1px solid var(--cg-bg-line); font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase;">Read the Flagship Pieces →</a>
+    </div>
+  </div>
+</section>
+
+<div class="yard-divider"></div>
+
+<!-- STAT BAR -->
+<section class="stat-bar">
+  <div class="stat">
+    <div class="stat-value">30</div>
+    <div class="stat-label">Lessons</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">6</div>
+    <div class="stat-label">Drives</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">Flagship Pieces</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">100%</div>
+    <div class="stat-label">Vendor-Neutral</div>
+  </div>
+</section>
+
+<div class="yard-divider"></div>
+
+<!-- DRIVES -->
+<section class="section" id="drives">
+  <div class="section-header">
+    <h3 class="section-label">The Playbook</h3>
+    <div class="section-meta">6 DRIVES · 30 LESSONS</div>
+  </div>
+  <h2>Every Drive Moves You Down the Field</h2>
+
+  <div class="drives-grid">
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 01</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-text-mute); border: 1px solid var(--cg-text-mute); padding: 4px 8px; border-radius: 2px;">1ST & 10</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">FOUNDATIONAL</div>
+        </div>
+      </div>
+      <h3>Foundations</h3>
+      <p>The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.</p>
+      <div class="drive-lessons">5 LESSONS →</div>
+    </a>
+
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 02</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-accent); border: 1px solid var(--cg-accent); padding: 4px 8px; border-radius: 2px;">2ND & 7</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">INTERMEDIATE</div>
+        </div>
+      </div>
+      <h3>Detection & Response</h3>
+      <p>What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.</p>
+      <div class="drive-lessons">7 LESSONS →</div>
+    </a>
+
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 03</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-accent); border: 1px solid var(--cg-accent); padding: 4px 8px; border-radius: 2px;">2ND & 7</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">INTERMEDIATE</div>
+        </div>
+      </div>
+      <h3>Cloud & Modern Surface</h3>
+      <p>Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.</p>
+      <div class="drive-lessons">6 LESSONS →</div>
+    </a>
+
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 04</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-accent); border: 1px solid var(--cg-accent); padding: 4px 8px; border-radius: 2px;">2ND & 7</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">INTERMEDIATE</div>
+        </div>
+      </div>
+      <h3>Practical Defense & Career</h3>
+      <p>Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.</p>
+      <div class="drive-lessons">5 LESSONS →</div>
+    </a>
+
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 05</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-accent-bright); border: 1px solid var(--cg-accent-bright); padding: 4px 8px; border-radius: 2px;">3RD & LONG</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">ADVANCED</div>
+        </div>
+      </div>
+      <h3>The Human Element</h3>
+      <p>Social engineering, building a security culture people don't hate, insider threats, and phishing sims done right.</p>
+      <div class="drive-lessons">4 LESSONS →</div>
+    </a>
+
+    <a href="#" class="drive-card">
+      <div class="drive-header">
+        <div class="drive-number">DRIVE 06</div>
+        <div class="drive-marker">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: var(--cg-accent-bright); border: 1px solid var(--cg-accent-bright); padding: 4px 8px; border-radius: 2px;">3RD & LONG</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.05em; color: var(--cg-text-dim);">ADVANCED</div>
+        </div>
+      </div>
+      <h3>Compliance & Governance</h3>
+      <p>Compliance isn't security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.</p>
+      <div class="drive-lessons">3 LESSONS →</div>
+    </a>
+  </div>
+</section>
+
+<div class="yard-divider"></div>
+
+<!-- FLAGSHIP -->
+<section class="section" id="flagship">
+  <div class="section-header">
+    <h3 class="section-label">Flagship</h3>
+    <div class="section-meta">LONG-FORM · MONTHLY</div>
+  </div>
+  <h2>Deep Threats Across the Field</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 1px; background: var(--cg-bg-line);">
+    <a href="#" style="display: flex; align-items: center; justify-content: space-between; gap: 32px; text-decoration: none; color: inherit; background: var(--cg-bg); padding: 32px 8px; transition: border-color 0.2s ease;">
+      <div style="display: flex; align-items: baseline; gap: 20px; flex: 1; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cg-text-dim); flex: none;">01</div>
+        <div style="min-width: 0;">
+          <h4 style="font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 24px; margin: 0 0 8px; text-transform: uppercase;">Anatomy of a Breach: A Real Incident, Hour by Hour</h4>
+          <p style="font-size: 15px; line-height: 1.5; color: var(--cg-text-mute); margin: 0; max-width: 640px;">A composited, anonymized ransomware incident walked from initial access to containment.</p>
+        </div>
+      </div>
+      <div style="flex: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cg-accent-bright); text-align: right; white-space: nowrap;">28 MIN</div>
+    </a>
+    <a href="#" style="display: flex; align-items: center; justify-content: space-between; gap: 32px; text-decoration: none; color: inherit; background: var(--cg-bg); padding: 32px 8px; transition: border-color 0.2s ease;">
+      <div style="display: flex; align-items: baseline; gap: 20px; flex: 1; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cg-text-dim); flex: none;">02</div>
+        <div style="min-width: 0;">
+          <h4 style="font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 24px; margin: 0 0 8px; text-transform: uppercase;">The Modern Attack Surface: A Field Map</h4>
+          <p style="font-size: 15px; line-height: 1.5; color: var(--cg-text-mute); margin: 0; max-width: 640px;">Identity, endpoints, cloud, SaaS, APIs, and containers mapped as one connected terrain.</p>
+        </div>
+      </div>
+      <div style="flex: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cg-accent-bright); text-align: right; white-space: nowrap;">24 MIN</div>
+    </a>
+  </div>
+</section>
+
+<div class="yard-divider"></div>
+
+<!-- FOOTER -->
+<footer class="footer" id="about">
+  <div class="footer-brand">
+    <h4>Contested Ground</h4>
+    <p>Cybersecurity training for IT pros who need practical, applicable knowledge — not a cert dump. No fluff, no fear-mongering, just the field.</p>
+  </div>
+  <div class="footer-links">
+    <div class="footer-section">
+      <div class="footer-section-title">Site</div>
+      <a href="#drives" class="footer-link">Drives</a>
+      <a href="#flagship" class="footer-link">Flagship</a>
+      <a href="#" class="footer-link">Podcast</a>
+    </div>
+    <div class="footer-section">
+      <div class="footer-section-title">Legend</div>
+      <div style="font-size: 13px; color: var(--cg-text-dim); font-family: 'JetBrains Mono', monospace;">1ST & 10 — Foundational</div>
+      <div style="font-size: 13px; color: var(--cg-text-dim); font-family: 'JetBrains Mono', monospace;">2ND & 7 — Intermediate</div>
+      <div style="font-size: 13px; color: var(--cg-text-dim); font-family: 'JetBrains Mono', monospace;">3RD & LONG — Advanced</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root { --cg-bg:#0B1F33; --cg-bg-mid:#142C46; --cg-bg-line:#2A4361; --cg-accent:#D2571E; --cg-accent-bright:#F2894E; --cg-text:#F5EFE6; --cg-text-mute:#8CA2BC; --cg-text-dim:#5E7591; --cg-text-body:#DCD2C0; }
+  body { margin: 0; background: var(--cg-bg); }
+  ::selection { background: var(--cg-accent); color: var(--cg-text); }
+  a { color: inherit; }
+  .yard-divider {
+    height: 1px;
+    background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px);
+  }
+  .drive-card { transition: border-color .2s ease, transform .2s ease; }
+  .drive-card:hover { border-color: var(--cg-accent); transform: translateY(-2px); }
+  .flag-card { transition: border-color .2s ease; }
+  .flag-card:hover { border-color: var(--cg-accent-bright); }
+  .nav-link { transition: color .15s ease; }
+  .cta-btn { transition: background .15s ease, transform .15s ease; }
+  .cta-btn:hover { transform: translateY(-1px); }
+</style>
+</helmet>
+<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Homepage">
+
+  <!-- NAV -->
+  <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="width:34px; height:34px; border-radius:4px; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--cg-bg);">CG</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:36px;">
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
+      <a href="#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
+      <a href="#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
+      <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
+        <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
+          <div onClick="{{ sw.select }}" title="{{ sw.name }}" style="width:22px; height:22px; border-radius:50%; cursor:pointer; background:{{ sw.gradient }}; border:2px solid {{ sw.ringColor }}; box-sizing:border-box;"></div>
+        </sc-for>
+      </div>
+      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:11px 22px; border-radius:2px;">Start a Drive</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div style="position:relative; overflow:hidden; padding:120px 56px 90px; max-width:1280px; margin:0 auto;">
+    <div style="position:absolute; inset:0; background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(140,162,188,0.06) 79px, rgba(140,162,188,0.06) 80px); pointer-events:none;"></div>
+    <div style="position:relative; display:flex; align-items:center; gap:10px; margin-bottom:26px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">1ST &amp; 10</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim); letter-spacing:0.04em;">SECURITY TRAINING FOR IT PROS</div>
+    </div>
+    <h1 style="position:relative; font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(42px,6vw,76px); line-height:1.02; letter-spacing:-0.01em; margin:0 0 28px; max-width:820px; text-transform:uppercase;">
+      The security knowledge nobody explicitly taught you.
+    </h1>
+    <p style="position:relative; font-size:19px; line-height:1.65; color:var(--cg-text-mute); max-width:600px; margin:0 0 40px;">
+      Practical, vendor-neutral cybersecurity training for IT professionals — written lessons and podcast-style audio, organized into Drives so you always know where you stand on the field.
+    </p>
+    <div style="position:relative; display:flex; align-items:center; gap:18px;">
+      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:16px 30px; border-radius:2px;">Run the First Drive</a>
+      <a href="#flagship" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); padding:16px 8px; border-bottom:1px solid var(--cg-bg-line);">Read the Flagship Pieces →</a>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- STAT BAR -->
+  <div style="max-width:1280px; margin:0 auto; padding:44px 56px; display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+    <sc-for list="{{ stats }}" as="stat" hint-placeholder-count="4">
+      <div style="border-left:1px solid var(--cg-bg-line); padding-left:20px;">
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:34px; color:var(--cg-accent-bright);">{{ stat.value }}</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); text-transform:uppercase; margin-top:6px;">{{ stat.label }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- DRIVES -->
+  <div id="drives" style="max-width:1280px; margin:0 auto; padding:90px 56px 70px;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
+      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0;">The Playbook</h2>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">6 DRIVES · 30 LESSONS</div>
+    </div>
+    <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 30px; text-transform:uppercase; letter-spacing:-0.01em;">Every Drive Moves You Down the Field</h3>
+
+    <a href="Lesson Page.dc.html" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-accent); border-radius:4px; padding:22px 28px; margin-bottom:36px;">
+      <div style="display:flex; align-items:center; gap:20px; min-width:0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--cg-accent-bright); border:1px solid var(--cg-accent-bright); padding:5px 9px; border-radius:2px; flex:none;">CONTINUE</div>
+        <div style="min-width:0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:4px;">DRIVE {{ continueLesson.driveNumber }} — {{ continueLesson.driveTitle }} · {{ continueLesson.lessonOf }}</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; text-transform:uppercase;">{{ continueLesson.lessonTitle }}</div>
+        </div>
+      </div>
+      <div style="flex:none; display:flex; align-items:center; gap:16px;">
+        <div style="width:120px; height:5px; background:var(--cg-bg); border-radius:3px; overflow:hidden;">
+          <div style="height:100%; width:{{ continueLesson.progress }}%; background:var(--cg-accent);"></div>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:var(--cg-accent-bright); white-space:nowrap;">Resume →</div>
+      </div>
+    </a>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+      <sc-for list="{{ drives }}" as="drive" hint-placeholder-count="6">
+        <a href="{{ drive.href }}" class="drive-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:220px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DRIVE {{ drive.number }}</div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:3px;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.04em; color:{{ drive.markerColor }}; border:1px solid {{ drive.markerColor }}; padding:4px 8px; border-radius:2px; white-space:nowrap;">{{ drive.marker }}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.05em; color:var(--cg-text-dim); white-space:nowrap;">{{ drive.difficultyLabel }}</div>
+            </div>
+          </div>
+          <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; margin:0 0 12px; text-transform:uppercase;">{{ drive.title }}</h4>
+          <p style="font-size:15px; line-height:1.55; color:var(--cg-text-mute); margin:0 0 20px;">{{ drive.description }}</p>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">{{ drive.lessonCount }} LESSONS →</div>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:32px; text-align:center;">
+      <a href="Drives.dc.html" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); border-bottom:1px solid var(--cg-bg-line); padding-bottom:2px;">View All Drives →</a>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- FLAGSHIP -->
+  <div id="flagship" style="max-width:1280px; margin:0 auto; padding:90px 56px 70px;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
+      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0;">Flagship</h2>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">LONG-FORM · MONTHLY</div>
+    </div>
+    <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 48px; text-transform:uppercase; letter-spacing:-0.01em;">DEEP THREATS ACROSS THE FIELD</h3>
+
+    <div style="display:flex; flex-direction:column; gap:1px; background:var(--cg-bg-line);">
+      <sc-for list="{{ flagship }}" as="piece" hint-placeholder-count="4">
+        <a href="#" class="flag-card" style="display:flex; align-items:center; justify-content:space-between; gap:32px; text-decoration:none; color:inherit; background:var(--cg-bg); padding:32px 8px;">
+          <div style="display:flex; align-items:baseline; gap:20px; flex:1; min-width:0;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim); flex:none;">{{ piece.index }}</div>
+            <div style="min-width:0;">
+              <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:24px; margin:0 0 8px; text-transform:uppercase;">{{ piece.title }}</h4>
+              <p style="font-size:15px; line-height:1.5; color:var(--cg-text-mute); margin:0; max-width:640px;">{{ piece.description }}</p>
+            </div>
+          </div>
+          <div style="flex:none; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-accent-bright); text-align:right; white-space:nowrap;">{{ piece.time }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- FOOTER -->
+  <div id="about" style="max-width:1280px; margin:0 auto; padding:64px 56px 56px; display:flex; align-items:flex-start; justify-content:space-between; gap:40px;">
+    <div style="max-width:420px;">
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; margin-bottom:12px;">Contested Ground</div>
+      <p style="font-size:14px; line-height:1.6; color:var(--cg-text-dim); margin:0;">Cybersecurity training for IT pros who need practical, applicable knowledge — not a cert dump. No fluff, no fear-mongering, just the field.</p>
+    </div>
+    <div style="display:flex; gap:64px;">
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:4px;">Site</div>
+        <a href="#drives" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
+        <a href="#flagship" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
+        <a href="#" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Podcast</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:4px;">Legend</div>
+        <div style="font-size:13px; color:var(--cg-text-dim); font-family:'JetBrains Mono',monospace;">1ST &amp; 10 — Foundational</div>
+        <div style="font-size:13px; color:var(--cg-text-dim); font-family:'JetBrains Mono',monospace;">2ND &amp; 7 — Intermediate</div>
+        <div style="font-size:13px; color:var(--cg-text-dim); font-family:'JetBrains Mono',monospace;">3RD &amp; LONG — Advanced</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;], &quot;options&quot;: [[&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;],[&quot;#FFFFFF&quot;,&quot;#F4F5F7&quot;,&quot;#D8DCE1&quot;,&quot;#1A56DB&quot;,&quot;#2563EB&quot;,&quot;#1F2937&quot;,&quot;#4B5563&quot;,&quot;#6B7280&quot;,&quot;#374151&quot;],[&quot;#1C1B1E&quot;,&quot;#292629&quot;,&quot;#423E43&quot;,&quot;#C1443C&quot;,&quot;#E06B5E&quot;,&quot;#F5EFE6&quot;,&quot;#B8AFA9&quot;,&quot;#8C837D&quot;,&quot;#D8CFC7&quot;]], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;}}">
+const CG_VARS = ['--cg-bg','--cg-bg-mid','--cg-bg-line','--cg-accent','--cg-accent-bright','--cg-text','--cg-text-mute','--cg-text-dim','--cg-text-body'];
+const CG_DEFAULT_PALETTE = ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'];
+const CG_PALETTES = [
+  { name: 'Navy & Burnt Orange', colors: ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'] },
+  { name: 'Classic Light', colors: ['#FFFFFF', '#F4F5F7', '#D8DCE1', '#1A56DB', '#2563EB', '#1F2937', '#4B5563', '#6B7280', '#374151'] },
+  { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
+];
+
+function difficultyLabel(marker) {
+  if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
+  if (marker.indexOf('3RD') === 0) return 'ADVANCED';
+  return 'INTERMEDIATE';
+}
+
+class Component extends DCLogic {
+  state = { paletteOverride: null };
+
+  componentDidMount() {
+    const savedName = localStorage.getItem('cg-palette-name');
+    const found = savedName && CG_PALETTES.find(p => p.name === savedName);
+    if (found) this.setState({ paletteOverride: found.colors }, () => this.applyPalette());
+    else this.applyPalette();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.palette !== this.props.palette) this.applyPalette();
+  }
+  getActivePalette() {
+    return this.state.paletteOverride ?? this.props.palette ?? CG_DEFAULT_PALETTE;
+  }
+  applyPalette() {
+    const p = this.getActivePalette();
+    CG_VARS.forEach((v, i) => document.documentElement.style.setProperty(v, p[i]));
+  }
+  renderVals() {
+    const activePalette = this.getActivePalette();
+    const swatches = CG_PALETTES.map(pal => ({
+      name: pal.name,
+      gradient: `linear-gradient(135deg, ${pal.colors[3]} 50%, ${pal.colors[0]} 50%)`,
+      ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
+      select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
+    }));
+    const drives = [
+      { number: '01', title: 'Foundations', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', lessonCount: 5, marker: '1ST & 10', markerColor: 'var(--cg-text-mute)', href: 'Drive Page.dc.html' },
+      { number: '02', title: 'Detection & Response', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', lessonCount: 7, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Drive Page.dc.html' },
+      { number: '03', title: 'Cloud & Modern Surface', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', lessonCount: 6, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Drive Page.dc.html' },
+      { number: '04', title: 'Practical Defense & Career', description: 'Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.', lessonCount: 5, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Drive Page.dc.html' },
+      { number: '05', title: 'The Human Element', description: 'Social engineering, building a security culture people don\u2019t hate, insider threats, and phishing sims done right.', lessonCount: 4, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Drive Page.dc.html' },
+      { number: '06', title: 'Compliance & Governance', description: 'Compliance isn\u2019t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', lessonCount: 3, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Drive Page.dc.html' },
+    ].map(d => ({ ...d, difficultyLabel: difficultyLabel(d.marker) }));
+    const flagship = [
+      { index: '01', title: 'Anatomy of a Breach: A Real Incident, Hour by Hour', description: 'A composited, anonymized ransomware incident walked from initial access to containment.', time: '28 MIN' },
+      { index: '02', title: 'The Modern Attack Surface: A Field Map', description: 'Identity, endpoints, cloud, SaaS, APIs, and containers mapped as one connected terrain.', time: '24 MIN' },
+      { index: '03', title: 'Why Good Security Programs Still Get Breached', description: 'Alert fatigue, compliance theater, and the gap between having a policy and people following it.', time: '22 MIN' },
+      { index: '04', title: 'Building an Incident Response Plan From Scratch, In a Weekend', description: 'A step-by-step, genuinely usable guide — with a companion checklist.', time: '30 MIN' },
+    ];
+    const stats = [
+      { value: '30', label: 'Lessons' },
+      { value: '6', label: 'Drives' },
+      { value: '4', label: 'Flagship Pieces' },
+      { value: '100%', label: 'Vendor-Neutral' },
+    ];
+    const continueLesson = {
+      driveNumber: '02',
+      driveTitle: 'Detection & Response',
+      lessonTitle: 'Lateral Movement 101',
+      lessonOf: 'Lesson 3 of 7',
+      progress: 29,
+    };
+    return { drives, flagship, stats, swatches, continueLesson };
+  }
+}
+</script>
+</body>
+</html>

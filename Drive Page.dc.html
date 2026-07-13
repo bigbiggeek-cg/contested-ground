@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --cg-bg:#0B1F33; --cg-bg-mid:#142C46; --cg-bg-line:#2A4361; --cg-accent:#D2571E; --cg-accent-bright:#F2894E; --cg-text:#F5EFE6; --cg-text-mute:#8CA2BC; --cg-text-dim:#5E7591; --cg-text-body:#DCD2C0; }
+  body { margin: 0; background: var(--cg-bg); }
+  ::selection { background: var(--cg-accent); color: var(--cg-text); }
+  a { color: inherit; }
+  .yard-divider { height: 1px; background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px); }
+  .nav-link { transition: color .15s ease; }
+  .cta-btn { transition: background .15s ease, transform .15s ease; }
+  .cta-btn:hover { transform: translateY(-1px); }
+  .lesson-row { transition: border-color .2s ease, transform .2s ease; }
+  .lesson-row.is-active:hover, .lesson-row.is-done:hover { border-color: var(--cg-accent); transform: translateX(2px); }
+</style>
+</helmet>
+
+<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Drive Page">
+
+  <!-- NAV -->
+  <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="width:34px; height:34px; border-radius:4px; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--cg-bg);">CG</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:36px;">
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Drives</a>
+      <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
+      <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
+      <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
+        <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
+          <div onClick="{{ sw.select }}" title="{{ sw.name }}" style="width:22px; height:22px; border-radius:50%; cursor:pointer; background:{{ sw.gradient }}; border:2px solid {{ sw.ringColor }}; box-sizing:border-box;"></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div style="max-width:1100px; margin:0 auto; padding:28px 56px 0;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim);">
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVE 02</span>
+    </div>
+  </div>
+
+  <!-- DRIVE INTRO -->
+  <div style="max-width:1100px; margin:0 auto; padding:26px 56px 50px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:22px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">2ND & 7 · INTERMEDIATE</div>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DRIVE 02</div>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,58px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 22px; text-transform:uppercase; max-width:780px;">Detection & Response</h1>
+    <p style="font-size:18px; line-height:1.65; color:var(--cg-text-mute); max-width:640px; margin:0 0 12px;">
+      What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.
+    </p>
+    <p style="font-size:16px; line-height:1.6; color:var(--cg-text-dim); max-width:640px; margin:0;">
+      Why it matters: Firewalls and antivirus were never the finish line.
+    </p>
+
+    <div style="display:flex; gap:40px; margin-top:36px; padding-top:28px; border-top:1px solid var(--cg-bg-line); align-items:flex-start; justify-content:space-between;">
+      <div style="display:flex; gap:40px;">
+        <div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:28px; color:var(--cg-accent-bright);">{{ lessonCount }}</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); text-transform:uppercase; margin-top:4px;">Lessons</div>
+        </div>
+        <div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:28px; color:var(--cg-accent-bright);">{{ totalTime }}</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); text-transform:uppercase; margin-top:4px;">Total Time</div>
+        </div>
+      </div>
+      <button onClick="{{ downloadSummary }}" style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--cg-accent); color: var(--cg-bg); border: none; padding: 10px 18px; border-radius: 2px; cursor: pointer; transition: background 0.15s ease; margin-left: auto;">Download Summary</button>
+    </div>
+
+    <!-- PROGRESS TRACKER -->
+    <div style="margin-top:32px;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase;">2 of 7 lessons complete</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">29%</div>
+      </div>
+      <div style="height:6px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:3px; overflow:hidden;">
+        <div style="height:100%; width:29%; background:var(--cg-accent);"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- PLAY SEQUENCE -->
+  <div style="max-width:1100px; margin:0 auto; padding:60px 56px 80px;">
+    <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0 0 40px;">The Drive · Lesson Sequence</h2>
+
+    <div style="position:relative; padding-left:44px;">
+      <div style="position:absolute; left:15px; top:8px; bottom:8px; width:1px; background-image:repeating-linear-gradient(to bottom, var(--cg-bg-line) 0, var(--cg-bg-line) 8px, transparent 8px, transparent 16px);"></div>
+
+      <sc-for list="{{ lessons }}" as="lesson" hint-placeholder-count="7">
+        <div style="position:relative; margin-bottom:18px;">
+          <div style="position:absolute; left:-44px; top:22px; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:{{ lesson.dotBg }}; border:2px solid {{ lesson.dotBorder }}; color:{{ lesson.dotColor }};">{{ lesson.dotLabel }}</div>
+
+          <a href="{{ lesson.href }}" class="lesson-row {{ lesson.rowClass }}" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:{{ lesson.bg }}; border:1px solid {{ lesson.border }}; border-radius:4px; padding:22px 26px; opacity:{{ lesson.opacity }};">
+            <div style="display:flex; align-items:baseline; gap:18px; min-width:0;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">L{{ lesson.number }}</div>
+              <div style="min-width:0;">
+                <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; margin:0 0 4px; text-transform:uppercase; color:{{ lesson.titleColor }};">{{ lesson.title }}</h4>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em; color:var(--cg-text-dim);">{{ lesson.marker }} · {{ lesson.time }}</div>
+              </div>
+            </div>
+            <div style="flex:none; font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:{{ lesson.statusColor }};">{{ lesson.status }}</div>
+          </a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- PREV/NEXT DRIVE -->
+  <div style="max-width:1100px; margin:0 auto; padding:44px 56px 70px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <a href="Drives.dc.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">← PREVIOUS DRIVE</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-text-mute);">01 — Foundations</div>
+    </a>
+    <a href="Drive Page.dc.html?drive=03" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; text-align:right;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">NEXT DRIVE →</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-accent-bright);">03 — Cloud & Modern Surface</div>
+    </a>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;], &quot;options&quot;: [[&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;],[&quot;#FFFFFF&quot;,&quot;#F4F5F7&quot;,&quot;#D8DCE1&quot;,&quot;#1A56DB&quot;,&quot;#2563EB&quot;,&quot;#1F2937&quot;,&quot;#4B5563&quot;,&quot;#6B7280&quot;,&quot;#374151&quot;],[&quot;#1C1B1E&quot;,&quot;#292629&quot;,&quot;#423E43&quot;,&quot;#C1443C&quot;,&quot;#E06B5E&quot;,&quot;#F5EFE6&quot;,&quot;#B8AFA9&quot;,&quot;#8C837D&quot;,&quot;#D8CFC7&quot;]], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;}}">
+const CG_DEFAULT_PALETTE = ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'];
+const CG_PALETTES = [
+  { name: 'Navy & Burnt Orange', colors: ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'] },
+  { name: 'Classic Light', colors: ['#FFFFFF', '#F4F5F7', '#D8DCE1', '#1A56DB', '#2563EB', '#1F2937', '#4B5563', '#6B7280', '#374151'] },
+  { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
+];
+
+class Component extends DCLogic {
+  state = { paletteOverride: null, driveNum: '02' };
+
+  componentDidMount() {
+    const driveNum = new URLSearchParams(window.location.search).get('drive') || '02';
+    this.setState({ driveNum });
+    const savedName = localStorage.getItem('cg-palette-name');
+    const found = savedName && CG_PALETTES.find(p => p.name === savedName);
+    if (found) this.setState({ paletteOverride: found.colors }, () => this.applyPalette());
+    else this.applyPalette();
+    this.loadPDFLibrary();
+  }
+  loadPDFLibrary() {
+    if (window.PDFDocument) return;
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    document.head.appendChild(script);
+    const PDFLibScript = document.createElement('script');
+    PDFLibScript.src = 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+    document.head.appendChild(PDFLibScript);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.palette !== this.props.palette) this.applyPalette();
+  }
+  getActivePalette() {
+    return this.state.paletteOverride ?? this.props.palette ?? CG_DEFAULT_PALETTE;
+  }
+  applyPalette() {
+    const p = this.getActivePalette();
+    const vars = ['--cg-bg', '--cg-bg-mid', '--cg-bg-line', '--cg-accent', '--cg-accent-bright', '--cg-text', '--cg-text-mute', '--cg-text-dim', '--cg-text-body'];
+    vars.forEach((v, i) => document.documentElement.style.setProperty(v, p[i]));
+  }
+  renderVals() {
+    const activePalette = this.getActivePalette();
+    const swatches = CG_PALETTES.map(pal => ({
+      name: pal.name,
+      gradient: `linear-gradient(135deg, ${pal.colors[3]} 50%, ${pal.colors[0]} 50%)`,
+      ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
+      select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
+    }));
+    const driveNum = this.state.driveNum;
+    const drivesData = {
+      '01': { title: 'Foundations', marker: '1ST & 10', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', summary: 'Core concepts that make everything else make sense.', lessons: [{ number: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN', state: 'done', href: 'Lesson Page.dc.html?drive=01&lesson=01' }, { number: '02', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN', state: 'done', href: '#' }, { number: '03', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN', state: 'current', href: '#' }, { number: '04', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN', state: 'locked', href: '#' }, { number: '05', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN', state: 'locked', href: '#' }] },
+      '02': { title: 'Detection & Response', marker: '2ND & 7', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', summary: 'Firewalls and antivirus were never the finish line.', lessons: [{ number: '06', title: 'What Your SOC Actually Sees (and What It Doesn\u2019t)', marker: '1ST & 10', time: '12 MIN', state: 'done', href: '#' }, { number: '07', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN', state: 'done', href: 'Lesson Page.dc.html?drive=02&lesson=07' }, { number: '08', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN', state: 'current', href: '#' }, { number: '09', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN', state: 'locked', href: '#' }, { number: '10', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN', state: 'locked', href: '#' }, { number: '11', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN', state: 'locked', href: '#' }, { number: '12', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN', state: 'locked', href: '#' }] },
+      '03': { title: 'Cloud & Modern Surface', marker: '2ND & 7', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', summary: 'Your infrastructure is no longer four walls.', lessons: [{ number: '13', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN', state: 'done', href: '#' }, { number: '14', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN', state: 'done', href: '#' }, { number: '15', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN', state: 'locked', href: '#' }, { number: '16', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN', state: 'locked', href: '#' }, { number: '17', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN', state: 'locked', href: '#' }, { number: '18', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN', state: 'locked', href: '#' }] },
+      '04': { title: 'Practical Defense & Career', marker: '2ND & 7', description: 'Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.', summary: 'Shift from theory to action.', lessons: [{ number: '19', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN', state: 'done', href: '#' }, { number: '20', title: 'Vendor Risk: Buying Security Isn\u2019t Enough', marker: '2ND & 7', time: '16 MIN', state: 'locked', href: '#' }, { number: '21', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN', state: 'locked', href: '#' }, { number: '22', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN', state: 'locked', href: '#' }, { number: '23', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN', state: 'locked', href: '#' }] },
+      '05': { title: 'The Human Element', marker: '3RD & LONG', description: 'Social engineering, building a security culture people don\u2019t hate, insider threats, and phishing sims done right.', summary: 'Most breaches start with a person.', lessons: [{ number: '24', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN', state: 'locked', href: '#' }, { number: '25', title: 'Building a Security Culture People Don\u2019t Hate', marker: '3RD & LONG', time: '23 MIN', state: 'locked', href: '#' }, { number: '26', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN', state: 'locked', href: '#' }, { number: '27', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN', state: 'locked', href: '#' }] },
+      '06': { title: 'Compliance & Governance', marker: '3RD & LONG', description: 'Compliance isn\u2019t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', summary: 'Compliance is a tool, not the goal.', lessons: [{ number: '28', title: 'Compliance vs. Security: Why They\u2019re Different', marker: '2ND & 7', time: '14 MIN', state: 'locked', href: '#' }, { number: '29', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN', state: 'locked', href: '#' }, { number: '30', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN', state: 'locked', href: '#' }] },
+    };
+    const drive = drivesData[driveNum] || drivesData['02'];
+    const raw = drive.lessons;
+    const lessons = raw.map((l, i) => {
+      const isDone = l.state === 'done';
+      const isCurrent = l.state === 'current';
+      return {
+        ...l,
+        dotLabel: isDone ? '✓' : String(i + 1),
+        dotBg: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-bg-mid)' : 'var(--cg-bg-mid)'),
+        dotBorder: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-bg-line)'),
+        dotColor: isDone ? 'var(--cg-bg)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
+        bg: isCurrent ? 'var(--cg-bg-mid)' : (isDone ? '#0F2842' : 'var(--cg-bg)'),
+        border: isCurrent ? 'var(--cg-accent-bright)' : (isDone ? 'var(--cg-bg-line)' : '#1A2C42'),
+        opacity: l.state === 'locked' ? 0.55 : 1,
+        titleColor: l.state === 'locked' ? 'var(--cg-text-mute)' : 'var(--cg-text)',
+        statusColor: isDone ? 'var(--cg-text-mute)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-text-dim)'),
+        status: isDone ? 'COMPLETE' : (isCurrent ? 'CONTINUE →' : 'LOCKED'),
+        rowClass: isDone ? 'is-done' : (isCurrent ? 'is-active' : 'is-locked'),
+      };
+    });
+    const downloadSummary = () => {
+      const { PDFDocument, rgb } = window.PDFLib || {};
+      if (!PDFDocument) { alert('PDF library still loading, please try again'); return; }
+      const asyncGen = async () => {
+        try {
+          const pdfDoc = await PDFDocument.create();
+          const page = pdfDoc.addPage([612, 792]);
+          const { width, height } = page.getSize();
+          const palette = this.getActivePalette();
+          const accentColor = palette[3];
+          const textColor = palette[5];
+          const dimColor = palette[7];
+          const hexToRgb = (hex) => {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 0, g: 0, b: 0 };
+          };
+          const rgbAccent = hexToRgb(accentColor);
+          const rgbText = hexToRgb(textColor);
+          const rgbDim = hexToRgb(dimColor);
+          page.drawText('Contested Ground', { x: 40, y: height - 50, size: 24, color: rgb(rgbAccent.r/255, rgbAccent.g/255, rgbAccent.b/255) });
+          page.drawText(drive.title.toUpperCase(), { x: 40, y: height - 80, size: 18, color: rgb(rgbText.r/255, rgbText.g/255, rgbText.b/255) });
+          const totalTime = drive.lessons.reduce((acc, l) => acc + parseInt(l.time), 0);
+          page.drawText(`${drive.lessons.length} lessons · ${totalTime} min`, { x: 40, y: height - 105, size: 11, color: rgb(rgbDim.r/255, rgbDim.g/255, rgbDim.b/255) });
+          page.drawText(drive.description, { x: 40, y: height - 145, size: 11, color: rgb(rgbText.r/255, rgbText.g/255, rgbText.b/255), maxWidth: 530, lineHeight: 16 });
+          let yPos = height - 200;
+          page.drawText('LESSONS', { x: 40, y: yPos, size: 10, color: rgb(rgbAccent.r/255, rgbAccent.g/255, rgbAccent.b/255) });
+          yPos -= 25;
+          let currentPage = page;
+          drive.lessons.forEach((lesson) => {
+            if (yPos < 60) {
+              currentPage = pdfDoc.addPage([612, 792]);
+              yPos = height - 40;
+            }
+            currentPage.drawText(`L${lesson.number} — ${lesson.title}`, { x: 40, y: yPos, size: 10, color: rgb(rgbText.r/255, rgbText.g/255, rgbText.b/255), maxWidth: 530 });
+            currentPage.drawText(`${lesson.marker} · ${lesson.time}`, { x: 40, y: yPos - 14, size: 9, color: rgb(rgbDim.r/255, rgbDim.g/255, rgbDim.b/255) });
+            yPos -= 32;
+          });
+          const pdfBytes = await pdfDoc.save();
+          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${drive.title.replace(/\s+/g, '-')}-summary.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch (e) {
+          console.error('PDF generation failed:', e);
+          alert('Failed to generate PDF. Please try again.');
+        }
+      };
+      asyncGen();
+    };
+    const totalLessonTime = drive.lessons.reduce((acc, l) => acc + parseInt(l.time), 0);
+    const hours = Math.floor(totalLessonTime / 60);
+    const mins = totalLessonTime % 60;
+    const totalTime = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
+    return { lessons, swatches, downloadSummary, lessonCount: drive.lessons.length, totalTime };
+  }
+}
+</script>
+</body>
+</html>
