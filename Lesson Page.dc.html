@@ -32,10 +32,10 @@
 
   <!-- NAV -->
   <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
-    <div style="display:flex; align-items:center; gap:12px;">
+    <a href="Homepage.dc.html" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;">
       <div style="width:34px; height:34px; border-radius:4px; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--cg-bg);">CG</div>
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
-    </div>
+    </a>
     <div style="display:flex; align-items:center; gap:36px;">
       <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
@@ -51,24 +51,25 @@
   <!-- BREADCRUMB + PROGRESS -->
   <div style="max-width:820px; margin:0 auto; padding:28px 32px 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <a href="Drive Page.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVE 02 — DETECTION &amp; RESPONSE</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON 07</span>
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <a href="{{ driveHref }}" style="text-decoration:none; color:var(--cg-text-dim);">DRIVE {{ driveNum }} — {{ driveTitle }}</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON {{ lessonNum }}</span>
     </div>
-    <div style="display:flex; align-items:center; gap:14px; margin-bottom:36px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson 2 of 7 in this Drive</div>
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson {{ positionInDrive }} of {{ totalInDrive }} in this Drive</div>
       <div style="flex:1; height:4px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:2px; overflow:hidden;">
-        <div style="height:100%; width:29%; background:var(--cg-accent);"></div>
+        <div style="height:100%; width:{{ drivePercent }}%; background:var(--cg-accent);"></div>
       </div>
     </div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.03em; color:var(--cg-text-dim); margin-bottom:36px;">Progress is saved in this browser only — it's not tied to an account, so it won't follow you to another device or browser.</div>
   </div>
 
   <!-- HEADER -->
   <div style="max-width:820px; margin:0 auto; padding:0 32px 40px;">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">2ND &amp; 7 · INTERMEDIATE</div>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">15 MIN READ · 12 MIN LISTEN</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">{{ difficultyLabel }}</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">{{ readTime }} MIN READ · {{ listenTime }} MIN LISTEN</div>
     </div>
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(32px,5vw,50px); line-height:1.05; letter-spacing:-0.01em; margin:0; text-transform:uppercase;">Reading Logs Like an Analyst</h1>
-    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); margin:16px 0 0;">The Event IDs every IT pro should recognize on sight — and what they're actually telling you.</p>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(32px,5vw,50px); line-height:1.05; letter-spacing:-0.01em; margin:0; text-transform:uppercase;">{{ lessonTitle }}</h1>
+    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); margin:16px 0 0;">{{ lessonSubtitle }}</p>
   </div>
 
   <!-- AUDIO PLAYER -->
@@ -104,26 +105,31 @@
 
   <!-- ARTICLE BODY -->
   <article style="max-width:820px; margin:0 auto; padding:48px 32px 0; font-size:17px; line-height:1.75; color:var(--cg-text-body);">
-    <p>Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it's already inside the network — because that story is written in the logs, and almost nobody reads them until something's already on fire.</p>
-    <p>You don't need to be a SOC analyst to get real value out of Windows Event Logs. You need to recognize a small, high-signal set of Event IDs and know what question each one answers.</p>
+    <sc-for list="{{ intro }}" as="p" hint-placeholder-count="2">
+      <p>{{ p }}</p>
+    </sc-for>
 
-    <h3>The Five You Should Know Cold</h3>
+    <h3>{{ coreHeading }}</h3>
 
-    <div style="display:flex; flex-direction:column; gap:1px; background:var(--cg-bg-line); margin:24px 0; border-radius:4px; overflow:hidden;">
-      <sc-for list="{{ eventIds }}" as="ev" hint-placeholder-count="5">
-        <div style="display:flex; gap:20px; align-items:baseline; background:var(--cg-bg-mid); padding:16px 20px;">
-          <div style="flex:none; font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600; color:var(--cg-accent-bright); width:70px;">{{ ev.id }}</div>
-          <div style="flex:none; font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:0.02em; color:var(--cg-text); width:180px; text-transform:uppercase;">{{ ev.name }}</div>
-          <div style="flex:1; font-family:'Source Serif 4',serif; font-size:15px; color:var(--cg-text-mute);">{{ ev.desc }}</div>
-        </div>
-      </sc-for>
-    </div>
+    <sc-if value="{{ hasTable }}">
+      <div style="display:flex; flex-direction:column; gap:1px; background:var(--cg-bg-line); margin:24px 0; border-radius:4px; overflow:hidden;">
+        <sc-for list="{{ table }}" as="row" hint-placeholder-count="4">
+          <div style="display:flex; gap:20px; align-items:baseline; background:var(--cg-bg-mid); padding:16px 20px;">
+            <div style="flex:none; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600; color:var(--cg-accent-bright); width:150px;">{{ row.a }}</div>
+            <div style="flex:1; font-family:'Source Serif 4',serif; font-size:15px; color:var(--cg-text-mute);">{{ row.b }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
 
-    <p>None of these are exciting in isolation. A 4624 fires constantly — every legitimate logon generates one. The signal isn't in any single event; it's in the pattern. A 4625 storm followed by a 4624 on the same account is a brute-force that landed. A 4688 spawning <span style="font-family:'JetBrains Mono',monospace; color:var(--cg-text);">powershell.exe -enc</span> from a process that has no business touching PowerShell is worth stopping to look at.</p>
+    <sc-for list="{{ body }}" as="p" hint-placeholder-count="2">
+      <p>{{ p }}</p>
+    </sc-for>
 
-    <h3>Why This Matters Without a SOC</h3>
-    <p>You probably don't have a 24/7 detection team combing through this for you. That's fine — you don't need volume, you need recognition. If you can glance at a log and immediately know "that's a 4720 I didn't expect" or "that 1102 wasn't me clearing anything," you've already outpaced most of the org.</p>
-    <p>The goal of this lesson isn't to turn you into an analyst overnight. It's to make sure the next time you're staring at Event Viewer during an incident, you're not starting from zero.</p>
+    <h3>{{ whyHeading }}</h3>
+    <sc-for list="{{ closing }}" as="p" hint-placeholder-count="2">
+      <p>{{ p }}</p>
+    </sc-for>
   </article>
 
   <!-- QUIZ -->
@@ -153,13 +159,13 @@
   <div style="max-width:820px; margin:0 auto; padding:48px 32px 130px;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:20px;">Continue the Drive</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
-      <a href="Drive Page.dc.html" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">← LESSON 06</div>
-        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-text-mute);">What Your SOC Actually Sees</div>
+      <a href="{{ prevHref }}" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">← {{ prevLabel }}</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-text-mute);">{{ prevTitle }}</div>
       </a>
-      <a href="Drive Page.dc.html" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px; text-align:right;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">LESSON 08 →</div>
-        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-accent-bright);">Lateral Movement 101</div>
+      <a href="{{ nextHref }}" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px; text-align:right;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">{{ nextLabel }} →</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-accent-bright);">{{ nextTitle }}</div>
       </a>
     </div>
   </div>
@@ -167,18 +173,18 @@
   <!-- STICKY PREV/NEXT BAR -->
   <div style="position:fixed; left:0; right:0; bottom:0; z-index:20; background:color-mix(in srgb, var(--cg-bg) 96%, transparent); backdrop-filter:blur(6px); border-top:1px solid var(--cg-bg-line);">
     <div style="max-width:820px; margin:0 auto; padding:14px 32px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
-      <a href="Drive Page.dc.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-text-mute); min-width:0;">
+      <a href="{{ prevHref }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-text-mute); min-width:0;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:14px; flex:none;">←</div>
         <div style="min-width:0;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim);">PREV</div>
-          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">SOC Actually Sees</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ prevTitle }}</div>
         </div>
       </a>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson 2 of 7</div>
-      <a href="Drive Page.dc.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson {{ positionInDrive }} of {{ totalInDrive }}</div>
+      <a href="{{ nextHref }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
         <div style="min-width:0;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim); text-align:right;">NEXT</div>
-          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Lateral Movement 101</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ nextTitle }}</div>
         </div>
         <div style="font-family:'JetBrains Mono',monospace; font-size:14px; flex:none;">→</div>
       </a>
@@ -188,27 +194,6 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;], &quot;options&quot;: [[&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;],[&quot;#FFFFFF&quot;,&quot;#F4F5F7&quot;,&quot;#D8DCE1&quot;,&quot;#1A56DB&quot;,&quot;#2563EB&quot;,&quot;#1F2937&quot;,&quot;#4B5563&quot;,&quot;#6B7280&quot;,&quot;#374151&quot;],[&quot;#1C1B1E&quot;,&quot;#292629&quot;,&quot;#423E43&quot;,&quot;#C1443C&quot;,&quot;#E06B5E&quot;,&quot;#F5EFE6&quot;,&quot;#B8AFA9&quot;,&quot;#8C837D&quot;,&quot;#D8CFC7&quot;]], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;}}">
-const ARTICLE_TEXT = "Reading Logs Like an Analyst. Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it's already inside the network, because that story is written in the logs, and almost nobody reads them until something's already on fire. You don't need to be a SOC analyst to get real value out of Windows Event Logs. You need to recognize a small, high-signal set of Event IDs and know what question each one answers. The five you should know cold: Event 4624, a successful logon, answers who got in and how. Event 4625, a failed logon, answers who's trying and failing. Event 4688, a new process was created, answers what ran and from where. Event 4720, a user account was created, answers who just got a new identity on this box. Event 1102, the audit log was cleared, answers who's trying to cover their tracks. None of these are exciting in isolation. A 4624 fires constantly. The signal isn't in any single event, it's in the pattern. The goal of this lesson isn't to turn you into an analyst overnight. It's to make sure the next time you're staring at Event Viewer during an incident, you're not starting from zero.";
-
-const QUIZ_DATA = [
-  {
-    question: 'Which Event ID indicates a Windows audit log was cleared \u2014 a classic anti-forensics move?',
-    options: [
-      { label: 'Event 4624', correct: false },
-      { label: 'Event 1102', correct: true },
-      { label: 'Event 4688', correct: false },
-    ],
-  },
-  {
-    question: 'A spike in Event 4625 followed immediately by a 4624 on the same account most likely indicates:',
-    options: [
-      { label: 'Routine password rotation', correct: false },
-      { label: 'A brute-force attempt that succeeded', correct: true },
-      { label: 'A scheduled task running', correct: false },
-    ],
-  },
-];
-
 const CG_VARS = ['--cg-bg','--cg-bg-mid','--cg-bg-line','--cg-accent','--cg-accent-bright','--cg-text','--cg-text-mute','--cg-text-dim','--cg-text-body'];
 const CG_DEFAULT_PALETTE = ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'];
 const CG_PALETTES = [
@@ -217,17 +202,625 @@ const CG_PALETTES = [
   { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
 ];
 
-class Component extends DCLogic {
-  state = {
-    isPlaying: false,
-    playProgress: 0,
-    quizAnswers: {},
-    paletteOverride: null,
+const DRIVE_TITLES = {
+  '01': 'Foundations', '02': 'Detection & Response', '03': 'Cloud & Modern Surface',
+  '04': 'Practical Defense & Career', '05': 'The Human Element', '06': 'Compliance & Governance',
+};
+const DRIVE_LESSON_ORDER = {
+  '01': ['01','02','03','04','05'],
+  '02': ['06','07','08','09','10','11','12'],
+  '03': ['13','14','15','16','17','18'],
+  '04': ['19','20','21','22','23'],
+  '05': ['24','25','26','27'],
+  '06': ['28','29','30'],
+};
+const DRIVE_ORDER = ['01','02','03','04','05','06'];
+
+function difficultyLabel(marker) {
+  if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
+  if (marker.indexOf('3RD') === 0) return 'ADVANCED';
+  return 'INTERMEDIATE';
+}
+
+const LESSONS_DATA = {
+  '01': {
+    drive: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN',
+    subtitle: 'Before you can defend anything, you need to know what you’re actually defending and from whom.',
+    intro: [
+      'Most IT pros inherit security as a checklist: patch this, enable that, buy the tool the vendor is pushing this quarter. Nobody sits you down and asks the one question that actually organizes all of it — what are you protecting, and who wants it?',
+      'That question is a threat model, and you already build one instinctively when you lock your car in a bad neighborhood but not your driveway. Security work gets a lot less overwhelming once you do the same thing on purpose, for your environment.',
+    ],
+    coreHeading: 'Assets, Actors, and Attack Paths',
+    table: [
+      { a: 'Customer data', b: 'Ransomware crews and data brokers — resale value and extortion leverage.' },
+      { a: 'Admin credentials', b: 'Any attacker, opportunistic or targeted — the highest-value pivot point in your network.' },
+      { a: 'Uptime', b: 'Competitors, disgruntled insiders, sometimes nation-states — denial of service and reputational damage.' },
+      { a: 'Intellectual property', b: 'Competitors and nation-state actors — long-term strategic theft, not quick cash.' },
+    ],
+    body: [
+      'Three questions do most of the work: what do I have that’s worth taking, who would want it, and what’s the easiest path from where an attacker starts to where that thing lives? You don’t need a formal framework to answer these — a whiteboard and twenty honest minutes beats a glossy template nobody re-reads.',
+    ],
+    whyHeading: 'Threat Modeling Is a Habit, Not a Document',
+    closing: [
+      'The mistake most teams make is treating threat modeling as a one-time compliance exercise — a PDF that gets written once and never opened again. Treat it instead as a lens: every time you add a new vendor, a new integration, or a new admin account, ask the same three questions again.',
+      'You won’t get it perfect, and that’s fine. A rough threat model you actually use beats a comprehensive one that lives in a drawer. The goal is to stop reacting to whatever alert fired today and start seeing your environment the way an attacker does.',
+    ],
+    takeaways: [
+      'A threat model answers three questions: what do you have, who wants it, and how would they get to it.',
+      'You’re already doing informal threat modeling in daily life — the skill transfers, it just needs to be pointed at your network.',
+      'Prioritize by asking what’s the easiest path from an attacker’s starting point to your highest-value asset.',
+      'Threat modeling works best as a recurring habit tied to change — new vendor, new integration, new account — not a document you write once.',
+    ],
+    quiz: [
+      {
+        question: 'What is the primary purpose of a threat model?',
+        options: [
+          { label: 'To satisfy a compliance auditor', correct: false },
+          { label: 'To identify what you’re protecting and from whom', correct: true },
+          { label: 'To justify a security tool purchase', correct: false },
+        ],
+      },
+      {
+        question: 'Why are admin credentials typically the highest-priority asset to protect?',
+        options: [
+          { label: 'They’re the easiest asset to insure', correct: false },
+          { label: 'They’re rarely targeted by attackers', correct: false },
+          { label: 'They give an attacker the widest pivot point into the network', correct: true },
+        ],
+      },
+    ],
+  },
+  '02': {
+    drive: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN',
+    subtitle: 'The firewall stopped being your edge the day your first employee logged into a cloud app from home.',
+    intro: [
+      'For twenty years, "perimeter security" meant a firewall at the edge of a network you could physically point to. That network barely exists anymore. Your employees authenticate into SaaS tools from coffee shops, personal phones, and airport WiFi — none of which ever touch your firewall.',
+      'What replaced the network edge isn’t a piece of hardware. It’s identity. The question that matters now isn’t "is this traffic inside or outside our network" — it’s "is this actually the person who should have this access."',
+    ],
+    coreHeading: 'Why Identity Beats Location',
+    body: [
+      'A stolen password works identically whether the attacker is sitting in your parking lot or in another country — location tells you nothing useful anymore. What does tell you something: is this login attempt consistent with how this person normally behaves? Right device, right rough location, right time of day, right resource?',
+      'That’s the entire premise behind modern identity security: multi-factor authentication, conditional access policies, and single sign-on aren’t bureaucratic friction, they’re the actual perimeter. Every one of them exists to answer that one question with more confidence than a password alone ever could.',
+    ],
+    whyHeading: 'Where Teams Get This Wrong',
+    closing: [
+      'The most common mistake is treating identity security as an afterthought bolted onto existing accounts — MFA rolled out reluctantly after an incident, instead of being the default for every account from day one. By the time you’re adding it under pressure, you’ve already lost the argument about whether it’s "worth the friction."',
+      'Start every new account, every new vendor login, every new admin role with strong identity controls as the baseline, not the exception. It’s far easier to keep a strict default than to retrofit one across an organization that’s already used to weaker habits.',
+    ],
+    takeaways: [
+      'The traditional network perimeter has dissolved — employees authenticate from everywhere, on every device.',
+      'Identity has replaced network location as the thing worth defending and verifying.',
+      'MFA, conditional access, and SSO exist to answer one question: is this really the person who should have this access.',
+      'Make strong identity controls the default for every new account, not a reaction bolted on after an incident.',
+    ],
+    quiz: [
+      {
+        question: 'What has effectively replaced the traditional network firewall as the primary security boundary?',
+        options: [
+          { label: 'VPN concentrators', correct: false },
+          { label: 'Identity', correct: true },
+          { label: 'Physical office security', correct: false },
+        ],
+      },
+      {
+        question: 'Why is a stolen password considered dangerous regardless of the attacker’s location?',
+        options: [
+          { label: 'Because location-based defenses no longer provide a meaningful signal', correct: true },
+          { label: 'Because passwords are stored in plaintext by default', correct: false },
+          { label: 'Because firewalls can’t detect password reuse', correct: false },
+        ],
+      },
+    ],
+  },
+  '03': {
+    drive: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN',
+    subtitle: 'The unglamorous truth: most breaches exploit vulnerabilities that were patched months before the attack.',
+    intro: [
+      'It’s tempting to think breaches happen because attackers find some brilliant zero-day nobody could have predicted. In reality, the overwhelming majority of successful attacks exploit vulnerabilities that already have a patch available — sometimes for months, sometimes for years.',
+      'Patching isn’t exciting. It doesn’t generate a dashboard full of colorful threat intelligence. But no other single practice moves the needle on your actual risk as much as keeping software current does.',
+    ],
+    coreHeading: 'Why Patching Programs Fail in Practice',
+    body: [
+      'The problem is almost never technical — it’s organizational. Patches get delayed because nobody wants to be responsible for the update that breaks a production system, because there’s no maintenance window that doesn’t upset someone, or because there’s no clear owner for a given piece of software at all.',
+      'A working patch program needs three things: an accurate inventory of what you’re running, a cadence everyone agrees to in advance, and a fast lane for critical vulnerabilities that skips the normal queue. Without the inventory, you can’t even know what’s exposed.',
+    ],
+    whyHeading: 'Prioritize by Exploitability, Not Just Severity',
+    closing: [
+      'Not every "critical" CVE deserves the same urgency. A critical vulnerability in software you don’t expose to the internet is a very different risk than a medium-severity bug being actively exploited in the wild right now. Cross-reference severity scores against whether the vulnerability is actually being exploited before you decide what jumps the queue.',
+      'The goal isn’t patching everything instantly — that’s not realistic for most teams. The goal is having a defensible, consistent process so that when something does get exploited, it’s not because the patch sat untouched for a year with nobody watching.',
+    ],
+    takeaways: [
+      'Most breaches exploit known, already-patched vulnerabilities — not novel zero-days.',
+      'Patch programs usually fail for organizational reasons — unclear ownership and no agreed maintenance window — not technical ones.',
+      'You need an accurate software inventory before you can know what’s actually exposed.',
+      'Prioritize patches by real-world exploitability, not severity score alone — check if a CVE is being actively exploited.',
+    ],
+    quiz: [
+      {
+        question: 'What do most successful breaches actually exploit?',
+        options: [
+          { label: 'Novel zero-day vulnerabilities', correct: false },
+          { label: 'Known vulnerabilities that already had a patch available', correct: true },
+          { label: 'Social engineering exclusively', correct: false },
+        ],
+      },
+      {
+        question: 'Why do patching programs typically break down?',
+        options: [
+          { label: 'Patches are usually incompatible with modern hardware', correct: false },
+          { label: 'Organizational issues — unclear ownership and no agreed maintenance window', correct: true },
+          { label: 'Vendors rarely release patches in time', correct: false },
+        ],
+      },
+    ],
+  },
+  '04': {
+    drive: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN',
+    subtitle: 'Past the marketing buzzword: what zero trust actually asks of your network, and why it works.',
+    intro: [
+      'Zero trust has been marketed so aggressively that it’s easy to write it off as a rebrand of things you already do. Strip away the vendor slide decks and the core idea is genuinely simple: never automatically trust a device or user just because they’re "inside" your network, and verify every request on its own merits.',
+      'That’s a real shift from the old model, where getting past the firewall once — via VPN, office WiFi, whatever — meant broad, standing access to everything behind it. Zero trust assumes that perimeter will eventually be breached and designs for that assumption from the start.',
+    ],
+    coreHeading: 'The Core Principles',
+    table: [
+      { a: 'Verify explicitly', b: 'Authenticate and authorize every request using all available signals, not just a network location.' },
+      { a: 'Least privilege access', b: 'Grant only the access needed for the task at hand, and nothing standing beyond that.' },
+      { a: 'Assume breach', b: 'Design as if an attacker is already inside — segment aggressively, log everything, limit blast radius.' },
+    ],
+    body: [
+      'In practice, this looks like micro-segmentation instead of one flat network, just-in-time access instead of permanent admin rights, and continuous verification instead of a single login that grants trust for the rest of the session.',
+    ],
+    whyHeading: 'Don’t Try to Boil the Ocean',
+    closing: [
+      'Zero trust is a direction, not a product you install on a Tuesday. Trying to implement all of it at once, across every system, is how these initiatives stall out and die in committee. Start with your highest-value assets — the ones you identified in your threat model — and apply these principles there first.',
+      'Every step toward least privilege and explicit verification reduces your blast radius, even if you never reach some theoretical "fully zero trust" end state. Partial progress here is still real progress.',
+    ],
+    takeaways: [
+      'Zero trust means never automatically trusting a device or user based on network location alone.',
+      'The three core principles are: verify explicitly, enforce least privilege, and assume breach.',
+      'It replaces one-time perimeter authentication with continuous, per-request verification.',
+      'Implement it incrementally, starting with your highest-value assets — not as an all-at-once overhaul.',
+    ],
+    quiz: [
+      {
+        question: 'What assumption does zero trust design around?',
+        options: [
+          { label: 'That the perimeter firewall will always hold', correct: false },
+          { label: 'That an attacker may already be inside the network', correct: true },
+          { label: 'That all internal traffic is inherently safe', correct: false },
+        ],
+      },
+      {
+        question: 'What is the recommended way to roll out zero trust principles?',
+        options: [
+          { label: 'All at once, across every system simultaneously', correct: false },
+          { label: 'Incrementally, starting with your highest-value assets', correct: true },
+          { label: 'Only after replacing all existing network hardware', correct: false },
+        ],
+      },
+    ],
+  },
+  '05': {
+    drive: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN',
+    subtitle: 'The oldest framework in the field, still useful — if you use it as a decision tool instead of a definition to memorize.',
+    intro: [
+      'Confidentiality, integrity, and availability show up in every introductory security course, usually as three definitions to memorize for a test. That framing undersells them. The real value of the CIA triad is as a fast way to reason about tradeoffs when you can’t protect everything equally.',
+      'Every security control leans harder on one of these three than the others, and every decision you make trades some amount of one against the others. Knowing which one matters most for a given system tells you what to prioritize.',
+    ],
+    coreHeading: 'What Each Piece Actually Means in Practice',
+    table: [
+      { a: 'Confidentiality', b: 'Only the right people can see the data. Encryption, access controls, and least privilege live here.' },
+      { a: 'Integrity', b: 'The data hasn’t been tampered with. Checksums, digital signatures, and audit logs live here.' },
+      { a: 'Availability', b: 'The system is up and usable when needed. Redundancy, backups, and DDoS protection live here.' },
+    ],
+    body: [
+      'A hospital’s patient record system leans hard on integrity — a corrupted dosage record can kill someone, while a brief outage is merely disruptive. An e-commerce checkout page during a holiday sale leans hard on availability — a few minutes of downtime costs real revenue. A password database leans hardest on confidentiality. None of these systems ignore the other two properties, but knowing which one dominates tells you where to spend your limited time and budget.',
+    ],
+    whyHeading: 'Use It to Break Ties, Not to Memorize',
+    closing: [
+      'The next time you’re deciding between two competing priorities — patch now versus patch during the next maintenance window, encrypt this field versus leave it in plaintext for easier debugging — ask which triad property is most at stake for that specific system. It won’t make the decision for you, but it will make the tradeoff explicit instead of arbitrary.',
+    ],
+    takeaways: [
+      'The CIA triad is a decision tool for tradeoffs, not just three terms to define on a test.',
+      'Confidentiality is about restricting access; integrity is about preventing tampering; availability is about staying up and usable.',
+      'Different systems lean harder on different properties — identify which one dominates for a given system before prioritizing controls.',
+      'Use the triad to make tradeoffs explicit when two security priorities compete for your limited time.',
+    ],
+    quiz: [
+      {
+        question: 'Which CIA triad property is most at stake if a patient’s medication dosage record gets silently corrupted?',
+        options: [
+          { label: 'Confidentiality', correct: false },
+          { label: 'Integrity', correct: true },
+          { label: 'Availability', correct: false },
+        ],
+      },
+      {
+        question: 'What is the most useful way to apply the CIA triad day to day?',
+        options: [
+          { label: 'As a fixed checklist every system must satisfy equally', correct: false },
+          { label: 'As a decision tool to identify which property matters most for a given system', correct: true },
+          { label: 'Only during compliance audits', correct: false },
+        ],
+      },
+    ],
+  },
+  '06': {
+    drive: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN',
+    subtitle: 'Visibility gaps are more common than tool gaps — know what’s actually being watched before you assume you’re covered.',
+    intro: [
+      'Ask most IT pros what their security stack monitors and you’ll get a confident answer: endpoints, network traffic, cloud logins, email. Ask what it doesn’t monitor, and the confidence usually evaporates. Coverage gaps are the norm, not the exception, and they tend to hide in exactly the places attackers look first.',
+    ],
+    coreHeading: 'Common Blind Spots',
+    table: [
+      { a: 'Unmanaged devices', b: 'Personal phones and contractor laptops rarely report into your SOC at all.' },
+      { a: 'SaaS-to-SaaS activity', b: 'A compromised OAuth token moving data between two cloud apps often never touches your network.' },
+      { a: 'Encrypted traffic', b: 'TLS hides payload content from network monitoring unless you’re doing inspection.' },
+    ],
+    body: [
+      'None of these gaps mean your tools are broken — it means visibility is a boundary you have to actively define and keep testing, not something you get for free once you’ve bought a SIEM.',
+    ],
+    whyHeading: 'Ask "What Would We Miss" Regularly',
+    closing: [
+      'The most useful exercise here isn’t buying another tool — it’s picking a plausible attack path and tracing it through your environment asking "would we actually see this happen." Doing that quarterly surfaces gaps long before an incident does.',
+    ],
+    takeaways: [
+      'Visibility gaps are common and predictable, not a sign your tools are broken.',
+      'Unmanaged devices, SaaS-to-SaaS activity, and encrypted traffic are the most frequent blind spots.',
+      'Buying more tools doesn’t fix a gap you haven’t identified yet.',
+      'Regularly trace a plausible attack path through your environment and ask what you’d actually catch.',
+    ],
+    quiz: [
+      {
+        question: 'Why might a compromised OAuth token moving data between two SaaS apps go unnoticed?',
+        options: [
+          { label: 'It often never touches network infrastructure your SOC monitors', correct: true },
+          { label: 'OAuth tokens are always encrypted end-to-end', correct: false },
+          { label: 'SaaS apps don’t support integrations', correct: false },
+        ],
+      },
+      {
+        question: 'What’s a more effective first step than buying another monitoring tool?',
+        options: [
+          { label: 'Tracing a plausible attack path through your environment to find visibility gaps', correct: true },
+          { label: 'Disabling encrypted traffic entirely', correct: false },
+          { label: 'Requiring all devices to be company-owned', correct: false },
+        ],
+      },
+    ],
+  },
+  '07': {
+    drive: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN',
+    subtitle: 'The Event IDs every IT pro should recognize on sight — and what they’re actually telling you.',
+    intro: [
+      'Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it’s already inside the network — because that story is written in the logs, and almost nobody reads them until something’s already on fire.',
+      'You don’t need to be a SOC analyst to get real value out of Windows Event Logs. You need to recognize a small, high-signal set of Event IDs and know what question each one answers.',
+    ],
+    coreHeading: 'The Five You Should Know Cold',
+    table: [
+      { a: '4624 — Successful Logon', b: 'An account successfully logged on. Baseline noise — but the source, time, and logon type matter.' },
+      { a: '4625 — Failed Logon', b: 'An account failed to log on. A burst against one account is brute-force; a burst across many is spray.' },
+      { a: '4688 — Process Created', b: 'A new process started. Watch for uncommon parent-child pairs, like Office spawning a shell.' },
+      { a: '4720 — Account Created', b: 'A new user account was created. Unexpected creation outside change windows deserves a look.' },
+      { a: '1102 — Audit Log Cleared', b: 'The security log was cleared. Rare in legitimate operations — treat as high priority.' },
+    ],
+    body: [
+      'None of these are exciting in isolation. A 4624 fires constantly — every legitimate logon generates one. The signal isn’t in any single event; it’s in the pattern. A 4625 storm followed by a 4624 on the same account is a brute-force that landed. A 4688 spawning powershell.exe -enc from a process that has no business touching PowerShell is worth stopping to look at.',
+    ],
+    whyHeading: 'Why This Matters Without a SOC',
+    closing: [
+      'You probably don’t have a 24/7 detection team combing through this for you. That’s fine — you don’t need volume, you need recognition. If you can glance at a log and immediately know "that’s a 4720 I didn’t expect" or "that 1102 wasn’t me clearing anything," you’ve already outpaced most of the org.',
+      'The goal of this lesson isn’t to turn you into an analyst overnight. It’s to make sure the next time you’re staring at Event Viewer during an incident, you’re not starting from zero.',
+    ],
+    takeaways: [
+      'A small set of Event IDs (4624, 4625, 4688, 4720, 1102) covers most of what you need to recognize day-to-day.',
+      'The signal is rarely in one event — it’s in the pattern across a short window of time.',
+      'You don’t need a SOC budget to build detection instincts; you need repetition and a checklist.',
+      'Recognizing an anomaly fast, even without deep analysis skill, puts you ahead of most IT pros.',
+    ],
+    quiz: [
+      {
+        question: 'Which Event ID indicates a Windows audit log was cleared — a classic anti-forensics move?',
+        options: [
+          { label: 'Event 4624', correct: false },
+          { label: 'Event 1102', correct: true },
+          { label: 'Event 4688', correct: false },
+        ],
+      },
+      {
+        question: 'A spike in Event 4625 followed immediately by a 4624 on the same account most likely indicates:',
+        options: [
+          { label: 'Routine password rotation', correct: false },
+          { label: 'A brute-force attempt that succeeded', correct: true },
+          { label: 'A scheduled task running', correct: false },
+        ],
+      },
+    ],
+  },
+  '08': {
+    drive: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN',
+    subtitle: 'Getting in is rarely the hard part for an attacker — getting from one low-value machine to your crown jewels is.',
+    intro: [
+      'Initial access — a phished credential, an exposed RDP port, a vulnerable web app — usually lands an attacker on one unremarkable machine. That machine is almost never the target. What happens next, the quiet crawl from that first foothold toward domain admin or your most sensitive server, is lateral movement, and it’s where most of the actual damage gets decided.',
+      'This phase is also where defenders have the best odds. An attacker moving laterally has to touch multiple systems, authenticate repeatedly, and generate activity that doesn’t look like anything a normal user does — if you know what to watch for.',
+    ],
+    coreHeading: 'The Techniques That Show Up Again and Again',
+    table: [
+      { a: 'Pass-the-hash', b: 'Reusing a stolen password hash to authenticate without ever knowing the plaintext password.' },
+      { a: 'RDP hopping', b: 'Using Remote Desktop to jump machine to machine, often with credentials harvested along the way.' },
+      { a: 'PsExec / WMI abuse', b: 'Using legitimate Windows admin tools to run commands remotely — blends in with normal IT activity.' },
+    ],
+    body: [
+      'What makes lateral movement hard to catch with a single tool is that most of it abuses legitimate functionality — the same protocols and admin utilities your own IT team uses every day. The difference is in context: why is a marketing laptop suddenly authenticating to a domain controller at 2 a.m.?',
+    ],
+    whyHeading: 'Segmentation Is Your Best Countermeasure',
+    closing: [
+      'You can’t watch every credential use in real time without serious tooling, but you can shrink the blast radius before an attacker even needs to move. Network segmentation, tiered admin accounts (a workstation admin should never be a domain admin), and disabling legacy protocols like unrestricted RDP between workstations all make lateral movement dramatically harder to pull off quietly.',
+      'The mindset shift that matters most: stop treating the inside of your network as inherently safe. Every machine an attacker touches should be one hop closer to getting caught, not one hop closer to total access.',
+    ],
+    takeaways: [
+      'Lateral movement is the phase where an attacker moves from an initial low-value foothold toward high-value systems.',
+      'Pass-the-hash, RDP hopping, and abuse of legitimate admin tools (PsExec, WMI) are the most common techniques.',
+      'Most lateral movement abuses legitimate functionality, so context — not just activity — is what reveals it.',
+      'Network segmentation and tiered admin accounts are the most effective ways to shrink an attacker’s blast radius.',
+    ],
+    quiz: [
+      {
+        question: 'What is "pass-the-hash"?',
+        options: [
+          { label: 'Reusing a stolen password hash to authenticate without knowing the plaintext password', correct: true },
+          { label: 'A method of encrypting files for ransomware', correct: false },
+          { label: 'A type of phishing email', correct: false },
+        ],
+      },
+      {
+        question: 'Why is lateral movement often hard to detect with a single tool?',
+        options: [
+          { label: 'It only happens over encrypted channels', correct: false },
+          { label: 'It mostly abuses legitimate protocols and admin tools that IT uses daily', correct: true },
+          { label: 'It never touches more than one machine', correct: false },
+        ],
+      },
+    ],
+  },
+  '09': {
+    drive: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN',
+    subtitle: 'A composited, anonymized incident walked hour by hour — from initial access to containment.',
+    intro: [
+      'Ransomware rarely detonates the moment an attacker gets in. Modern operators spend days or weeks quietly expanding access, identifying backups, and mapping out what will hurt the most before they ever encrypt a single file. Understanding that timeline is what turns a panicked scramble into a practiced response.',
+    ],
+    coreHeading: 'The First Hour, Roughly',
+    table: [
+      { a: 'Minute 0', b: 'Ransom note appears; file extensions change en masse; shared drives become inaccessible.' },
+      { a: 'Minutes 1–15', b: 'Isolate affected systems from the network immediately — pull the cable before you investigate.' },
+      { a: 'Minutes 15–30', b: 'Identify patient zero and the entry vector; check whether backups were also touched.' },
+      { a: 'Minutes 30–60', b: 'Notify leadership and legal; begin the decision on whether law enforcement gets looped in now.' },
+    ],
+    body: [
+      'The instinct to start troubleshooting individual encrypted machines is understandable and almost always wrong in the first hour. Containment comes before investigation. Every minute a compromised machine stays on the network is a minute the attacker can keep spreading or exfiltrating data as leverage.',
+    ],
+    whyHeading: 'The Decision Nobody Wants to Make',
+    closing: [
+      'Whether to pay a ransom is a business and legal decision, not a technical one — and it’s a far better decision made in advance, as policy, than under pressure at 2 a.m. with executives panicking in a conference room. The technical team’s job is to give leadership accurate information fast: what’s encrypted, whether clean backups exist, and how exposure occurred — not to make the call.',
+      'The single biggest factor in how well an organization survives a ransomware incident isn’t the ransomware itself — it’s whether backups were tested, isolated from the production network, and actually restorable before the incident happened.',
+    ],
+    takeaways: [
+      'Ransomware operators typically spend days or weeks inside a network before triggering encryption.',
+      'Containment — isolating affected systems from the network — comes before investigation in the first hour.',
+      'Check whether backups were also compromised before assuming they’re a safe fallback.',
+      'The ransom-payment decision should be pre-established policy, not an in-the-moment call under pressure.',
+    ],
+    quiz: [
+      {
+        question: 'What should happen first when ransomware is discovered?',
+        options: [
+          { label: 'Begin detailed forensic investigation on the encrypted machine', correct: false },
+          { label: 'Isolate affected systems from the network', correct: true },
+          { label: 'Immediately contact the attacker', correct: false },
+        ],
+      },
+      {
+        question: 'What is the single biggest factor in how well an organization survives a ransomware incident?',
+        options: [
+          { label: 'Having cyber insurance', correct: false },
+          { label: 'Whether backups were tested, isolated, and actually restorable beforehand', correct: true },
+          { label: 'The speed of the ransom payment', correct: false },
+        ],
+      },
+    ],
+  },
+  '10': {
+    drive: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN',
+    subtitle: 'Enterprise-grade detection tooling helps, but the instinct that catches an intrusion early can’t be bought.',
+    intro: [
+      'It’s easy to assume real detection requires a 24/7 SOC, a SIEM with a six-figure price tag, and a team of analysts you don’t have. Most small and mid-sized IT teams will never have that budget — and most breaches are still caught, when they’re caught at all, by someone noticing something that just seemed off.',
+    ],
+    coreHeading: 'What "Off" Actually Looks Like',
+    body: [
+      'A service account logging in interactively. A user account active at 3 a.m. from a country they’ve never worked from. A spike in outbound traffic from a server that should only ever talk to two other machines. None of these require expensive tooling to notice — they require knowing what normal looks like for your specific environment well enough to spot the deviation.',
+      'That baseline is the actual asset here, more than any single tool. Spend time understanding what typical logins, typical traffic, and typical admin activity look like in your environment before you need that knowledge during an incident.',
+    ],
+    whyHeading: 'Cheap Wins That Punch Above Their Weight',
+    closing: [
+      'Free and low-cost options exist for teams without SOC budgets: built-in OS logging turned up to a useful level, free tiers of cloud provider security tools, alerting on a short list of high-signal events (like the Event IDs covered earlier in this Drive), and simply reviewing admin account activity on a regular cadence. None of this replaces a mature detection program, but it closes the gap between "we’d never know" and "we’d probably notice."',
+    ],
+    takeaways: [
+      'Most breaches, when caught at all, are caught by someone noticing something that seemed off — not by expensive tooling alone.',
+      'Knowing your environment’s baseline behavior is more valuable than any single detection tool.',
+      'Watch for interactive logins on service accounts, off-hours access, and unusual outbound traffic patterns.',
+      'Built-in OS logging and free-tier cloud security tools can close much of the gap for teams without a SOC budget.',
+    ],
+    quiz: [
+      {
+        question: 'What is the most valuable asset for detection, according to this lesson?',
+        options: [
+          { label: 'A six-figure SIEM license', correct: false },
+          { label: 'Knowing your environment’s normal baseline well enough to spot deviations', correct: true },
+          { label: 'A 24/7 outsourced SOC contract', correct: false },
+        ],
+      },
+      {
+        question: 'Which of these is a low-cost detection practice a small IT team can start immediately?',
+        options: [
+          { label: 'Regularly reviewing admin account activity', correct: true },
+          { label: 'Purchasing a dedicated threat intelligence feed', correct: false },
+          { label: 'Hiring a full-time threat hunter', correct: false },
+        ],
+      },
+    ],
+  },
+  '11': {
+    drive: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN',
+    subtitle: 'They get bundled together in conversation constantly. They are not the same product, and the difference matters.',
+    intro: [
+      'Traditional antivirus asks one question: does this file match a known-bad signature? That model worked reasonably well when malware was mostly static files. It works far less well now that attackers routinely use fileless techniques, living-off-the-land binaries, and malware that mutates itself to dodge signature matching.',
+    ],
+    coreHeading: 'What Actually Separates Them',
+    table: [
+      { a: 'Antivirus', b: 'Signature and heuristic based; strong against known, file-based malware; limited visibility into behavior over time.' },
+      { a: 'EDR', b: 'Behavior based; watches process trees, network connections, and activity chains; built for investigation, not just blocking.' },
+      { a: 'The overlap', b: 'Most modern EDR products bundle traditional AV signature detection in as one layer among several.' },
+    ],
+    body: [
+      'The practical difference shows up during an incident. Antivirus tells you a file was blocked. EDR tells you the story — which process launched it, what it tried to do next, what other machines it talked to. That story is what turns "we got an alert" into "here’s exactly what happened and what we need to contain."',
+    ],
+    whyHeading: 'You Don’t Have to Choose Between Them',
+    closing: [
+      'For most organizations this isn’t an either-or decision — EDR platforms typically include AV-equivalent protection, so the real question is whether your budget and team size support the added visibility and response capability EDR provides on top of baseline antivirus. If you’re relying on antivirus alone in 2026, that’s the gap worth closing first.',
+    ],
+    takeaways: [
+      'Traditional antivirus relies primarily on matching known-bad file signatures.',
+      'EDR is behavior-based, tracking process activity and connections over time rather than just blocking known files.',
+      'EDR provides the investigative "story" of an incident, not just a block/allow decision.',
+      'Most modern EDR platforms include AV-equivalent protection as one layer, so it’s rarely an either-or choice.',
+    ],
+    quiz: [
+      {
+        question: 'What is the core detection method of traditional antivirus?',
+        options: [
+          { label: 'Behavioral analysis of process chains', correct: false },
+          { label: 'Matching files against known-bad signatures', correct: true },
+          { label: 'Network traffic pattern analysis', correct: false },
+        ],
+      },
+      {
+        question: 'What does EDR provide that traditional antivirus typically does not?',
+        options: [
+          { label: 'Any malware detection at all', correct: false },
+          { label: 'Visibility into behavior and activity chains over time for investigation', correct: true },
+          { label: 'The ability to block known-bad files', correct: false },
+        ],
+      },
+    ],
+  },
+  '12': {
+    drive: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN',
+    subtitle: 'The cheapest, highest-value incident response training you’re probably not doing.',
+    intro: [
+      'A tabletop exercise is a structured conversation, not a live drill: gather the people who’d actually be involved in an incident, present a realistic scenario, and walk through the decisions step by step. No systems get touched. The value comes entirely from discovering gaps in your plan while the stakes are zero.',
+    ],
+    coreHeading: 'What a Good Scenario Looks Like',
+    body: [
+      'Vague scenarios produce vague exercises. "We got ransomware" is a weak prompt. "It’s 4:47 p.m. on a Friday, the file server is encrypted, the on-call admin is unreachable for twenty minutes, and the ransom note references data that was already exfiltrated" forces real decisions — who has authority to make a call when the primary responder is unreachable, what the legal notification timeline actually requires, whether anyone knows where the cyber insurance policy documents even live.',
+      'The best tabletops surface uncomfortable gaps: a runbook that references a person who left the company, an assumption that "IT will handle it" with no actual named owner, a compliance notification deadline nobody had memorized.',
+    ],
+    whyHeading: 'Do It Before You Need It',
+    closing: [
+      'Run one at least annually, and after any significant change to your environment or team. The organizations that handle real incidents calmly aren’t the ones with the fanciest tools — they’re the ones who’ve already argued through the hard decisions once, on a slow Tuesday afternoon, instead of for the first time during an actual crisis.',
+    ],
+    takeaways: [
+      'A tabletop exercise is a structured, no-systems-touched walkthrough of an incident scenario with real decision-makers.',
+      'Specific, realistic scenarios surface far more useful gaps than vague ones.',
+      'Common gaps found: outdated runbooks, unclear ownership, and unfamiliar compliance deadlines.',
+      'Run tabletops at least annually and after significant changes to your team or environment.',
+    ],
+    quiz: [
+      {
+        question: 'What is the main value of a tabletop exercise?',
+        options: [
+          { label: 'Testing whether backup systems actually restore data', correct: false },
+          { label: 'Surfacing gaps in your incident response plan at zero real-world risk', correct: true },
+          { label: 'Satisfying a specific compliance certification requirement', correct: false },
+        ],
+      },
+      {
+        question: 'Why do specific, detailed scenarios work better than vague ones?',
+        options: [
+          { label: 'They take less time to run', correct: false },
+          { label: 'They force participants to make real decisions instead of staying abstract', correct: true },
+          { label: 'They require less preparation from the facilitator', correct: false },
+        ],
+      },
+    ],
+  },
+};
+
+const LESSON_META = {
+  '01': { drive: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN' },
+  '02': { drive: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN' },
+  '03': { drive: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN' },
+  '04': { drive: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN' },
+  '05': { drive: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN' },
+  '06': { drive: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN' },
+  '07': { drive: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN' },
+  '08': { drive: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN' },
+  '09': { drive: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN' },
+  '10': { drive: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN' },
+  '11': { drive: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN' },
+  '12': { drive: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN' },
+  '13': { drive: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN' },
+  '14': { drive: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN' },
+  '15': { drive: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN' },
+  '16': { drive: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN' },
+  '17': { drive: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN' },
+  '18': { drive: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN' },
+  '19': { drive: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN' },
+  '20': { drive: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN' },
+  '21': { drive: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN' },
+  '22': { drive: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN' },
+  '23': { drive: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN' },
+  '24': { drive: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN' },
+  '25': { drive: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN' },
+  '26': { drive: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN' },
+  '27': { drive: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN' },
+  '28': { drive: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN' },
+  '29': { drive: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN' },
+  '30': { drive: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN' },
+};
+
+function buildLesson(lessonNum) {
+  const meta = LESSON_META[lessonNum];
+  const written = LESSONS_DATA[lessonNum];
+  if (written) return { ...meta, ...written };
+  return {
+    ...meta,
+    subtitle: 'This lesson is still being written — the outline below is a placeholder.',
+    intro: ['This lesson hasn’t been written yet. Check back soon — every Drive is being filled in lesson by lesson.'],
+    coreHeading: 'Coming Soon',
+    table: [],
+    body: [],
+    whyHeading: 'In the Meantime',
+    closing: ['Head back to the Drive overview to see what’s already available, or jump to a finished lesson.'],
+    takeaways: ['This lesson’s content is in progress.'],
+    quiz: [],
   };
+}
+
+class Component extends DCLogic {
+  state = { drive: '02', lesson: '07', quizAnswers: {}, paletteOverride: null };
 
   componentDidMount() {
     this._utterance = null;
     this._progressTimer = null;
+    const params = new URLSearchParams(window.location.search);
+    const drive = DRIVE_LESSON_ORDER[params.get('drive')] ? params.get('drive') : null;
+    const lessonParam = params.get('lesson');
+    const lesson = LESSON_META[lessonParam] ? lessonParam : null;
+    const resolvedDrive = drive || (lesson ? LESSON_META[lesson].drive : '02');
+    const lessonOrder = DRIVE_LESSON_ORDER[resolvedDrive];
+    const resolvedLesson = (lesson && LESSON_META[lesson].drive === resolvedDrive) ? lesson : lessonOrder[0];
+    this.setState({ drive: resolvedDrive, lesson: resolvedLesson });
+
     const savedName = localStorage.getItem('cg-palette-name');
     const found = savedName && CG_PALETTES.find(p => p.name === savedName);
     if (found) this.setState({ paletteOverride: found.colors }, () => this.applyPalette());
@@ -260,10 +853,12 @@ class Component extends DCLogic {
       return;
     }
 
+    const lesson = buildLesson(this.state.lesson);
+    const articleText = [lesson.title, ...(lesson.intro || []), ...(lesson.body || []), ...(lesson.closing || [])].join('. ');
     synth.cancel();
-    const utter = new SpeechSynthesisUtterance(ARTICLE_TEXT);
+    const utter = new SpeechSynthesisUtterance(articleText);
     utter.rate = 1.0;
-    const estimatedMs = (ARTICLE_TEXT.length / 14) * 1000;
+    const estimatedMs = (articleText.length / 14) * 1000;
     const startedAt = Date.now();
 
     utter.onend = () => {
@@ -296,23 +891,60 @@ class Component extends DCLogic {
       ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
       select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
     }));
-    const takeaways = [
-      'A small set of Event IDs (4624, 4625, 4688, 4720, 1102) covers most of what you need to recognize day-to-day.',
-      'The signal is rarely in one event \u2014 it\u2019s in the pattern across a short window of time.',
-      'You don\u2019t need a SOC budget to build detection instincts; you need repetition and a checklist.',
-      'Recognizing an anomaly fast, even without deep analysis skill, puts you ahead of most IT pros.',
-    ];
 
-    const eventIds = [
-      { id: '4624', name: 'Successful Logon', desc: 'An account successfully logged on. Baseline noise \u2014 but the source, time, and logon type matter.' },
-      { id: '4625', name: 'Failed Logon', desc: 'An account failed to log on. A burst against one account is brute-force; a burst across many is spray.' },
-      { id: '4688', name: 'Process Created', desc: 'A new process started. Watch for uncommon parent-child pairs, like Office spawning a shell.' },
-      { id: '4720', name: 'Account Created', desc: 'A new user account was created. Unexpected creation outside change windows deserves a look.' },
-      { id: '1102', name: 'Audit Log Cleared', desc: 'The security log was cleared. Rare in legitimate operations \u2014 treat as high priority.' },
-    ];
+    const driveNum = this.state.drive;
+    const lessonNum = this.state.lesson;
+    const lesson = buildLesson(lessonNum);
+    const lessonOrder = DRIVE_LESSON_ORDER[driveNum];
+    const posInDrive = lessonOrder.indexOf(lessonNum) + 1;
+    const totalInDrive = lessonOrder.length;
+    const posIdx = posInDrive - 1;
+
+    let prevHref, prevLabel, prevTitle;
+    if (posIdx > 0) {
+      const prevNum = lessonOrder[posIdx - 1];
+      prevHref = `Lesson Page.dc.html?drive=${driveNum}&lesson=${prevNum}`;
+      prevLabel = `LESSON ${prevNum}`;
+      prevTitle = LESSON_META[prevNum].title;
+    } else {
+      const driveIdx = DRIVE_ORDER.indexOf(driveNum);
+      if (driveIdx > 0) {
+        const prevDriveNum = DRIVE_ORDER[driveIdx - 1];
+        const prevDriveLessons = DRIVE_LESSON_ORDER[prevDriveNum];
+        const prevNum = prevDriveLessons[prevDriveLessons.length - 1];
+        prevHref = `Lesson Page.dc.html?drive=${prevDriveNum}&lesson=${prevNum}`;
+        prevLabel = `DRIVE ${prevDriveNum}`;
+        prevTitle = LESSON_META[prevNum].title;
+      } else {
+        prevHref = `Drive Page.dc.html?drive=${driveNum}`;
+        prevLabel = 'DRIVE OVERVIEW';
+        prevTitle = DRIVE_TITLES[driveNum];
+      }
+    }
+
+    let nextHref, nextLabel, nextTitle;
+    if (posIdx < totalInDrive - 1) {
+      const nextNum = lessonOrder[posIdx + 1];
+      nextHref = `Lesson Page.dc.html?drive=${driveNum}&lesson=${nextNum}`;
+      nextLabel = `LESSON ${nextNum}`;
+      nextTitle = LESSON_META[nextNum].title;
+    } else {
+      const driveIdx = DRIVE_ORDER.indexOf(driveNum);
+      if (driveIdx < DRIVE_ORDER.length - 1) {
+        const nextDriveNum = DRIVE_ORDER[driveIdx + 1];
+        const nextNum = DRIVE_LESSON_ORDER[nextDriveNum][0];
+        nextHref = `Lesson Page.dc.html?drive=${nextDriveNum}&lesson=${nextNum}`;
+        nextLabel = `DRIVE ${nextDriveNum}`;
+        nextTitle = LESSON_META[nextNum].title;
+      } else {
+        nextHref = 'Drives.dc.html';
+        nextLabel = 'ALL DRIVES';
+        nextTitle = 'Back to Drives';
+      }
+    }
 
     const quizAnswers = this.state.quizAnswers;
-    const quiz = QUIZ_DATA.map((q, qi) => {
+    const quiz = (lesson.quiz || []).map((q, qi) => {
       const selected = quizAnswers[qi];
       const options = q.options.map((opt, oi) => {
         const isSelected = selected === oi;
@@ -327,25 +959,32 @@ class Component extends DCLogic {
           else if (isSelected && !opt.correct) { borderColor = 'var(--cg-text-mute)'; bg = 'var(--cg-bg-mid)'; showMark = true; mark = 'INCORRECT'; textColor = 'var(--cg-text-mute)'; }
           else if (opt.correct) { borderColor = 'var(--cg-accent)'; textColor = 'var(--cg-accent-bright)'; }
         }
-        return {
-          label: opt.label,
-          borderColor, bg, textColor, showMark, mark,
-          select: () => this.selectAnswer(qi, oi),
-        };
+        return { label: opt.label, borderColor, bg, textColor, showMark, mark, select: () => this.selectAnswer(qi, oi) };
       });
       return { question: q.question, options };
     });
 
+    const readTime = parseInt(lesson.time) || 10;
+    const listenTime = Math.max(1, Math.round(readTime * 0.8));
+
     return {
       swatches,
-      takeaways,
-      eventIds,
-      quiz,
+      driveHref: `Drive Page.dc.html?drive=${driveNum}`,
+      driveNum, driveTitle: DRIVE_TITLES[driveNum],
+      lessonNum, lessonTitle: lesson.title, lessonSubtitle: lesson.subtitle,
+      positionInDrive: posInDrive, totalInDrive,
+      drivePercent: Math.round((posInDrive / totalInDrive) * 100),
+      difficultyLabel: difficultyLabel(lesson.marker),
+      readTime, listenTime,
+      intro: lesson.intro || [], coreHeading: lesson.coreHeading, hasTable: (lesson.table || []).length > 0, table: lesson.table || [],
+      body: lesson.body || [], whyHeading: lesson.whyHeading, closing: lesson.closing || [],
+      takeaways: lesson.takeaways, quiz,
       togglePlay: this.togglePlay,
-      isPlaying: this.state.isPlaying,
+      isPlaying: !!this.state.isPlaying,
       playIcon: this.state.isPlaying ? '⏸' : '▶',
-      playerLabel: this.state.isPlaying ? 'Playing \u2014 Reading Logs Like an Analyst' : 'Listen to This Lesson',
-      playProgress: this.state.playProgress,
+      playerLabel: this.state.isPlaying ? `Playing — ${lesson.title}` : 'Listen to This Lesson',
+      playProgress: this.state.playProgress || 0,
+      prevHref, prevLabel, prevTitle, nextHref, nextLabel, nextTitle,
     };
   }
 }

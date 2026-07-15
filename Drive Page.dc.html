@@ -30,10 +30,10 @@
 
   <!-- NAV -->
   <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
-    <div style="display:flex; align-items:center; gap:12px;">
+    <a href="Homepage.dc.html" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;">
       <div style="width:34px; height:34px; border-radius:4px; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--cg-bg);">CG</div>
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
-    </div>
+    </a>
     <div style="display:flex; align-items:center; gap:36px;">
       <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Drives</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
@@ -49,22 +49,22 @@
   <!-- BREADCRUMB -->
   <div style="max-width:1100px; margin:0 auto; padding:28px 56px 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim);">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVE 02</span>
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVE {{ driveNum }}</span>
     </div>
   </div>
 
   <!-- DRIVE INTRO -->
   <div style="max-width:1100px; margin:0 auto; padding:26px 56px 50px;">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:22px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">2ND & 7 · INTERMEDIATE</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">{{ driveDifficultyLabel }}</div>
     </div>
-    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DRIVE 02</div>
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,58px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 22px; text-transform:uppercase; max-width:780px;">Detection & Response</h1>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DRIVE {{ driveNum }}</div>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,58px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 22px; text-transform:uppercase; max-width:780px;">{{ driveTitle }}</h1>
     <p style="font-size:18px; line-height:1.65; color:var(--cg-text-mute); max-width:640px; margin:0 0 12px;">
-      What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.
+      {{ driveDescription }}
     </p>
     <p style="font-size:16px; line-height:1.6; color:var(--cg-text-dim); max-width:640px; margin:0;">
-      Why it matters: Firewalls and antivirus were never the finish line.
+      Why it matters: {{ driveSummary }}
     </p>
 
     <div style="display:flex; gap:40px; margin-top:36px; padding-top:28px; border-top:1px solid var(--cg-bg-line); align-items:flex-start; justify-content:space-between;">
@@ -84,12 +84,13 @@
     <!-- PROGRESS TRACKER -->
     <div style="margin-top:32px;">
       <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase;">0 of 7 lessons complete</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase;">0 of {{ lessonCount }} lessons complete</div>
         <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">0%</div>
       </div>
       <div style="height:6px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:3px; overflow:hidden;">
         <div style="height:100%; width:0%; background:var(--cg-accent);"></div>
       </div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.03em; color:var(--cg-text-dim); margin-top:10px;">Progress is saved in this browser only — it's not tied to an account, so it won't follow you to another device or browser.</div>
     </div>
   </div>
 
@@ -111,7 +112,7 @@
               <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">L{{ lesson.number }}</div>
               <div style="min-width:0;">
                 <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; margin:0 0 4px; text-transform:uppercase; color:{{ lesson.titleColor }};">{{ lesson.title }}</h4>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em; color:var(--cg-text-dim);">{{ lesson.marker }} · {{ lesson.time }}</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em; color:var(--cg-text-dim);">{{ lesson.difficultyLabel }} · {{ lesson.time }}</div>
               </div>
             </div>
             <div style="flex:none; font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:{{ lesson.statusColor }};">{{ lesson.status }}</div>
@@ -125,13 +126,13 @@
 
   <!-- PREV/NEXT DRIVE -->
   <div style="max-width:1100px; margin:0 auto; padding:44px 56px 70px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
-    <a href="Drives.dc.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">← PREVIOUS DRIVE</div>
-      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-text-mute);">01 — Foundations</div>
+    <a href="{{ prevHref }}" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">{{ prevCaption }}</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-text-mute);">{{ prevLabel }}</div>
     </a>
-    <a href="Drive Page.dc.html?drive=03" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; text-align:right;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">NEXT DRIVE →</div>
-      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-accent-bright);">03 — Cloud & Modern Surface</div>
+    <a href="{{ nextHref }}" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; text-align:right;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim);">{{ nextCaption }}</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; text-transform:uppercase; color:var(--cg-accent-bright);">{{ nextLabel }}</div>
     </a>
   </div>
 </div>
@@ -144,6 +145,11 @@ const CG_PALETTES = [
   { name: 'Classic Light', colors: ['#FFFFFF', '#F4F5F7', '#D8DCE1', '#1A56DB', '#2563EB', '#1F2937', '#4B5563', '#6B7280', '#374151'] },
   { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
 ];
+function difficultyLabel(marker) {
+  if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
+  if (marker.indexOf('3RD') === 0) return 'ADVANCED';
+  return 'INTERMEDIATE';
+}
 
 class Component extends DCLogic {
   state = { paletteOverride: null, driveNum: '02' };
@@ -185,7 +191,7 @@ class Component extends DCLogic {
       ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
       select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
     }));
-    const driveNum = this.state.driveNum;
+    const DRIVE_ORDER = ['01', '02', '03', '04', '05', '06'];
     const DRIVES_DATA_FULL = {
       '01': { title: 'Foundations', marker: '1ST & 10', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', summary: 'Core concepts that make everything else make sense. Zero trust isn\'t about products; identity is your perimeter; patching is the only thing that actually works.', lessons: [{ number: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN', state: 'done' }, { number: '02', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN', state: 'done' }, { number: '03', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN', state: 'current' }, { number: '04', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN', state: 'locked' }, { number: '05', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN', state: 'locked' }] },
       '03': { title: 'Cloud & Modern Surface', marker: '2ND & 7', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', summary: 'Your infrastructure is no longer four walls. This drive covers identity in the cloud, the attack surface you can\'t see, and why containers aren\'t the answer to everything.', lessons: [{ number: '13', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN', state: 'done' }, { number: '14', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN', state: 'done' }, { number: '15', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN', state: 'locked' }, { number: '16', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN', state: 'locked' }, { number: '17', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN', state: 'locked' }, { number: '18', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN', state: 'locked' }] },
@@ -194,7 +200,19 @@ class Component extends DCLogic {
       '06': { title: 'Compliance & Governance', marker: '3RD & LONG', description: 'Compliance isn\'t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', summary: 'Compliance is a tool, not the goal. Understand NIST, CIS, and ISO without drowning in documentation. Map your work to frameworks and survive audits without losing your mind.', lessons: [{ number: '28', title: 'Compliance vs. Security: Why They\'re Different', marker: '2ND & 7', time: '14 MIN', state: 'locked' }, { number: '29', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN', state: 'locked' }, { number: '30', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN', state: 'locked' }] },
       '02': { title: 'Detection & Response', marker: '2ND & 7', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', summary: 'Firewalls and antivirus were never the finish line.', lessons: [{ number: '06', title: 'What Your SOC Actually Sees (and What It Doesn\u2019t)', marker: '1ST & 10', time: '12 MIN', state: 'locked' }, { number: '07', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN', state: 'locked' }, { number: '08', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN', state: 'locked' }, { number: '09', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN', state: 'locked' }, { number: '10', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN', state: 'locked' }, { number: '11', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN', state: 'locked' }, { number: '12', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN', state: 'locked' }] },
     };
-    const drive = DRIVES_DATA_FULL[driveNum] || DRIVES_DATA_FULL['02'];
+    const driveNum = DRIVES_DATA_FULL[this.state.driveNum] ? this.state.driveNum : '02';
+    const drive = DRIVES_DATA_FULL[driveNum];
+    const driveIdx = DRIVE_ORDER.indexOf(driveNum);
+    const prevNum = driveIdx > 0 ? DRIVE_ORDER[driveIdx - 1] : null;
+    const nextNum = driveIdx >= 0 && driveIdx < DRIVE_ORDER.length - 1 ? DRIVE_ORDER[driveIdx + 1] : null;
+    const prevDrive = prevNum ? DRIVES_DATA_FULL[prevNum] : null;
+    const nextDrive = nextNum ? DRIVES_DATA_FULL[nextNum] : null;
+    const prevHref = prevDrive ? `Drive Page.dc.html?drive=${prevNum}` : 'Drives.dc.html';
+    const prevCaption = prevDrive ? '← PREVIOUS DRIVE' : '← BACK TO';
+    const prevLabel = prevDrive ? `${prevNum} — ${prevDrive.title}` : 'All Drives';
+    const nextHref = nextDrive ? `Drive Page.dc.html?drive=${nextNum}` : 'Drives.dc.html';
+    const nextCaption = nextDrive ? 'NEXT DRIVE →' : 'BACK TO →';
+    const nextLabel = nextDrive ? `${nextNum} — ${nextDrive.title}` : 'All Drives';
     const raw = drive.lessons;
     const lessons = raw.map((l, i) => {
       const isDone = l.state === 'done';
@@ -202,6 +220,7 @@ class Component extends DCLogic {
       const isLocked = l.state === 'locked';
       return {
         ...l,
+        difficultyLabel: difficultyLabel(l.marker),
         href: isLocked ? '#' : `Lesson Page.dc.html?drive=${driveNum}&lesson=${l.number}`,
         dotLabel: isDone ? '✓' : String(i + 1),
         dotBg: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-bg-mid)' : 'var(--cg-bg-mid)'),
@@ -251,7 +270,7 @@ class Component extends DCLogic {
               yPos = height - 40;
             }
             currentPage.drawText(`L${lesson.number} — ${lesson.title}`, { x: 40, y: yPos, size: 10, color: rgb(rgbText.r/255, rgbText.g/255, rgbText.b/255), maxWidth: 530 });
-            currentPage.drawText(`${lesson.marker} · ${lesson.time}`, { x: 40, y: yPos - 14, size: 9, color: rgb(rgbDim.r/255, rgbDim.g/255, rgbDim.b/255) });
+            currentPage.drawText(`${difficultyLabel(lesson.marker)} · ${lesson.time}`, { x: 40, y: yPos - 14, size: 9, color: rgb(rgbDim.r/255, rgbDim.g/255, rgbDim.b/255) });
             yPos -= 32;
           });
           const pdfBytes = await pdfDoc.save();
@@ -275,7 +294,12 @@ class Component extends DCLogic {
     const hours = Math.floor(totalLessonTime / 60);
     const mins = totalLessonTime % 60;
     const totalTime = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
-    return { lessons, swatches, downloadSummary, lessonCount: drive.lessons.length, totalTime };
+    return {
+      lessons, swatches, downloadSummary, lessonCount: drive.lessons.length, totalTime,
+      driveNum, driveTitle: drive.title, driveDescription: drive.description, driveSummary: drive.summary,
+      driveDifficultyLabel: difficultyLabel(drive.marker),
+      prevHref, prevCaption, prevLabel, nextHref, nextCaption, nextLabel,
+    };
   }
 }
 </script>
