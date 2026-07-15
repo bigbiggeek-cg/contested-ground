@@ -753,6 +753,767 @@ const LESSONS_DATA = {
       },
     ],
   },
+  '13': {
+    drive: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN',
+    subtitle: 'Cloud breaches almost never involve breaking encryption — they involve someone leaving a door unlocked.',
+    intro: [
+      'The cloud providers themselves have genuinely excellent security — the physical data centers, the hypervisor isolation, the underlying network. Nearly every high-profile cloud breach in the last decade happened above that layer, in the settings a customer configured themselves. This is what "shared responsibility" actually means in practice: the provider secures the cloud, you secure what you put in it.',
+    ],
+    coreHeading: 'The Repeat Offenders',
+    table: [
+      { a: 'Public storage buckets', b: 'A storage bucket set to public-read, often by accident during testing, exposing everything inside to anyone with the URL.' },
+      { a: 'Overly permissive IAM roles', b: 'Granting broad admin-equivalent permissions because it was faster than scoping the role correctly.' },
+      { a: 'Open security groups', b: 'A database or admin port left open to 0.0.0.0/0 instead of a specific IP range.' },
+      { a: 'Unencrypted storage', b: 'Data at rest left unencrypted because it wasn’t enabled by default at creation time.' },
+    ],
+    body: [
+      'Notice the pattern: none of these require a sophisticated attacker. They require an automated scanner that checks millions of cloud resources a day for exactly these mistakes — and there are several run by both researchers and criminals, continuously. If a bucket goes public at 9 a.m., there’s a real chance something is already scanning it by lunchtime.',
+    ],
+    whyHeading: 'Fix the Defaults, Not Just the Incidents',
+    closing: [
+      'The most effective fix isn’t manually auditing every resource — it’s making the secure configuration the default and using automated policy checks (many cloud providers offer this natively, for free) that flag or block the risky ones before they ever go live. Treat a misconfiguration alert with the same urgency you’d treat a malware alert; the outcome can be just as bad.',
+    ],
+    takeaways: [
+      'Most cloud breaches exploit customer misconfigurations, not provider-level security flaws — this is the "shared responsibility model."',
+      'Public storage buckets, overly broad IAM roles, and open security groups are the most common repeat offenders.',
+      'Automated scanners, run by both researchers and attackers, continuously check cloud resources for these mistakes.',
+      'Use automated policy checks to make secure configuration the default, rather than relying on manual audits.',
+    ],
+    quiz: [
+      {
+        question: 'What does the "shared responsibility model" mean in cloud security?',
+        options: [
+          { label: 'The cloud provider secures the underlying infrastructure; the customer secures what they configure within it', correct: true },
+          { label: 'Security responsibilities are randomly assigned each month', correct: false },
+          { label: 'The customer is only responsible for physical data center security', correct: false },
+        ],
+      },
+      {
+        question: 'Why are cloud misconfigurations discovered so quickly by attackers?',
+        options: [
+          { label: 'Cloud providers notify attackers directly', correct: false },
+          { label: 'Automated scanners continuously check cloud resources for common mistakes', correct: true },
+          { label: 'Misconfigurations are published in public forums', correct: false },
+        ],
+      },
+    ],
+  },
+  '14': {
+    drive: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN',
+    subtitle: 'Multi-factor authentication stopped most password-based attacks cold — so attackers started attacking the human instead.',
+    intro: [
+      'MFA fatigue, also called push bombing, is deceptively simple: an attacker who already has a valid stolen password triggers repeated MFA push notifications, sometimes dozens in a row, hoping the user gets annoyed or confused enough to tap "approve" just to make the notifications stop. It works often enough that several major breaches in recent years trace back to exactly this technique.',
+    ],
+    coreHeading: 'Why This Attack Works',
+    body: [
+      'It doesn’t exploit a technical flaw in MFA at all — it exploits the fact that a push notification asking "was this you?" at 11 p.m. is genuinely ambiguous to a tired employee. Sometimes attackers reinforce this with a follow-up phone call impersonating IT support, asking the target to "just approve the one we sent to fix the issue."',
+      'This is a reminder that MFA raises the bar significantly, but it isn’t a solved problem — it shifted the attack from guessing passwords to manipulating people, which is a different fight requiring different defenses.',
+    ],
+    whyHeading: 'Number Matching Beats Simple Push Approval',
+    closing: [
+      'The most effective technical countermeasure is switching from simple approve/deny push notifications to number matching, where the user has to enter a code displayed on the login screen into their authenticator app — this makes blind-approval fatigue attacks essentially useless, since there’s no code to copy without seeing the actual login attempt. Pair that with rate-limiting repeated push attempts and training staff that repeated, unexpected MFA prompts should be reported, not dismissed.',
+    ],
+    takeaways: [
+      'MFA fatigue (push bombing) exploits human annoyance, not a technical flaw in MFA itself.',
+      'Attackers already possess a valid stolen password before this attack even starts.',
+      'Number-matching MFA defeats blind push-approval attacks by requiring the user to see and enter the actual login code.',
+      'Train staff that repeated, unexpected MFA prompts should be reported immediately, not dismissed as a glitch.',
+    ],
+    quiz: [
+      {
+        question: 'What does an MFA fatigue (push bombing) attack rely on?',
+        options: [
+          { label: 'A cryptographic flaw in the MFA algorithm', correct: false },
+          { label: 'The user’s annoyance eventually leading them to approve a push notification', correct: true },
+          { label: 'Intercepting the MFA code over the network', correct: false },
+        ],
+      },
+      {
+        question: 'Why does number-matching MFA defeat push bombing more effectively than simple approve/deny prompts?',
+        options: [
+          { label: 'It requires the user to see and enter the actual code shown on the login screen', correct: true },
+          { label: 'It sends fewer notifications overall', correct: false },
+          { label: 'It disables MFA after repeated attempts', correct: false },
+        ],
+      },
+    ],
+  },
+  '15': {
+    drive: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN',
+    subtitle: 'The apps your employees signed up for with a work email, without ever telling IT, are already part of your attack surface.',
+    intro: [
+      'Shadow IT used to mean an employee plugging in a personal router. Today it means an employee signing up for a project management tool, a file-sharing app, or an AI writing assistant with their work email and a company credit card, entirely outside any approval process — because it solved a problem faster than waiting on IT.',
+    ],
+    coreHeading: 'Why It Keeps Happening',
+    body: [
+      'It’s rarely malicious. It’s usually a team under deadline pressure finding the fastest tool available, and free-tier SaaS signup has made that friction nearly zero. The result is dozens or hundreds of unmanaged apps holding company data, each with its own password policy, its own breach history, its own access to whatever the employee connected it to.',
+      'The risk isn’t abstract: a SaaS app breached at the vendor level can expose company data you didn’t even know was there, and an employee who leaves the company often keeps active access to shadow tools nobody remembered to offboard.',
+    ],
+    whyHeading: 'Discover Before You Enforce',
+    closing: [
+      'Banning shadow IT outright rarely works — it just pushes it further underground. A more effective approach starts with visibility: many identity providers and network tools can surface what SaaS apps employees are actually logging into with company credentials. Once you can see it, you can offer sanctioned alternatives, negotiate proper contracts for the tools that are actually valuable, and fold access into your normal offboarding process.',
+    ],
+    takeaways: [
+      'Shadow IT today mostly means unsanctioned SaaS signups, not rogue hardware.',
+      'It usually stems from teams solving a problem faster than waiting on an approval process, not malicious intent.',
+      'Unmanaged SaaS apps hold company data outside your visibility and offboarding process.',
+      'Start with discovery and visibility before trying to enforce a ban — bans usually just push the behavior further underground.',
+    ],
+    quiz: [
+      {
+        question: 'What most commonly drives employees toward shadow IT?',
+        options: [
+          { label: 'Malicious intent to bypass security controls', correct: false },
+          { label: 'Solving a problem faster than waiting on an internal approval process', correct: true },
+          { label: 'A requirement from company leadership', correct: false },
+        ],
+      },
+      {
+        question: 'What is the recommended first step in addressing shadow IT?',
+        options: [
+          { label: 'Immediately ban all unsanctioned SaaS signups', correct: false },
+          { label: 'Gain visibility into what apps employees are actually using', correct: true },
+          { label: 'Disable all company credit cards', correct: false },
+        ],
+      },
+    ],
+  },
+  '16': {
+    drive: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN',
+    subtitle: 'Every app you use is a thin layer over APIs — and APIs have quietly become one of the most attacked parts of modern infrastructure.',
+    intro: [
+      'APIs used to be a backend implementation detail. Now they’re often the entire product — mobile apps, single-page web apps, and integrations between SaaS tools are all just interfaces sitting on top of APIs. That shift means an API vulnerability isn’t a narrow technical issue anymore; it’s frequently the whole attack surface.',
+    ],
+    coreHeading: 'The Vulnerabilities That Show Up Constantly',
+    table: [
+      { a: 'Broken object-level auth', b: 'Changing an ID in a request (like /invoice/1002 to /invoice/1003) reveals another user’s data with no additional check.' },
+      { a: 'Excessive data exposure', b: 'The API returns an entire object with sensitive fields, relying on the frontend to hide what it shouldn’t show.' },
+      { a: 'Missing rate limiting', b: 'No cap on request volume, enabling brute force, scraping, or denial of service.' },
+    ],
+    body: [
+      'Broken object-level authorization deserves special attention because it’s consistently the most common serious API flaw found in real-world testing, and it’s conceptually simple: the API checks that you’re logged in, but never checks whether the specific record you’re requesting actually belongs to you.',
+    ],
+    whyHeading: 'Test the API Directly, Not Just the App on Top of It',
+    closing: [
+      'A security review that only clicks through the app’s user interface will miss most of these issues, because the UI politely only shows buttons for actions you’re allowed to take — it doesn’t reflect what the API will actually accept from a request crafted by hand. Testing needs to happen at the API layer directly, checking whether the server enforces authorization on every single request, not just the ones the UI intended.',
+    ],
+    takeaways: [
+      'APIs are frequently the entire attack surface now, not a backend implementation detail.',
+      'Broken object-level authorization — failing to verify a requested record belongs to the requester — is the most common serious API flaw.',
+      'Never rely on the frontend UI to hide sensitive data; the API itself must enforce what it returns.',
+      'Security testing must happen at the API layer directly — the UI doesn’t reflect what the API will actually accept.',
+    ],
+    quiz: [
+      {
+        question: 'What is "broken object-level authorization"?',
+        options: [
+          { label: 'A missing SSL certificate on the API endpoint', correct: false },
+          { label: 'The API failing to verify a requested record actually belongs to the requester', correct: true },
+          { label: 'An API that has no rate limiting', correct: false },
+        ],
+      },
+      {
+        question: 'Why is testing only the app’s user interface insufficient for API security?',
+        options: [
+          { label: 'The UI only shows actions you’re intended to take, not what the API will actually accept', correct: true },
+          { label: 'UIs are always encrypted, unlike APIs', correct: false },
+          { label: 'UI testing is more time-consuming than API testing', correct: false },
+        ],
+      },
+    ],
+  },
+  '17': {
+    drive: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN',
+    subtitle: 'Containers aren’t inherently more or less secure than anything else — they just move the risk to different places.',
+    intro: [
+      'Containers get talked about as either a security silver bullet ("isolated by design!") or a nightmare ("shared kernel, one big attack surface!"). Neither framing is very useful. Containers are a packaging and isolation mechanism, and like any mechanism, their security depends entirely on how they’re built, stored, and run.',
+    ],
+    coreHeading: 'Where the Real Risk Lives',
+    table: [
+      { a: 'Base image vulnerabilities', b: 'A container built on an outdated base image inherits every unpatched vulnerability in it.' },
+      { a: 'Secrets baked into images', b: 'API keys and credentials accidentally committed into an image layer, retrievable by anyone who can pull it.' },
+      { a: 'Excessive container privileges', b: 'Running as root inside the container, or with access to the host, erodes the isolation containers are supposed to provide.' },
+    ],
+    body: [
+      'The single highest-leverage practice here is image scanning — checking every container image against known vulnerability databases before it ever reaches production, and re-scanning on a schedule since new vulnerabilities get discovered in old images constantly. This alone catches a large share of container-related risk before it ships.',
+    ],
+    whyHeading: 'Isolation Is a Spectrum, Not a Guarantee',
+    closing: [
+      'Containers share the host’s kernel by default, which means a sufficiently severe container escape vulnerability can, in rare cases, compromise the host itself — this is different from a virtual machine’s isolation model, and it’s worth knowing which one your workload actually needs. For most workloads, disciplined image hygiene, least-privilege container configuration, and runtime monitoring cover the realistic risk without needing to treat every container as a ticking time bomb.',
+    ],
+    takeaways: [
+      'Container security depends on how images are built, stored, and run — not some inherent property of containers themselves.',
+      'Image scanning against known vulnerability databases is the single highest-leverage container security practice.',
+      'Secrets accidentally baked into image layers are retrievable by anyone who can pull the image.',
+      'Containers share the host kernel by default, which is a meaningfully different isolation model than virtual machines.',
+    ],
+    quiz: [
+      {
+        question: 'What is the highest-leverage container security practice according to this lesson?',
+        options: [
+          { label: 'Running every container as root for simplicity', correct: false },
+          { label: 'Scanning images against known vulnerability databases before and after deployment', correct: true },
+          { label: 'Avoiding containers entirely in favor of virtual machines', correct: false },
+        ],
+      },
+      {
+        question: 'How does container isolation typically differ from virtual machine isolation?',
+        options: [
+          { label: 'Containers use a completely separate kernel per container', correct: false },
+          { label: 'Containers share the host’s kernel by default, unlike VMs', correct: true },
+          { label: 'There is no meaningful difference', correct: false },
+        ],
+      },
+    ],
+  },
+  '18': {
+    drive: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN',
+    subtitle: 'You don’t need to be a Kubernetes expert to close the handful of gaps that get exploited most often.',
+    intro: [
+      'Kubernetes brings its own security surface on top of whatever’s running inside its containers — the cluster itself, the API that controls it, and the network policies that decide what can talk to what. A surprising number of real incidents trace back to a small set of well-known, well-documented misconfigurations.',
+    ],
+    coreHeading: 'The Short List That Actually Matters',
+    table: [
+      { a: 'Exposed dashboard', b: 'The Kubernetes dashboard left accessible without authentication has been the entry point in several public incidents.' },
+      { a: 'Overly broad RBAC', b: 'Role-based access control grants applied more broadly than the workload actually needs.' },
+      { a: 'Flat pod networking', b: 'No network policies means any compromised pod can freely talk to any other pod in the cluster.' },
+    ],
+    body: [
+      'None of these require deep Kubernetes expertise to fix — they require treating the cluster with the same access discipline you’d apply anywhere else: nothing exposed without authentication, no permission granted beyond what’s needed, and no assumption that "it’s internal" means it’s automatically safe from a compromised neighbor.',
+    ],
+    whyHeading: 'Segment the Cluster Like You’d Segment a Network',
+    closing: [
+      'Applying network policies to restrict which pods can talk to which others turns a flat, fully-trusting internal network into something closer to the segmented model you’d use anywhere else — meaning a single compromised pod doesn’t automatically become a foothold across your entire application. This one change closes a disproportionate amount of real-world Kubernetes risk for the effort involved.',
+    ],
+    takeaways: [
+      'Kubernetes has its own security surface — the cluster, its API, and its networking — on top of the containers running inside it.',
+      'Exposed dashboards without authentication have been the entry point in multiple real public incidents.',
+      'RBAC grants are frequently broader than the workload actually needs.',
+      'Applying network policies to restrict pod-to-pod traffic significantly limits the blast radius of a single compromised pod.',
+    ],
+    quiz: [
+      {
+        question: 'What has been the entry point in several real Kubernetes incidents?',
+        options: [
+          { label: 'An exposed dashboard left accessible without authentication', correct: true },
+          { label: 'A flaw in the container runtime itself', correct: false },
+          { label: 'Weak TLS certificate encryption', correct: false },
+        ],
+      },
+      {
+        question: 'What does applying network policies in a Kubernetes cluster primarily accomplish?',
+        options: [
+          { label: 'It speeds up pod-to-pod communication', correct: false },
+          { label: 'It restricts which pods can talk to each other, limiting blast radius from a compromised pod', correct: true },
+          { label: 'It replaces the need for RBAC entirely', correct: false },
+        ],
+      },
+    ],
+  },
+  '19': {
+    drive: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN',
+    subtitle: 'Backups fail silently far more often than they fail loudly — and you only find out during a restore.',
+    intro: [
+      'Nearly every organization believes it has working backups. A surprising number find out during an actual incident that "backing up" and "being able to restore" are not the same claim — the job ran, the file exists, and it’s still useless because nobody ever tested pulling it back out.',
+    ],
+    coreHeading: 'The 3-2-1 Rule, and Why It Still Holds Up',
+    table: [
+      { a: '3 copies', b: 'The original plus at least two backups — one copy is never enough.' },
+      { a: '2 different media', b: 'Not all copies on the same storage type or vendor, so one failure mode doesn’t take out everything.' },
+      { a: '1 offsite', b: 'At least one copy physically or logically separated from the production environment.' },
+    ],
+    body: [
+      'That last point deserves emphasis in the ransomware era: attackers actively hunt for and encrypt or delete backups before triggering the main encryption event, specifically because they know backups are the thing that would let you refuse to pay. A backup sitting on the same network, reachable with the same compromised credentials, isn’t really a separate copy — it’s the same blast radius wearing a different folder name.',
+    ],
+    whyHeading: 'A Backup You Haven’t Restored Is a Hypothesis',
+    closing: [
+      'The single highest-value habit here is a scheduled, actual restore test — not a checksum verification, an honest-to-goodness "can we bring this system back up from nothing right now" drill. Do it quarterly at minimum, and do it for the systems that would actually hurt the most if they were down. The backup strategy that "actually works" is the one you’ve proven works, not the one you assume works.',
+    ],
+    takeaways: [
+      'A backup that has never been restored is unverified — "the job completed" is not the same as "we can recover."',
+      'The 3-2-1 rule: three copies, on two different media types, with one copy offsite.',
+      'Attackers actively target backups before triggering ransomware, so at least one copy must be logically isolated from production.',
+      'Schedule actual restore drills quarterly, not just backup-completion checks.',
+    ],
+    quiz: [
+      {
+        question: 'What does the "1" in the 3-2-1 backup rule refer to?',
+        options: [
+          { label: 'One backup administrator', correct: false },
+          { label: 'One copy stored offsite, separate from production', correct: true },
+          { label: 'One backup per year', correct: false },
+        ],
+      },
+      {
+        question: 'Why do ransomware attackers specifically target backups?',
+        options: [
+          { label: 'Backups are usually the least protected system in a network', correct: false },
+          { label: 'Destroying backups removes the victim’s ability to recover without paying', correct: true },
+          { label: 'Backups typically contain more valuable data than production systems', correct: false },
+        ],
+      },
+    ],
+  },
+  '20': {
+    drive: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN',
+    subtitle: 'Every vendor with access to your systems or data is effectively an extension of your own attack surface.',
+    intro: [
+      'A well-secured organization can still get breached through a vendor that wasn’t — this has happened at massive scale, repeatedly, through payment processors, HVAC contractors with network access, and IT management tools trusted by thousands of downstream customers at once. Your security posture is only as strong as the weakest vendor with meaningful access to your environment.',
+    ],
+    coreHeading: 'What Actually Matters When Evaluating a Vendor',
+    body: [
+      'A glossy security page and a SOC 2 badge on a vendor’s website are marketing, not evidence — they’re worth checking, but they don’t tell you what actually matters: what data or access will this vendor actually have, what happens to that data if they’re breached, and do they have a track record of transparent incident disclosure or a track record of staying quiet.',
+      'Scope the access itself as tightly as you’d scope an internal employee’s permissions. A vendor tool that only needs read access to one system should never be granted admin rights across your whole environment because it was faster to set up that way.',
+    ],
+    whyHeading: 'Ongoing Monitoring Beats a One-Time Questionnaire',
+    closing: [
+      'Vendor risk isn’t a box you check once during procurement — vendors get breached, change ownership, and quietly expand what data they collect long after the contract is signed. Revisit critical vendor relationships periodically, and make sure your contracts include a real obligation to notify you promptly if they’re breached, not just a vague best-effort clause.',
+    ],
+    takeaways: [
+      'A vendor with access to your systems or data is effectively part of your own attack surface.',
+      'Security badges and marketing pages aren’t evidence — evaluate actual data access and incident transparency instead.',
+      'Scope vendor access as tightly as you would an internal employee’s permissions.',
+      'Vendor risk requires ongoing monitoring, not a one-time questionnaire during procurement.',
+    ],
+    quiz: [
+      {
+        question: 'Why can a well-secured organization still be breached through a vendor?',
+        options: [
+          { label: 'Vendors are legally exempt from security requirements', correct: false },
+          { label: 'A vendor with meaningful access effectively extends your own attack surface', correct: true },
+          { label: 'Vendors always have weaker security than their customers', correct: false },
+        ],
+      },
+      {
+        question: 'What is a more reliable signal of vendor security than a badge on their marketing website?',
+        options: [
+          { label: 'The size of the vendor’s marketing budget', correct: false },
+          { label: 'Actual scope of data access and their track record on breach transparency', correct: true },
+          { label: 'How long the vendor has been in business', correct: false },
+        ],
+      },
+    ],
+  },
+  '21': {
+    drive: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN',
+    subtitle: 'You don’t need a dedicated IR team to respond well — you need a plan you wrote before you needed it.',
+    intro: [
+      'Most incident response advice assumes a dedicated team, a retainer with an IR firm, and a war room. Most IT departments are a handful of generalists with a dozen other responsibilities. That doesn’t mean incident response is out of reach — it means the plan has to be realistic about who’s actually going to execute it.',
+    ],
+    coreHeading: 'The Minimum Viable IR Plan',
+    table: [
+      { a: 'Who has authority', b: 'Named person who can make the call to isolate systems or take something offline, without waiting for a committee.' },
+      { a: 'Who to call', b: 'A pre-vetted external IR firm or MSSP contact, saved somewhere that doesn’t require access to the compromised system to find.' },
+      { a: 'Where the runbook lives', b: 'Printed or stored somewhere accessible even if your primary systems, including email, are down.' },
+    ],
+    body: [
+      'That last point trips up more plans than anything else — a runbook stored only in the same cloud drive that just got encrypted is not a runbook you can use. Keep a copy somewhere genuinely out-of-band: printed in a drawer, or in a password manager’s emergency access feature that doesn’t depend on your primary infrastructure being up.',
+    ],
+    whyHeading: 'You Can Outsource Expertise, Not Ownership',
+    closing: [
+      'Even a two-person IT team benefits enormously from having a retainer relationship with an external incident response firm set up before an incident, not during one — negotiating a contract while actively breached is a terrible position to be in. What you can’t outsource is the internal decision-making: who has authority to act, and how fast that person can be reached. Get that part right and the rest becomes a lot more manageable.',
+    ],
+    takeaways: [
+      'A realistic IR plan for a small team names one person with clear authority to act immediately, not a committee.',
+      'Keep external IR/MSSP contact information somewhere accessible even if your primary systems are down.',
+      'Store the runbook itself out-of-band — not solely in the same systems that might be encrypted or offline.',
+      'A pre-negotiated retainer with an external IR firm is far better secured before an incident than during one.',
+    ],
+    quiz: [
+      {
+        question: 'Why is storing your incident response runbook only in your primary cloud drive risky?',
+        options: [
+          { label: 'Cloud drives have file size limits', correct: false },
+          { label: 'That same system may be encrypted or inaccessible during the actual incident', correct: true },
+          { label: 'Cloud drives don’t support document formatting', correct: false },
+        ],
+      },
+      {
+        question: 'What is the most important thing a small IT team cannot outsource during incident response?',
+        options: [
+          { label: 'Forensic malware analysis', correct: false },
+          { label: 'The internal decision of who has authority to act and how fast they can be reached', correct: true },
+          { label: 'Writing the final incident report', correct: false },
+        ],
+      },
+    ],
+  },
+  '22': {
+    drive: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN',
+    subtitle: 'The technical case for a security investment rarely wins on its own — the business case does.',
+    intro: [
+      'A common frustration among IT pros: a clearly necessary security investment gets rejected or endlessly delayed, not because leadership doesn’t care, but because the request was framed in terms that don’t map to how leadership actually makes decisions. Technical risk and business risk are the same thing described in two different languages, and the translation matters.',
+    ],
+    coreHeading: 'Reframe Risk in Terms Leadership Already Uses',
+    body: [
+      'Instead of "we need EDR because our current antivirus has poor behavioral detection," try "our current tooling would likely miss a ransomware attack until data is already encrypted, and our last comparable incident cost us three days of downtime." One is a technical spec. The other is a business risk with a dollar figure and a timeline attached — which is the currency leadership actually budgets in.',
+      'This isn’t about manufacturing fear. It’s about translating a real technical risk into the terms the people approving the budget are already trained to evaluate: cost, likelihood, and business impact.',
+    ],
+    whyHeading: 'Bring Options, Not Just a Problem',
+    closing: [
+      'Leadership responds better to a short menu of options with tradeoffs spelled out than to a single "we need this or else" ultimatum — it gives them a decision to make rather than a demand to accept or reject. Come with a recommended option, a cheaper fallback, and what each one actually buys in risk reduction, and you’ll get a faster, better-informed yes far more often.',
+    ],
+    takeaways: [
+      'Technical risk and business risk are the same underlying issue, described in different languages — translation matters.',
+      'Frame security requests in terms of cost, likelihood, and business impact, not technical specifications.',
+      'Avoid manufacturing fear — the goal is an accurate translation of real risk, not exaggeration.',
+      'Present a short menu of options with tradeoffs instead of a single ultimatum.',
+    ],
+    quiz: [
+      {
+        question: 'Why does a technically accurate security request often fail to get approved?',
+        options: [
+          { label: 'Leadership doesn’t care about security at all', correct: false },
+          { label: 'It’s framed in technical terms rather than business risk terms leadership evaluates by', correct: true },
+          { label: 'Security budgets are always fixed regardless of need', correct: false },
+        ],
+      },
+      {
+        question: 'What tends to get a faster, better-informed decision from leadership?',
+        options: [
+          { label: 'A single "we need this or else" ultimatum', correct: false },
+          { label: 'A short menu of options with tradeoffs and a recommendation', correct: true },
+          { label: 'A purely technical specification document', correct: false },
+        ],
+      },
+    ],
+  },
+  '23': {
+    drive: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN',
+    subtitle: 'Certifications are a signal, not a credential that automatically makes you good at the job — know which signal you’re sending.',
+    intro: [
+      'The certification landscape is large enough to be genuinely confusing, and vendors have every incentive to convince you their exam is the essential one. A more useful way to think about it: what is this certification actually signaling to an employer, and does that signal match where you want your career to go?',
+    ],
+    coreHeading: 'What a Few Common Ones Actually Signal',
+    table: [
+      { a: 'Security+', b: 'Broad foundational knowledge — a reasonable entry point, widely recognized, not deeply specialized.' },
+      { a: 'CISSP', b: 'Signals management-track, broad-but-deep security leadership knowledge — usually requires years of experience to qualify.' },
+      { a: 'OSCP', b: 'Signals hands-on offensive skill — you have to actually exploit systems to pass, not just answer multiple choice.' },
+    ],
+    body: [
+      'None of these substitute for demonstrable, applied skill, and increasingly, employers know it. A certification opens doors and gets you past automated resume filters — it rarely closes the gap between "passed an exam" and "can actually do the job" on its own.',
+    ],
+    whyHeading: 'Pick Based on Direction, Not Prestige',
+    closing: [
+      'Chasing whichever certification sounds most impressive is a common and expensive mistake. Pick based on where you actually want to go: management and governance track, lean toward CISSP-style credentials; hands-on technical track, lean toward OSCP-style ones; still finding your footing, a broad foundational certification plus real hands-on practice will get you further than an alphabet soup of acronyms nobody asked about in the interview.',
+    ],
+    takeaways: [
+      'A certification is a signal to employers, not a guarantee of applied skill.',
+      'Different certifications signal different career directions — foundational, management, or hands-on offensive skill.',
+      'Certifications help get past resume filters but rarely substitute for demonstrable, applied ability.',
+      'Choose certifications based on your intended career direction, not perceived prestige.',
+    ],
+    quiz: [
+      {
+        question: 'What does the OSCP certification primarily signal to employers?',
+        options: [
+          { label: 'Broad foundational security knowledge', correct: false },
+          { label: 'Hands-on offensive security skill, since it requires actually exploiting systems to pass', correct: true },
+          { label: 'Management and governance experience', correct: false },
+        ],
+      },
+      {
+        question: 'What is the most reliable way to choose which certification to pursue?',
+        options: [
+          { label: 'Whichever one has the most name recognition', correct: false },
+          { label: 'Based on the career direction you actually want to move toward', correct: true },
+          { label: 'Whichever one is cheapest to obtain', correct: false },
+        ],
+      },
+    ],
+  },
+  '24': {
+    drive: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN',
+    subtitle: 'Every technical control you build can be walked around by someone who simply asks nicely, or convincingly.',
+    intro: [
+      'Social engineering exploits trust and helpfulness, not software flaws, which is exactly why it remains effective no matter how much technology improves. The classics — phishing, pretexting, tailgating into a building behind someone holding the door — persist because they target something patching can’t fix: normal human courtesy under time pressure.',
+    ],
+    coreHeading: 'Old Tactics, New Delivery',
+    table: [
+      { a: 'Pretexting', b: 'Impersonating a trusted role — IT support, a vendor, a new hire — to extract information or access.' },
+      { a: 'Tailgating', b: 'Following an authorized person through a secure door without their own badge.' },
+      { a: 'AI voice cloning', b: 'A newer twist on pretexting — a cloned voice of an executive requesting an urgent wire transfer or password reset.' },
+    ],
+    body: [
+      'What’s changed isn’t the underlying psychology — it’s the production quality. A phishing email riddled with typos used to be an easy tell; a well-crafted one referencing a real project and a real colleague’s name, sometimes generated with AI assistance, is a different problem entirely. The defense has to evolve past "look for red flags" toward "verify through a separate channel," because the flags themselves are disappearing.',
+    ],
+    whyHeading: 'Verification Beats Vigilance',
+    closing: [
+      'Training people to "be more careful" has a ceiling — everyone gets fooled eventually under the right pressure and timing. What scales better is building a habit of out-of-band verification for anything involving money, credentials, or access: a phone call to a known number, not the one in the suspicious email, before acting on an urgent request. Make that the norm, not an exception reserved for obviously sketchy requests.',
+    ],
+    takeaways: [
+      'Social engineering exploits trust and helpfulness, not technical vulnerabilities.',
+      'Pretexting and tailgating remain effective decades later because they target human behavior, not software.',
+      'AI-assisted phishing and voice cloning have raised the production quality of classic pretexting attacks.',
+      'Out-of-band verification for money, credential, or access requests scales better than training people to simply "be more careful."',
+    ],
+    quiz: [
+      {
+        question: 'Why does social engineering remain effective despite improving technical defenses?',
+        options: [
+          { label: 'It exploits human trust and helpfulness rather than software vulnerabilities', correct: true },
+          { label: 'Firewalls cannot detect social engineering attempts', correct: false },
+          { label: 'Most organizations have no email filtering', correct: false },
+        ],
+      },
+      {
+        question: 'What is a more scalable defense than training people to simply "watch for red flags"?',
+        options: [
+          { label: 'Banning all external email', correct: false },
+          { label: 'Building a habit of out-of-band verification for sensitive requests', correct: true },
+          { label: 'Requiring longer passwords', correct: false },
+        ],
+      },
+    ],
+  },
+  '25': {
+    drive: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN',
+    subtitle: 'A security program that employees resent gets quietly worked around — a culture that makes sense gets followed.',
+    intro: [
+      'Security programs built entirely on restriction and punishment tend to produce exactly the behavior they’re trying to prevent: employees finding workarounds, using shadow IT, or simply not reporting mistakes for fear of consequences. A security culture that actually holds up is built on making the secure path the easy path, and treating mistakes as information rather than infractions.',
+    ],
+    coreHeading: 'What Actually Erodes a Security Culture',
+    body: [
+      'Punishing someone for clicking a phishing link — especially a well-crafted one — teaches every other employee one lesson: don’t report it if it happens to you. That’s the opposite of what you want. The organizations with the best real-world detection rates are usually the ones where reporting a mistake, even an embarrassing one, is treated as the correct and expected action, not a confession.',
+      'Friction matters just as much. A security policy that makes the correct behavior meaningfully harder than the risky one — a password policy so strict people write it on a sticky note, an approval process so slow people route around it — will lose to convenience nearly every time. Design for the behavior you actually want to see.',
+    ],
+    whyHeading: 'Make Reporting the Path of Least Resistance',
+    closing: [
+      'A one-click "report phishing" button that actually gets acknowledged, a blameless post-incident review process, and leadership that visibly reports their own near-misses all do more for a security culture than another mandatory training module. People follow what’s modeled and rewarded, not just what’s written in a policy document nobody reads twice.',
+    ],
+    takeaways: [
+      'Punishing mistakes teaches employees to hide them, undermining detection instead of improving it.',
+      'A security policy that adds significant friction to normal work tends to get worked around.',
+      'Blameless post-incident reviews encourage honest, fast reporting of mistakes.',
+      'Leadership visibly modeling good security behavior does more than another mandatory training module.',
+    ],
+    quiz: [
+      {
+        question: 'What is the likely outcome of punishing an employee for clicking a phishing link?',
+        options: [
+          { label: 'Employees become more likely to report future incidents', correct: false },
+          { label: 'Employees become less likely to report future mistakes out of fear', correct: true },
+          { label: 'Phishing attempts against the organization decrease', correct: false },
+        ],
+      },
+      {
+        question: 'What tends to happen when a security policy adds significant friction to normal work?',
+        options: [
+          { label: 'Employees find workarounds that bypass the policy entirely', correct: true },
+          { label: 'Compliance with the policy improves over time', correct: false },
+          { label: 'The policy has no measurable effect either way', correct: false },
+        ],
+      },
+    ],
+  },
+  '26': {
+    drive: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN',
+    subtitle: 'Most insider risk isn’t a disgruntled employee plotting sabotage — it’s ordinary carelessness with real consequences.',
+    intro: [
+      'The phrase "insider threat" conjures an image of deliberate sabotage, and that does happen, but it’s the minority case. Far more common: a departing employee taking a customer list "just in case" it’s useful at their next job, or a well-meaning employee misconfiguring a sharing setting that exposes sensitive data to more people than intended.',
+    ],
+    coreHeading: 'The Three Broad Categories',
+    table: [
+      { a: 'Malicious insider', b: 'Deliberate theft, sabotage, or data leak — often financially or grievance motivated.' },
+      { a: 'Negligent insider', b: 'No bad intent — a misconfiguration, a lost device, an accidental over-broad share.' },
+      { a: 'Compromised insider', b: 'A legitimate account taken over by an external attacker, acting with that employee’s real access.' },
+    ],
+    body: [
+      'These require genuinely different responses. A negligent insider needs better tooling and training, not discipline. A compromised insider needs fast detection and containment — the "insider" here is really an external attacker wearing a stolen identity. A malicious insider needs the access controls and monitoring that make the theft detectable and the consequences clear in advance.',
+    ],
+    whyHeading: 'Offboarding Is Your Highest-Leverage Control',
+    closing: [
+      'The single highest-value practice against insider risk, regardless of category, is a fast, complete, and consistent offboarding process — every account disabled, every access token revoked, the moment someone’s employment ends, not whenever IT gets around to it. A huge share of realistic insider incidents involve access that should have been revoked and simply wasn’t.',
+    ],
+    takeaways: [
+      'Most insider risk is negligence, not deliberate malice — accidental exposure and departing-employee data hoarding are far more common than sabotage.',
+      'Insider threats fall into three categories: malicious, negligent, and compromised — each requiring a different response.',
+      'A compromised insider is really an external attacker operating through a legitimate stolen identity.',
+      'Fast, complete offboarding — revoking all access the moment employment ends — is the single highest-leverage insider risk control.',
+    ],
+    quiz: [
+      {
+        question: 'Which category of insider threat is actually most common?',
+        options: [
+          { label: 'Malicious insiders deliberately sabotaging systems', correct: false },
+          { label: 'Negligent insiders causing accidental exposure or mistakes', correct: true },
+          { label: 'Nation-state actors posing as employees', correct: false },
+        ],
+      },
+      {
+        question: 'What is the single highest-leverage control against insider risk?',
+        options: [
+          { label: 'Mandatory annual security awareness training', correct: false },
+          { label: 'Fast, complete offboarding that revokes access immediately upon departure', correct: true },
+          { label: 'Requiring background checks for every employee', correct: false },
+        ],
+      },
+    ],
+  },
+  '27': {
+    drive: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN',
+    subtitle: 'A phishing simulation program can build real resilience — or it can just teach employees to resent the security team.',
+    intro: [
+      'Phishing simulations are one of the most common security awareness tools, and also one of the most commonly done poorly. Sending an unrealistic, easily-spotted test email and publicly shaming whoever clicks it produces resentment, not resilience. Done well, the same program measurably improves an organization’s real-world detection rate.',
+    ],
+    coreHeading: 'What Separates a Good Program from a Bad One',
+    body: [
+      'A good program mirrors real attacker tactics — not just generic "click here to win a prize" emails, but scenarios that reflect what’s actually landing in employee inboxes: invoice fraud, fake IT password resets, calendar invite lures. It also treats a click as a teaching moment delivered privately and immediately, not a mark against someone’s record shared with their manager.',
+      'Frequency and variety matter more than difficulty. Employees who see occasional, varied, realistic simulations build durable pattern recognition. Employees who get one predictable "gotcha" test a year mostly learn to recognize that specific test, not phishing in general.',
+    ],
+    whyHeading: 'Measure the Right Thing',
+    closing: [
+      'The metric that actually matters isn’t "click rate went down" in isolation — it’s "report rate went up." An organization where employees increasingly report suspicious emails, even ones they weren’t sure about, has a healthier security culture than one that just got better at not clicking a specific test template. Optimize the program for reporting behavior, not just avoidance.',
+    ],
+    takeaways: [
+      'Publicly shaming employees who click a simulated phishing email builds resentment, not resilience.',
+      'Realistic simulations mirroring actual attacker tactics build far more durable skills than generic "prize" emails.',
+      'Frequent, varied, lower-difficulty simulations outperform a single predictable annual test.',
+      'Report rate is a more meaningful success metric than click rate alone.',
+    ],
+    quiz: [
+      {
+        question: 'What is a common mistake that undermines a phishing simulation program?',
+        options: [
+          { label: 'Running simulations more than once a year', correct: false },
+          { label: 'Publicly shaming employees who click the simulated email', correct: true },
+          { label: 'Using scenarios based on real attacker tactics', correct: false },
+        ],
+      },
+      {
+        question: 'What metric is a better indicator of program success than click rate alone?',
+        options: [
+          { label: 'The number of emails sent per quarter', correct: false },
+          { label: 'Report rate — how often employees report suspicious emails', correct: true },
+          { label: 'The total budget spent on the program', correct: false },
+        ],
+      },
+    ],
+  },
+  '28': {
+    drive: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN',
+    subtitle: 'Passing an audit and being secure are related, correlated, and absolutely not the same thing.',
+    intro: [
+      'It’s entirely possible to pass a compliance audit and still get breached the following month, and it happens regularly. Compliance frameworks establish a baseline — a floor, not a ceiling — and they’re often written broadly enough to be satisfied with controls that check the box without meaningfully reducing risk.',
+    ],
+    coreHeading: 'Where the Gap Shows Up',
+    body: [
+      'A classic example: a framework requires "a documented incident response plan." A company satisfies that requirement with a plan nobody has read since it was written, that references a tool no longer in use, and that has never been tested. Technically compliant. Practically useless the moment it’s actually needed.',
+      'The gap exists because compliance frameworks have to be broad enough to apply across wildly different organizations, which means they describe outcomes in general terms and leave the actual implementation quality up to you. Two companies can both check the same compliance box with wildly different real-world security postures.',
+    ],
+    whyHeading: 'Use Compliance as a Floor to Build On',
+    closing: [
+      'The healthiest way to treat compliance work is as a useful forcing function — it gets budget approved and gets baseline controls in place that might otherwise get deprioritized — while treating "actually secure" as the real goal that compliance alone won’t get you to. Don’t let "we’re compliant" become the answer to "are we secure." They’re related questions with different answers.',
+    ],
+    takeaways: [
+      'Passing a compliance audit does not guarantee an organization is actually secure.',
+      'Compliance frameworks establish a broad baseline, not a ceiling — they can be technically satisfied without meaningfully reducing risk.',
+      'The same compliance checkbox can be satisfied by wildly different real-world implementation quality.',
+      'Use compliance as a useful forcing function for baseline controls and budget, not as a substitute for genuine security work.',
+    ],
+    quiz: [
+      {
+        question: 'Why can an organization pass a compliance audit and still be breached shortly after?',
+        options: [
+          { label: 'Compliance frameworks are always outdated by the time they’re published', correct: false },
+          { label: 'Compliance establishes a broad baseline that can be technically satisfied without meaningful risk reduction', correct: true },
+          { label: 'Auditors are legally prohibited from checking security controls', correct: false },
+        ],
+      },
+      {
+        question: 'What is a healthy way to treat compliance work?',
+        options: [
+          { label: 'As proof that no further security work is needed', correct: false },
+          { label: 'As a useful forcing function for baseline controls, not a substitute for real security', correct: true },
+          { label: 'As entirely irrelevant to actual security posture', correct: false },
+        ],
+      },
+    ],
+  },
+  '29': {
+    drive: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN',
+    subtitle: 'Three letters, three different purposes — knowing which one fits your situation saves months of misapplied effort.',
+    intro: [
+      'The major security frameworks get treated as interchangeable in casual conversation, but they were built for different purposes and different audiences. Picking the wrong one for your situation means a lot of effort spent satisfying requirements that weren’t actually the right fit for your organization.',
+    ],
+    coreHeading: 'What Each One Is Actually For',
+    table: [
+      { a: 'NIST CSF', b: 'A flexible, outcome-based framework — good as a general-purpose starting point, not tied to a specific certification.' },
+      { a: 'CIS Controls', b: 'A prioritized, highly actionable list of specific safeguards — good for teams that want concrete "do this next" guidance.' },
+      { a: 'ISO 27001', b: 'A formal, certifiable management system standard — the right choice when a customer or contract requires proof via certification.' },
+    ],
+    body: [
+      'A useful shortcut: if you need a certificate to hand to a customer or satisfy a contractual requirement, you’re probably looking at ISO 27001. If you want a prioritized punch list of concrete technical controls to implement in order, CIS Controls fits well. If you want a flexible planning language to organize your overall security program without pursuing formal certification, NIST CSF is usually the right starting point.',
+    ],
+    whyHeading: 'You Don’t Have to Pick Exactly One',
+    closing: [
+      'These frameworks overlap substantially and map to each other reasonably well — many organizations use NIST CSF as the overall planning structure, pull specific technical controls from CIS, and pursue ISO 27001 certification only when a customer contract actually requires it. Treat them as tools for different jobs rather than competing religions.',
+    ],
+    takeaways: [
+      'NIST CSF, CIS Controls, and ISO 27001 serve different purposes and shouldn’t be treated as interchangeable.',
+      'ISO 27001 is the right fit when a customer or contract specifically requires a formal certification.',
+      'CIS Controls provides a prioritized, concrete list of technical safeguards to implement.',
+      'NIST CSF works well as flexible overall planning structure without pursuing formal certification.',
+    ],
+    quiz: [
+      {
+        question: 'Which framework should you reach for if a customer contract specifically requires a formal, certifiable standard?',
+        options: [
+          { label: 'CIS Controls', correct: false },
+          { label: 'ISO 27001', correct: true },
+          { label: 'NIST CSF', correct: false },
+        ],
+      },
+      {
+        question: 'Can an organization use more than one of these frameworks together?',
+        options: [
+          { label: 'No, frameworks are mutually exclusive and cannot overlap', correct: false },
+          { label: 'Yes, many organizations combine them — for example, NIST CSF for planning and CIS for specific controls', correct: true },
+          { label: 'Only with special regulatory approval', correct: false },
+        ],
+      },
+    ],
+  },
+  '30': {
+    drive: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN',
+    subtitle: 'Most of what makes an audit painful is preventable months before the auditor ever shows up.',
+    intro: [
+      'Audit season has a reputation for being chaotic and stressful, and for most organizations that reputation is earned — but usually because of preparation gaps, not because auditing is inherently miserable. A well-prepared audit is closer to a structured status check than a crisis.',
+    ],
+    coreHeading: 'What Actually Causes the Pain',
+    body: [
+      'Nearly every rough audit traces back to the same handful of causes: evidence that should have been collected continuously being assembled frantically at the last minute, control owners who don’t actually know they own a control until the auditor asks them about it, and policy documents that describe a process the organization stopped following months ago.',
+      'None of these are audit problems — they’re operational hygiene problems that an audit simply exposes. Fixing them improves your actual security posture, not just your audit experience.',
+    ],
+    whyHeading: 'Collect Evidence Continuously, Not Reactively',
+    closing: [
+      'The single highest-leverage change is shifting evidence collection from an annual scramble to a continuous, lightweight habit — screenshotting quarterly access reviews as they happen, keeping a running log of patch cycles, documenting incidents as they’re closed rather than reconstructing them later from memory. By the time the audit arrives, you’re handing over a folder, not building one from scratch under deadline pressure.',
+    ],
+    takeaways: [
+      'Most audit pain is preventable and stems from preparation gaps, not the audit process itself.',
+      'Common causes: last-minute evidence gathering, control owners unaware of their responsibilities, and outdated policy documents.',
+      'These are operational hygiene problems that audits expose, not problems unique to auditing.',
+      'Collecting evidence continuously throughout the year, rather than scrambling annually, is the highest-leverage fix.',
+    ],
+    quiz: [
+      {
+        question: 'What is usually the real root cause of a chaotic, stressful audit?',
+        options: [
+          { label: 'Auditors being intentionally difficult', correct: false },
+          { label: 'Preparation gaps like last-minute evidence gathering and outdated documentation', correct: true },
+          { label: 'Audits are inherently unpredictable regardless of preparation', correct: false },
+        ],
+      },
+      {
+        question: 'What is the highest-leverage change an organization can make to improve future audits?',
+        options: [
+          { label: 'Hiring a more lenient auditor', correct: false },
+          { label: 'Collecting evidence continuously throughout the year instead of scrambling annually', correct: true },
+          { label: 'Reducing the number of controls being tracked', correct: false },
+        ],
+      },
+    ],
+  },
 };
 
 const LESSON_META = {
