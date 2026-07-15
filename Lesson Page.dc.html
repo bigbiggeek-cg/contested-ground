@@ -163,7 +163,7 @@
         <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">← {{ prevLabel }}</div>
         <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-text-mute);">{{ prevTitle }}</div>
       </a>
-      <a href="{{ nextHref }}" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px; text-align:right;">
+      <a href="{{ nextHref }}" onClick="{{ markComplete }}" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px; text-align:right;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">{{ nextLabel }} →</div>
         <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; text-transform:uppercase; color:var(--cg-accent-bright);">{{ nextTitle }}</div>
       </a>
@@ -181,9 +181,9 @@
         </div>
       </a>
       <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson {{ positionInDrive }} of {{ totalInDrive }}</div>
-      <a href="{{ nextHref }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
+      <a href="{{ nextHref }}" onClick="{{ markComplete }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
         <div style="min-width:0;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim); text-align:right;">NEXT</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim); text-align:right;">COMPLETE & CONTINUE</div>
           <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ nextTitle }}</div>
         </div>
         <div style="font-family:'JetBrains Mono',monospace; font-size:14px; flex:none;">→</div>
@@ -220,6 +220,22 @@ function difficultyLabel(marker) {
   if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
   if (marker.indexOf('3RD') === 0) return 'ADVANCED';
   return 'INTERMEDIATE';
+}
+function getProgress() {
+  try {
+    const arr = JSON.parse(localStorage.getItem('cg-progress') || '[]');
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+function unlockedIndexFor(order, completed) {
+  let idx = 0;
+  for (let i = 0; i < order.length; i++) {
+    if (completed.indexOf(order[i]) !== -1) idx = i + 1;
+    else break;
+  }
+  return idx;
 }
 
 const LESSONS_DATA = {
@@ -1580,6 +1596,14 @@ class Component extends DCLogic {
     const resolvedDrive = drive || (lesson ? LESSON_META[lesson].drive : '02');
     const lessonOrder = DRIVE_LESSON_ORDER[resolvedDrive];
     const resolvedLesson = (lesson && LESSON_META[lesson].drive === resolvedDrive) ? lesson : lessonOrder[0];
+
+    const completed = getProgress();
+    const unlockedIdx = unlockedIndexFor(lessonOrder, completed);
+    const requestedIdx = lessonOrder.indexOf(resolvedLesson);
+    if (requestedIdx > unlockedIdx) {
+      window.location.href = `Drive Page.dc.html?drive=${resolvedDrive}`;
+      return;
+    }
     this.setState({ drive: resolvedDrive, lesson: resolvedLesson });
 
     const savedName = localStorage.getItem('cg-palette-name');
@@ -1642,6 +1666,14 @@ class Component extends DCLogic {
 
   selectAnswer = (qIndex, oIndex) => {
     this.setState(s => ({ quizAnswers: { ...s.quizAnswers, [qIndex]: oIndex } }));
+  };
+
+  markComplete = () => {
+    const completed = getProgress();
+    if (completed.indexOf(this.state.lesson) === -1) {
+      completed.push(this.state.lesson);
+      localStorage.setItem('cg-progress', JSON.stringify(completed));
+    }
   };
 
   renderVals() {
@@ -1746,6 +1778,7 @@ class Component extends DCLogic {
       playerLabel: this.state.isPlaying ? `Playing — ${lesson.title}` : 'Listen to This Lesson',
       playProgress: this.state.playProgress || 0,
       prevHref, prevLabel, prevTitle, nextHref, nextLabel, nextTitle,
+      markComplete: this.markComplete,
     };
   }
 }
