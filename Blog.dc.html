@@ -17,12 +17,12 @@
   a { color: inherit; }
   .yard-divider { height: 1px; background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px); }
   .nav-link { transition: color .15s ease; }
-  .domain-card { transition: border-color .2s ease, transform .2s ease; }
-  .domain-card:hover { border-color: var(--cg-accent); transform: translateY(-2px); }
+  .post-card { transition: border-color .2s ease, transform .2s ease; }
+  .post-card:hover { border-color: var(--cg-accent); transform: translateY(-2px); }
 </style>
 </helmet>
 
-<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Domains Index">
+<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Blog Index">
 
   <!-- NAV -->
   <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
@@ -31,9 +31,9 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Domains.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Domains</a>
+      <a href="Domains.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
       <a href="Homepage.dc.html#deep-dives" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Deep Dives</a>
-      <a href="Blog.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Blog</a>
+      <a href="Blog.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Blog</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
         <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
@@ -44,29 +44,29 @@
   </div>
 
   <!-- HEADER -->
-  <div style="max-width:1280px; margin:0 auto; padding:60px 56px 40px;">
+  <div style="max-width:900px; margin:0 auto; padding:60px 56px 40px;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
-      <a href="Homepage.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">HOME</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DOMAINS</span>
+      <a href="Homepage.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">HOME</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">BLOG</span>
     </div>
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,56px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 16px; text-transform:uppercase;">Every Domain in the Course</h1>
-    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); max-width:640px; margin:0 0 14px;">Six tracks, ordered roughly by difficulty. Start wherever matches your role — each Domain stands on its own.</p>
-    <p style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.03em; color:var(--cg-text-dim); max-width:640px; margin:0;">Progress is saved in this browser only — it's not tied to an account, so it won't follow you to another device or browser.</p>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,56px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 16px; text-transform:uppercase;">From the Field</h1>
+    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); max-width:640px; margin:0;">Shorter, sharper, and more opinionated than the Domains — notes on what's actually happening in security right now.</p>
   </div>
 
-  <div class="yard-divider" style="max-width:1280px; margin:0 auto;"></div>
+  <div class="yard-divider" style="max-width:900px; margin:0 auto;"></div>
 
-  <!-- DOMAINS GRID -->
-  <div style="max-width:1280px; margin:0 auto; padding:56px 56px 90px;">
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
-      <sc-for list="{{ domains }}" as="domain" hint-placeholder-count="6">
-        <a href="Domain Page.dc.html?domain={{ domain.number }}" class="domain-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:240px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DOMAIN {{ domain.number }}</div>
-            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.04em; color:{{ domain.markerColor }}; border:1px solid {{ domain.markerColor }}; padding:4px 8px; border-radius:2px;">{{ domain.difficultyLabel }}</div>
+  <!-- POSTS -->
+  <div style="max-width:900px; margin:0 auto; padding:56px 56px 90px;">
+    <div style="display:flex; flex-direction:column; gap:22px;">
+      <sc-for list="{{ posts }}" as="post" hint-placeholder-count="4">
+        <a href="{{ post.href }}" class="post-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:32px;">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em;">
+            <span>{{ post.date }}</span>
+            <span>·</span>
+            <span>{{ post.readTime }} MIN READ</span>
           </div>
-          <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; margin:0 0 12px; text-transform:uppercase;">{{ domain.title }}</h4>
-          <p style="font-size:15px; line-height:1.55; color:var(--cg-text-mute); margin:0 0 20px;">{{ domain.description }}</p>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">{{ domain.lessonCount }} LESSONS →</div>
+          <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:26px; margin:0 0 12px; text-transform:uppercase; letter-spacing:-0.005em;">{{ post.title }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:var(--cg-text-mute); margin:0 0 16px;">{{ post.description }}</p>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-accent-bright); letter-spacing:0.05em;">READ THE POST →</div>
         </a>
       </sc-for>
     </div>
@@ -82,11 +82,6 @@ const CG_PALETTES = [
   { name: 'Classic Light', colors: ['#FFFFFF', '#F4F5F7', '#D8DCE1', '#1A56DB', '#2563EB', '#1F2937', '#4B5563', '#6B7280', '#374151'] },
   { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
 ];
-function difficultyLabel(marker) {
-  if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
-  if (marker.indexOf('3RD') === 0) return 'ADVANCED';
-  return 'INTERMEDIATE';
-}
 
 class Component extends DCLogic {
   state = { paletteOverride: null };
@@ -117,16 +112,18 @@ class Component extends DCLogic {
       select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
     }));
 
-    const domains = [
-      { number: '01', title: 'Foundations', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', lessonCount: 5, marker: '1ST & 10', markerColor: 'var(--cg-text-mute)', href: 'Domain Page.dc.html' },
-      { number: '02', title: 'Detection & Response', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', lessonCount: 7, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Domain Page.dc.html' },
-      { number: '03', title: 'Cloud & Modern Surface', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', lessonCount: 6, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Domain Page.dc.html' },
-      { number: '04', title: 'Practical Defense & Career', description: 'Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.', lessonCount: 5, marker: '2ND & 7', markerColor: 'var(--cg-accent)', href: 'Domain Page.dc.html' },
-      { number: '05', title: 'The Human Element', description: 'Social engineering, building a security culture people don’t hate, insider threats, and phishing sims done right.', lessonCount: 4, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Domain Page.dc.html' },
-      { number: '06', title: 'Compliance & Governance', description: 'Compliance isn’t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', lessonCount: 3, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Domain Page.dc.html' },
-    ].map(d => ({ ...d, difficultyLabel: difficultyLabel(d.marker) }));
+    const posts = [
+      {
+        slug: 'talking-to-leadership',
+        title: 'Talking to Leadership About Security',
+        description: 'The technical case for a security investment rarely wins on its own. Here’s how to translate risk into terms the people approving the budget actually evaluate by.',
+        date: 'JUL 2026',
+        readTime: 7,
+        href: 'Post Page.dc.html?post=talking-to-leadership',
+      },
+    ];
 
-    return { domains, swatches };
+    return { posts, swatches };
   }
 }
 </script>

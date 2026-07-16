@@ -23,8 +23,8 @@
   }
   .domain-card { transition: border-color .2s ease, transform .2s ease; }
   .domain-card:hover { border-color: var(--cg-accent); transform: translateY(-2px); }
-  .flag-card { transition: border-color .2s ease; }
-  .flag-card:hover { border-color: var(--cg-accent-bright); }
+  .deep-dive-card { transition: border-color .2s ease; }
+  .deep-dive-card:hover { border-color: var(--cg-accent-bright); }
   .nav-link { transition: color .15s ease; }
   .cta-btn { transition: background .15s ease, transform .15s ease; }
   .cta-btn:hover { transform: translateY(-1px); }
@@ -40,7 +40,8 @@
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
       <a href="Domains.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
-      <a href="#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
+      <a href="#deep-dives" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Deep Dives</a>
+      <a href="Blog.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Blog</a>
       <a href="#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
         <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
@@ -65,7 +66,7 @@
     </p>
     <div style="position:relative; display:flex; align-items:center; gap:18px;">
       <a href="Domain Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:16px 30px; border-radius:2px;">Start the First Domain</a>
-      <a href="#flagship" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); padding:16px 8px; border-bottom:1px solid var(--cg-bg-line);">Read the Flagship Pieces →</a>
+      <a href="#deep-dives" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); padding:16px 8px; border-bottom:1px solid var(--cg-bg-line);">Read the Deep Dives →</a>
     </div>
   </div>
 
@@ -130,17 +131,17 @@
 
   <div class="yard-divider"></div>
 
-  <!-- FLAGSHIP -->
-  <div id="flagship" style="max-width:1280px; margin:0 auto; padding:90px 56px 70px;">
+  <!-- DEEP DIVES -->
+  <div id="deep-dives" style="max-width:1280px; margin:0 auto; padding:90px 56px 70px;">
     <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
-      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0;">Flagship</h2>
+      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0;">Deep Dives</h2>
       <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">LONG-FORM · MONTHLY</div>
     </div>
     <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 48px; text-transform:uppercase; letter-spacing:-0.01em;">DEEP THREATS ACROSS THE FIELD</h3>
 
     <div style="display:flex; flex-direction:column; gap:1px; background:var(--cg-bg-line);">
-      <sc-for list="{{ flagship }}" as="piece" hint-placeholder-count="4">
-        <a href="#" class="flag-card" style="display:flex; align-items:center; justify-content:space-between; gap:32px; text-decoration:none; color:inherit; background:var(--cg-bg); padding:32px 8px;">
+      <sc-for list="{{ deepDives }}" as="piece" hint-placeholder-count="4">
+        <a href="{{ piece.href }}" class="deep-dive-card" style="display:flex; align-items:center; justify-content:space-between; gap:32px; text-decoration:none; color:inherit; background:var(--cg-bg); padding:32px 8px;">
           <div style="display:flex; align-items:baseline; gap:20px; flex:1; min-width:0;">
             <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim); flex:none;">{{ piece.index }}</div>
             <div style="min-width:0;">
@@ -166,7 +167,8 @@
       <div style="display:flex; flex-direction:column; gap:10px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:4px;">Site</div>
         <a href="#domains" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
-        <a href="#flagship" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
+        <a href="#deep-dives" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Deep Dives</a>
+        <a href="Blog.dc.html" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Blog</a>
         <a href="#" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Podcast</a>
       </div>
     </div>
@@ -223,20 +225,20 @@ class Component extends DCLogic {
       { number: '05', title: 'The Human Element', description: 'Social engineering, building a security culture people don\u2019t hate, insider threats, and phishing sims done right.', lessonCount: 4, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Domain Page.dc.html' },
       { number: '06', title: 'Compliance & Governance', description: 'Compliance isn\u2019t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', lessonCount: 3, marker: '3RD & LONG', markerColor: 'var(--cg-accent-bright)', href: 'Domain Page.dc.html' },
     ].map(d => ({ ...d, difficultyLabel: difficultyLabel(d.marker) }));
-    const flagship = [
-      { index: '01', title: 'Anatomy of a Breach: A Real Incident, Hour by Hour', description: 'A composited, anonymized ransomware incident walked from initial access to containment.', time: '28 MIN' },
-      { index: '02', title: 'The Modern Attack Surface: A Field Map', description: 'Identity, endpoints, cloud, SaaS, APIs, and containers mapped as one connected terrain.', time: '24 MIN' },
-      { index: '03', title: 'Why Good Security Programs Still Get Breached', description: 'Alert fatigue, compliance theater, and the gap between having a policy and people following it.', time: '22 MIN' },
-      { index: '04', title: 'Building an Incident Response Plan From Scratch, In a Weekend', description: 'A step-by-step, genuinely usable guide — with a companion checklist.', time: '30 MIN' },
+    const deepDives = [
+      { index: '01', title: 'Anatomy of a Breach: A Real Incident, Hour by Hour', description: 'A composited, anonymized ransomware incident walked from initial access to containment.', time: '13 MIN', href: 'Deep Dive Page.dc.html?piece=anatomy-of-a-breach' },
+      { index: '02', title: 'The Modern Attack Surface: A Field Map', description: 'Identity, endpoints, cloud, SaaS, APIs, and containers mapped as one connected terrain.', time: '10 MIN', href: 'Deep Dive Page.dc.html?piece=modern-attack-surface' },
+      { index: '03', title: 'Why Good Security Programs Still Get Breached', description: 'Alert fatigue, compliance theater, and the gap between having a policy and people following it.', time: '10 MIN', href: 'Deep Dive Page.dc.html?piece=why-programs-still-get-breached' },
+      { index: '04', title: 'Building an Incident Response Plan From Scratch, In a Weekend', description: 'A step-by-step, genuinely usable guide — with a companion checklist.', time: '11 MIN', href: 'Deep Dive Page.dc.html?piece=building-an-ir-plan' },
     ];
     const stats = [
       { value: '30', label: 'Lessons' },
       { value: '6', label: 'Domains' },
-      { value: '4', label: 'Flagship Pieces' },
+      { value: '4', label: 'Deep Dives' },
       { value: '100%', label: 'Vendor-Neutral' },
     ];
     const continueLesson = null;
-    return { domains, flagship, stats, swatches, continueLesson };
+    return { domains, deepDives, stats, swatches, continueLesson };
   }
 }
 </script>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --cg-bg:#0B1F33; --cg-bg-mid:#142C46; --cg-bg-line:#2A4361; --cg-accent:#D2571E; --cg-accent-bright:#F2894E; --cg-text:#F5EFE6; --cg-text-mute:#8CA2BC; --cg-text-dim:#5E7591; --cg-text-body:#DCD2C0; }
+  body { margin: 0; background: var(--cg-bg); }
+  ::selection { background: var(--cg-accent); color: var(--cg-text); }
+  a { color: inherit; }
+  .yard-divider { height: 1px; background-image: repeating-linear-gradient(to right, var(--cg-bg-line) 0, var(--cg-bg-line) 10px, transparent 10px, transparent 20px); }
+  .nav-link { transition: color .15s ease; }
+  article p { margin: 0 0 20px; }
+  article h3 { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 22px; text-transform: uppercase; letter-spacing: -0.005em; margin: 36px 0 14px; color: var(--cg-text); }
+  article blockquote { margin: 32px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--cg-accent); font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 20px; line-height: 1.4; color: var(--cg-text); font-style: normal; }
+</style>
+</helmet>
+
+<div style="background:var(--cg-bg); min-height:100vh; font-family:'Source Serif 4', Georgia, serif; color:var(--cg-text);" data-screen-label="Post Page">
+
+  <!-- NAV -->
+  <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:color-mix(in srgb, var(--cg-bg) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--cg-bg-line);">
+    <a href="Homepage.dc.html" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;">
+      <div style="width:34px; height:34px; border-radius:4px; background:var(--cg-accent); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--cg-bg);">CG</div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
+    </a>
+    <div style="display:flex; align-items:center; gap:36px;">
+      <a href="Domains.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
+      <a href="Homepage.dc.html#deep-dives" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Deep Dives</a>
+      <a href="Blog.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Blog</a>
+      <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
+      <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
+        <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
+          <div onClick="{{ sw.select }}" title="{{ sw.name }}" style="width:22px; height:22px; border-radius:50%; cursor:pointer; background:{{ sw.gradient }}; border:2px solid {{ sw.ringColor }}; box-sizing:border-box;"></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div style="max-width:760px; margin:0 auto; padding:28px 32px 0;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim);">
+      <a href="Blog.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">BLOG</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">{{ postDate }}</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div style="max-width:760px; margin:0 auto; padding:20px 32px 40px;">
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(32px,5vw,48px); line-height:1.08; letter-spacing:-0.01em; margin:0 0 16px; text-transform:uppercase;">{{ postTitle }}</h1>
+    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); margin:0 0 20px;">{{ postSubtitle }}</p>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em;">{{ postDate }} · {{ postReadTime }} MIN READ</div>
+  </div>
+
+  <div class="yard-divider" style="max-width:760px; margin:0 auto;"></div>
+
+  <!-- ARTICLE BODY -->
+  <article style="max-width:760px; margin:0 auto; padding:44px 32px 0; font-size:17px; line-height:1.75; color:var(--cg-text-body);">
+    <sc-for list="{{ blocks }}" as="block" hint-placeholder-count="6">
+      <sc-if value="{{ block.isHeading }}"><h3>{{ block.text }}</h3></sc-if>
+      <sc-if value="{{ block.isQuote }}"><blockquote>{{ block.text }}</blockquote></sc-if>
+      <sc-if value="{{ block.isParagraph }}"><p>{{ block.text }}</p></sc-if>
+    </sc-for>
+  </article>
+
+  <div class="yard-divider" style="max-width:760px; margin:40px auto 0;"></div>
+
+  <!-- BACK TO BLOG -->
+  <div style="max-width:760px; margin:0 auto; padding:40px 32px 110px;">
+    <a href="Blog.dc.html" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.04em; text-transform:uppercase;">← Back to the Blog</a>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;], &quot;options&quot;: [[&quot;#0B1F33&quot;,&quot;#142C46&quot;,&quot;#2A4361&quot;,&quot;#D2571E&quot;,&quot;#F2894E&quot;,&quot;#F5EFE6&quot;,&quot;#8CA2BC&quot;,&quot;#5E7591&quot;,&quot;#DCD2C0&quot;],[&quot;#FFFFFF&quot;,&quot;#F4F5F7&quot;,&quot;#D8DCE1&quot;,&quot;#1A56DB&quot;,&quot;#2563EB&quot;,&quot;#1F2937&quot;,&quot;#4B5563&quot;,&quot;#6B7280&quot;,&quot;#374151&quot;],[&quot;#1C1B1E&quot;,&quot;#292629&quot;,&quot;#423E43&quot;,&quot;#C1443C&quot;,&quot;#E06B5E&quot;,&quot;#F5EFE6&quot;,&quot;#B8AFA9&quot;,&quot;#8C837D&quot;,&quot;#D8CFC7&quot;]], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;}}">
+const CG_VARS = ['--cg-bg','--cg-bg-mid','--cg-bg-line','--cg-accent','--cg-accent-bright','--cg-text','--cg-text-mute','--cg-text-dim','--cg-text-body'];
+const CG_DEFAULT_PALETTE = ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'];
+const CG_PALETTES = [
+  { name: 'Navy & Burnt Orange', colors: ['#0B1F33', '#142C46', '#2A4361', '#D2571E', '#F2894E', '#F5EFE6', '#8CA2BC', '#5E7591', '#DCD2C0'] },
+  { name: 'Classic Light', colors: ['#FFFFFF', '#F4F5F7', '#D8DCE1', '#1A56DB', '#2563EB', '#1F2937', '#4B5563', '#6B7280', '#374151'] },
+  { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
+];
+
+const POSTS_DATA = {
+  'talking-to-leadership': {
+    title: 'Talking to Leadership About Security',
+    subtitle: 'The technical case rarely wins on its own. Here’s the pitch that actually gets funded.',
+    date: 'JUL 2026',
+    readTime: 7,
+    blocks: [
+      { type: 'p', text: 'You’ve seen this movie before. You spend two weeks building the case for a tool, a headcount, a process change — something you know, with total confidence, closes a real gap. You walk into the room. You explain the CVE, the attack chain, the blast radius. And you watch the meeting end in "let’s revisit next quarter."' },
+      { type: 'p', text: 'It’s tempting to conclude that leadership doesn’t get it. Sometimes that’s even true. But more often, the pitch failed for a much less satisfying reason: you made a technical argument to people who make decisions in a different currency entirely.' },
+      { type: 'h3', text: 'Two Languages, One Budget' },
+      { type: 'p', text: 'Engineers reason in mechanisms. A vulnerability, a misconfiguration, a missing control — these are causes, and the job is to trace them to effects. Executives reason in exposure. What’s the likelihood, what’s the cost if it happens, and how does that compare to every other thing competing for the same dollar this quarter.' },
+      { type: 'p', text: 'Neither language is wrong. They’re just not the same language, and a request that sounds airtight in one often sounds like noise in the other. "Our EDR has weak behavioral detection" is a true, important, technically precise sentence — and it is completely illegible as a budget decision.' },
+      { type: 'quote', text: '"We’d likely miss a ransomware event until data is already encrypted, and our last comparable incident cost three days of downtime." That’s not a better sentence. It’s a translation.' },
+      { type: 'p', text: 'Same underlying fact. Same urgency. But now it has a number attached, a timeline attached, and a comparison point leadership already knows how to weigh against payroll, marketing spend, and the other fourteen things on their list this week.' },
+      { type: 'h3', text: 'Don’t Manufacture Fear to Get There' },
+      { type: 'p', text: 'There’s a shortcut version of this advice that goes wrong constantly: scare them. Lead with the worst-case breach headline, imply the sky is always falling, and hope urgency does the persuading for you. It works exactly once. The second time you cry wolf with a number that doesn’t hold up, you’ve spent credibility you don’t get back — and every future request from you gets discounted by default.' },
+      { type: 'p', text: 'The translation only works if it’s honest. If you don’t actually have a comparable past incident, don’t invent one — cite an industry baseline, or be explicit that this is a preventive investment rather than a response to a near-miss. Executives can tell the difference between calibrated risk and a pitch dressed up as one, and the ones who can’t yet will learn to eventually. Don’t be the lesson.' },
+      { type: 'h3', text: 'Bring a Menu, Not an Ultimatum' },
+      { type: 'p', text: 'The framing that changes outcomes more than almost anything else: stop presenting a single option with a yes/no attached, and start presenting a short menu with real tradeoffs. A recommended option, a cheaper fallback that buys partial risk reduction, and an honest note on what you’re accepting if neither gets approved this cycle.' },
+      { type: 'p', text: 'This does two things at once. It turns a confrontation into a decision — which is a much easier thing for a room full of people managing competing priorities to actually engage with. And it signals that you understand the room isn’t made of infinite money, which, counterintuitively, is often what earns you the bigger ask next time.' },
+      { type: 'p', text: 'You’re not going to win every case. Some risks genuinely lose to other priorities this quarter, and that’s a legitimate business call, not a failure of your pitch. But the version of this where you consistently get heard isn’t the one where you’re the loudest voice in the room about severity. It’s the one where you’ve made it easy, over and over, for leadership to see exactly what they’re trading off — in the only currency that ever actually moves a budget.' },
+    ],
+  },
+};
+
+class Component extends DCLogic {
+  state = { post: 'talking-to-leadership', paletteOverride: null };
+
+  componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get('post');
+    const post = POSTS_DATA[requested] ? requested : 'talking-to-leadership';
+    this.setState({ post });
+
+    const savedName = localStorage.getItem('cg-palette-name');
+    const found = savedName && CG_PALETTES.find(p => p.name === savedName);
+    if (found) this.setState({ paletteOverride: found.colors }, () => this.applyPalette());
+    else this.applyPalette();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.palette !== this.props.palette) this.applyPalette();
+  }
+  getActivePalette() {
+    return this.state.paletteOverride ?? this.props.palette ?? CG_DEFAULT_PALETTE;
+  }
+  applyPalette() {
+    const p = this.getActivePalette();
+    CG_VARS.forEach((v, i) => document.documentElement.style.setProperty(v, p[i]));
+  }
+
+  renderVals() {
+    const activePalette = this.getActivePalette();
+    const swatches = CG_PALETTES.map(pal => ({
+      name: pal.name,
+      gradient: `linear-gradient(135deg, ${pal.colors[3]} 50%, ${pal.colors[0]} 50%)`,
+      ringColor: activePalette[3] === pal.colors[3] ? activePalette[5] : 'transparent',
+      select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
+    }));
+
+    const post = POSTS_DATA[this.state.post];
+    const blocks = post.blocks.map(b => ({
+      text: b.text,
+      isHeading: b.type === 'h3',
+      isQuote: b.type === 'quote',
+      isParagraph: b.type === 'p',
+    }));
+
+    return {
+      swatches,
+      postTitle: post.title,
+      postSubtitle: post.subtitle,
+      postDate: post.date,
+      postReadTime: post.readTime,
+      blocks,
+    };
+  }
+}
+</script>
+</body>
+</html>
