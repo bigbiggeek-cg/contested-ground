@@ -37,7 +37,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
+      <a href="Domains.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -51,12 +51,12 @@
   <!-- BREADCRUMB + PROGRESS -->
   <div style="max-width:820px; margin:0 auto; padding:28px 32px 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DOMAINS</a> &nbsp;/&nbsp; <a href="{{ driveHref }}" style="text-decoration:none; color:var(--cg-text-dim);">DOMAIN {{ driveNum }} — {{ driveTitle }}</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON {{ lessonNum }}</span>
+      <a href="Domains.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DOMAINS</a> &nbsp;/&nbsp; <a href="{{ domainHref }}" style="text-decoration:none; color:var(--cg-text-dim);">DOMAIN {{ domainNum }} — {{ domainTitle }}</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON {{ lessonNum }}</span>
     </div>
     <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson {{ positionInDrive }} of {{ totalInDrive }} in this Domain</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson {{ positionInDomain }} of {{ totalInDomain }} in this Domain</div>
       <div style="flex:1; height:4px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:2px; overflow:hidden;">
-        <div style="height:100%; width:{{ drivePercent }}%; background:var(--cg-accent);"></div>
+        <div style="height:100%; width:{{ domainPercent }}%; background:var(--cg-accent);"></div>
       </div>
     </div>
     <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.03em; color:var(--cg-text-dim); margin-bottom:36px;">Progress is saved in this browser only — it's not tied to an account, so it won't follow you to another device or browser.</div>
@@ -180,7 +180,7 @@
           <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ prevTitle }}</div>
         </div>
       </a>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson {{ positionInDrive }} of {{ totalInDrive }}</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); flex:none;">Lesson {{ positionInDomain }} of {{ totalInDomain }}</div>
       <a href="{{ nextHref }}" onClick="{{ markComplete }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cg-accent-bright); min-width:0; text-align:right;">
         <div style="min-width:0;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.05em; color:var(--cg-text-dim); text-align:right;">COMPLETE & CONTINUE</div>
@@ -202,11 +202,11 @@ const CG_PALETTES = [
   { name: 'Charcoal & Crimson', colors: ['#1C1B1E', '#292629', '#423E43', '#C1443C', '#E06B5E', '#F5EFE6', '#B8AFA9', '#8C837D', '#D8CFC7'] },
 ];
 
-const DRIVE_TITLES = {
+const DOMAIN_TITLES = {
   '01': 'Foundations', '02': 'Detection & Response', '03': 'Cloud & Modern Surface',
   '04': 'Practical Defense & Career', '05': 'The Human Element', '06': 'Compliance & Governance',
 };
-const DRIVE_LESSON_ORDER = {
+const DOMAIN_LESSON_ORDER = {
   '01': ['01','02','03','04','05'],
   '02': ['06','07','08','09','10','11','12'],
   '03': ['13','14','15','16','17','18'],
@@ -214,7 +214,7 @@ const DRIVE_LESSON_ORDER = {
   '05': ['24','25','26','27'],
   '06': ['28','29','30'],
 };
-const DRIVE_ORDER = ['01','02','03','04','05','06'];
+const DOMAIN_ORDER = ['01','02','03','04','05','06'];
 
 function difficultyLabel(marker) {
   if (marker.indexOf('1ST') === 0) return 'FOUNDATIONAL';
@@ -240,7 +240,7 @@ function unlockedIndexFor(order, completed) {
 
 const LESSONS_DATA = {
   '01': {
-    drive: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN',
+    domain: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN',
     subtitle: 'Before you can defend anything, you need to know what you’re actually defending and from whom.',
     intro: [
       'Most IT pros inherit security as a checklist: patch this, enable that, buy the tool the vendor is pushing this quarter. Nobody sits you down and asks the one question that actually organizes all of it — what are you protecting, and who wants it?',
@@ -287,7 +287,7 @@ const LESSONS_DATA = {
     ],
   },
   '02': {
-    drive: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN',
+    domain: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN',
     subtitle: 'The firewall stopped being your edge the day your first employee logged into a cloud app from home.',
     intro: [
       'For twenty years, "perimeter security" meant a firewall at the edge of a network you could physically point to. That network barely exists anymore. Your employees authenticate into SaaS tools from coffee shops, personal phones, and airport WiFi — none of which ever touch your firewall.',
@@ -329,7 +329,7 @@ const LESSONS_DATA = {
     ],
   },
   '03': {
-    drive: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN',
+    domain: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN',
     subtitle: 'The unglamorous truth: most breaches exploit vulnerabilities that were patched months before the attack.',
     intro: [
       'It’s tempting to think breaches happen because attackers find some brilliant zero-day nobody could have predicted. In reality, the overwhelming majority of successful attacks exploit vulnerabilities that already have a patch available — sometimes for months, sometimes for years.',
@@ -371,7 +371,7 @@ const LESSONS_DATA = {
     ],
   },
   '04': {
-    drive: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN',
+    domain: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN',
     subtitle: 'Past the marketing buzzword: what zero trust actually asks of your network, and why it works.',
     intro: [
       'Zero trust has been marketed so aggressively that it’s easy to write it off as a rebrand of things you already do. Strip away the vendor slide decks and the core idea is genuinely simple: never automatically trust a device or user just because they’re "inside" your network, and verify every request on its own merits.',
@@ -417,7 +417,7 @@ const LESSONS_DATA = {
     ],
   },
   '05': {
-    drive: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN',
+    domain: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN',
     subtitle: 'The oldest framework in the field, still useful — if you use it as a decision tool instead of a definition to memorize.',
     intro: [
       'Confidentiality, integrity, and availability show up in every introductory security course, usually as three definitions to memorize for a test. That framing undersells them. The real value of the CIA triad is as a fast way to reason about tradeoffs when you can’t protect everything equally.',
@@ -462,7 +462,7 @@ const LESSONS_DATA = {
     ],
   },
   '06': {
-    drive: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN',
+    domain: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN',
     subtitle: 'Visibility gaps are more common than tool gaps — know what’s actually being watched before you assume you’re covered.',
     intro: [
       'Ask most IT pros what their security stack monitors and you’ll get a confident answer: endpoints, network traffic, cloud logins, email. Ask what it doesn’t monitor, and the confidence usually evaporates. Coverage gaps are the norm, not the exception, and they tend to hide in exactly the places attackers look first.',
@@ -506,7 +506,7 @@ const LESSONS_DATA = {
     ],
   },
   '07': {
-    drive: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN',
+    domain: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN',
     subtitle: 'The Event IDs every IT pro should recognize on sight — and what they’re actually telling you.',
     intro: [
       'Most IT pros can tell you what a firewall does. Fewer can tell you what a successful attack actually looks like once it’s already inside the network — because that story is written in the logs, and almost nobody reads them until something’s already on fire.',
@@ -554,7 +554,7 @@ const LESSONS_DATA = {
     ],
   },
   '08': {
-    drive: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN',
+    domain: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN',
     subtitle: 'Getting in is rarely the hard part for an attacker — getting from one low-value machine to your crown jewels is.',
     intro: [
       'Initial access — a phished credential, an exposed RDP port, a vulnerable web app — usually lands an attacker on one unremarkable machine. That machine is almost never the target. What happens next, the quiet crawl from that first foothold toward domain admin or your most sensitive server, is lateral movement, and it’s where most of the actual damage gets decided.',
@@ -600,7 +600,7 @@ const LESSONS_DATA = {
     ],
   },
   '09': {
-    drive: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN',
+    domain: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN',
     subtitle: 'A composited, anonymized incident walked hour by hour — from initial access to containment.',
     intro: [
       'Ransomware rarely detonates the moment an attacker gets in. Modern operators spend days or weeks quietly expanding access, identifying backups, and mapping out what will hurt the most before they ever encrypt a single file. Understanding that timeline is what turns a panicked scramble into a practiced response.',
@@ -646,7 +646,7 @@ const LESSONS_DATA = {
     ],
   },
   '10': {
-    drive: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN',
+    domain: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN',
     subtitle: 'Enterprise-grade detection tooling helps, but the instinct that catches an intrusion early can’t be bought.',
     intro: [
       'It’s easy to assume real detection requires a 24/7 SOC, a SIEM with a six-figure price tag, and a team of analysts you don’t have. Most small and mid-sized IT teams will never have that budget — and most breaches are still caught, when they’re caught at all, by someone noticing something that just seemed off.',
@@ -686,7 +686,7 @@ const LESSONS_DATA = {
     ],
   },
   '11': {
-    drive: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN',
+    domain: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN',
     subtitle: 'They get bundled together in conversation constantly. They are not the same product, and the difference matters.',
     intro: [
       'Traditional antivirus asks one question: does this file match a known-bad signature? That model worked reasonably well when malware was mostly static files. It works far less well now that attackers routinely use fileless techniques, living-off-the-land binaries, and malware that mutates itself to dodge signature matching.',
@@ -730,7 +730,7 @@ const LESSONS_DATA = {
     ],
   },
   '12': {
-    drive: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN',
+    domain: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN',
     subtitle: 'The cheapest, highest-value incident response training you’re probably not doing.',
     intro: [
       'A tabletop exercise is a structured conversation, not a live drill: gather the people who’d actually be involved in an incident, present a realistic scenario, and walk through the decisions step by step. No systems get touched. The value comes entirely from discovering gaps in your plan while the stakes are zero.',
@@ -770,7 +770,7 @@ const LESSONS_DATA = {
     ],
   },
   '13': {
-    drive: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN',
+    domain: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN',
     subtitle: 'Cloud breaches almost never involve breaking encryption — they involve someone leaving a door unlocked.',
     intro: [
       'The cloud providers themselves have genuinely excellent security — the physical data centers, the hypervisor isolation, the underlying network. Nearly every high-profile cloud breach in the last decade happened above that layer, in the settings a customer configured themselves. This is what "shared responsibility" actually means in practice: the provider secures the cloud, you secure what you put in it.',
@@ -815,7 +815,7 @@ const LESSONS_DATA = {
     ],
   },
   '14': {
-    drive: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN',
+    domain: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN',
     subtitle: 'Multi-factor authentication stopped most password-based attacks cold — so attackers started attacking the human instead.',
     intro: [
       'MFA fatigue, also called push bombing, is deceptively simple: an attacker who already has a valid stolen password triggers repeated MFA push notifications, sometimes dozens in a row, hoping the user gets annoyed or confused enough to tap "approve" just to make the notifications stop. It works often enough that several major breaches in recent years trace back to exactly this technique.',
@@ -855,7 +855,7 @@ const LESSONS_DATA = {
     ],
   },
   '15': {
-    drive: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN',
+    domain: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN',
     subtitle: 'The apps your employees signed up for with a work email, without ever telling IT, are already part of your attack surface.',
     intro: [
       'Shadow IT used to mean an employee plugging in a personal router. Today it means an employee signing up for a project management tool, a file-sharing app, or an AI writing assistant with their work email and a company credit card, entirely outside any approval process — because it solved a problem faster than waiting on IT.',
@@ -895,7 +895,7 @@ const LESSONS_DATA = {
     ],
   },
   '16': {
-    drive: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN',
+    domain: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN',
     subtitle: 'Every app you use is a thin layer over APIs — and APIs have quietly become one of the most attacked parts of modern infrastructure.',
     intro: [
       'APIs used to be a backend implementation detail. Now they’re often the entire product — mobile apps, single-page web apps, and integrations between SaaS tools are all just interfaces sitting on top of APIs. That shift means an API vulnerability isn’t a narrow technical issue anymore; it’s frequently the whole attack surface.',
@@ -939,7 +939,7 @@ const LESSONS_DATA = {
     ],
   },
   '17': {
-    drive: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN',
+    domain: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN',
     subtitle: 'Containers aren’t inherently more or less secure than anything else — they just move the risk to different places.',
     intro: [
       'Containers get talked about as either a security silver bullet ("isolated by design!") or a nightmare ("shared kernel, one big attack surface!"). Neither framing is very useful. Containers are a packaging and isolation mechanism, and like any mechanism, their security depends entirely on how they’re built, stored, and run.',
@@ -983,7 +983,7 @@ const LESSONS_DATA = {
     ],
   },
   '18': {
-    drive: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN',
+    domain: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN',
     subtitle: 'You don’t need to be a Kubernetes expert to close the handful of gaps that get exploited most often.',
     intro: [
       'Kubernetes brings its own security surface on top of whatever’s running inside its containers — the cluster itself, the API that controls it, and the network policies that decide what can talk to what. A surprising number of real incidents trace back to a small set of well-known, well-documented misconfigurations.',
@@ -1027,7 +1027,7 @@ const LESSONS_DATA = {
     ],
   },
   '19': {
-    drive: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN',
+    domain: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN',
     subtitle: 'Backups fail silently far more often than they fail loudly — and you only find out during a restore.',
     intro: [
       'Nearly every organization believes it has working backups. A surprising number find out during an actual incident that "backing up" and "being able to restore" are not the same claim — the job ran, the file exists, and it’s still useless because nobody ever tested pulling it back out.',
@@ -1071,7 +1071,7 @@ const LESSONS_DATA = {
     ],
   },
   '20': {
-    drive: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN',
+    domain: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN',
     subtitle: 'Every vendor with access to your systems or data is effectively an extension of your own attack surface.',
     intro: [
       'A well-secured organization can still get breached through a vendor that wasn’t — this has happened at massive scale, repeatedly, through payment processors, HVAC contractors with network access, and IT management tools trusted by thousands of downstream customers at once. Your security posture is only as strong as the weakest vendor with meaningful access to your environment.',
@@ -1111,7 +1111,7 @@ const LESSONS_DATA = {
     ],
   },
   '21': {
-    drive: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN',
+    domain: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN',
     subtitle: 'You don’t need a dedicated IR team to respond well — you need a plan you wrote before you needed it.',
     intro: [
       'Most incident response advice assumes a dedicated team, a retainer with an IR firm, and a war room. Most IT departments are a handful of generalists with a dozen other responsibilities. That doesn’t mean incident response is out of reach — it means the plan has to be realistic about who’s actually going to execute it.',
@@ -1155,7 +1155,7 @@ const LESSONS_DATA = {
     ],
   },
   '22': {
-    drive: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN',
+    domain: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN',
     subtitle: 'The technical case for a security investment rarely wins on its own — the business case does.',
     intro: [
       'A common frustration among IT pros: a clearly necessary security investment gets rejected or endlessly delayed, not because leadership doesn’t care, but because the request was framed in terms that don’t map to how leadership actually makes decisions. Technical risk and business risk are the same thing described in two different languages, and the translation matters.',
@@ -1195,7 +1195,7 @@ const LESSONS_DATA = {
     ],
   },
   '23': {
-    drive: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN',
+    domain: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN',
     subtitle: 'Certifications are a signal, not a credential that automatically makes you good at the job — know which signal you’re sending.',
     intro: [
       'The certification landscape is large enough to be genuinely confusing, and vendors have every incentive to convince you their exam is the essential one. A more useful way to think about it: what is this certification actually signaling to an employer, and does that signal match where you want your career to go?',
@@ -1239,7 +1239,7 @@ const LESSONS_DATA = {
     ],
   },
   '24': {
-    drive: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN',
+    domain: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN',
     subtitle: 'Every technical control you build can be walked around by someone who simply asks nicely, or convincingly.',
     intro: [
       'Social engineering exploits trust and helpfulness, not software flaws, which is exactly why it remains effective no matter how much technology improves. The classics — phishing, pretexting, tailgating into a building behind someone holding the door — persist because they target something patching can’t fix: normal human courtesy under time pressure.',
@@ -1283,7 +1283,7 @@ const LESSONS_DATA = {
     ],
   },
   '25': {
-    drive: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN',
+    domain: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN',
     subtitle: 'A security program that employees resent gets quietly worked around — a culture that makes sense gets followed.',
     intro: [
       'Security programs built entirely on restriction and punishment tend to produce exactly the behavior they’re trying to prevent: employees finding workarounds, using shadow IT, or simply not reporting mistakes for fear of consequences. A security culture that actually holds up is built on making the secure path the easy path, and treating mistakes as information rather than infractions.',
@@ -1323,7 +1323,7 @@ const LESSONS_DATA = {
     ],
   },
   '26': {
-    drive: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN',
+    domain: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN',
     subtitle: 'Most insider risk isn’t a disgruntled employee plotting sabotage — it’s ordinary carelessness with real consequences.',
     intro: [
       'The phrase "insider threat" conjures an image of deliberate sabotage, and that does happen, but it’s the minority case. Far more common: a departing employee taking a customer list "just in case" it’s useful at their next job, or a well-meaning employee misconfiguring a sharing setting that exposes sensitive data to more people than intended.',
@@ -1367,7 +1367,7 @@ const LESSONS_DATA = {
     ],
   },
   '27': {
-    drive: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN',
+    domain: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN',
     subtitle: 'A phishing simulation program can build real resilience — or it can just teach employees to resent the security team.',
     intro: [
       'Phishing simulations are one of the most common security awareness tools, and also one of the most commonly done poorly. Sending an unrealistic, easily-spotted test email and publicly shaming whoever clicks it produces resentment, not resilience. Done well, the same program measurably improves an organization’s real-world detection rate.',
@@ -1407,7 +1407,7 @@ const LESSONS_DATA = {
     ],
   },
   '28': {
-    drive: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN',
+    domain: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN',
     subtitle: 'Passing an audit and being secure are related, correlated, and absolutely not the same thing.',
     intro: [
       'It’s entirely possible to pass a compliance audit and still get breached the following month, and it happens regularly. Compliance frameworks establish a baseline — a floor, not a ceiling — and they’re often written broadly enough to be satisfied with controls that check the box without meaningfully reducing risk.',
@@ -1447,7 +1447,7 @@ const LESSONS_DATA = {
     ],
   },
   '29': {
-    drive: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN',
+    domain: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN',
     subtitle: 'Three letters, three different purposes — knowing which one fits your situation saves months of misapplied effort.',
     intro: [
       'The major security frameworks get treated as interchangeable in casual conversation, but they were built for different purposes and different audiences. Picking the wrong one for your situation means a lot of effort spent satisfying requirements that weren’t actually the right fit for your organization.',
@@ -1491,7 +1491,7 @@ const LESSONS_DATA = {
     ],
   },
   '30': {
-    drive: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN',
+    domain: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN',
     subtitle: 'Most of what makes an audit painful is preventable months before the auditor ever shows up.',
     intro: [
       'Audit season has a reputation for being chaotic and stressful, and for most organizations that reputation is earned — but usually because of preparation gaps, not because auditing is inherently miserable. A well-prepared audit is closer to a structured status check than a crisis.',
@@ -1533,36 +1533,36 @@ const LESSONS_DATA = {
 };
 
 const LESSON_META = {
-  '01': { drive: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN' },
-  '02': { drive: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN' },
-  '03': { drive: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN' },
-  '04': { drive: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN' },
-  '05': { drive: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN' },
-  '06': { drive: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN' },
-  '07': { drive: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN' },
-  '08': { drive: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN' },
-  '09': { drive: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN' },
-  '10': { drive: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN' },
-  '11': { drive: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN' },
-  '12': { drive: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN' },
-  '13': { drive: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN' },
-  '14': { drive: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN' },
-  '15': { drive: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN' },
-  '16': { drive: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN' },
-  '17': { drive: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN' },
-  '18': { drive: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN' },
-  '19': { drive: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN' },
-  '20': { drive: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN' },
-  '21': { drive: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN' },
-  '22': { drive: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN' },
-  '23': { drive: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN' },
-  '24': { drive: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN' },
-  '25': { drive: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN' },
-  '26': { drive: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN' },
-  '27': { drive: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN' },
-  '28': { drive: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN' },
-  '29': { drive: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN' },
-  '30': { drive: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN' },
+  '01': { domain: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN' },
+  '02': { domain: '01', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN' },
+  '03': { domain: '01', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN' },
+  '04': { domain: '01', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN' },
+  '05': { domain: '01', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN' },
+  '06': { domain: '02', title: 'What Your SOC Actually Sees (and What It Doesn’t)', marker: '1ST & 10', time: '12 MIN' },
+  '07': { domain: '02', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN' },
+  '08': { domain: '02', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN' },
+  '09': { domain: '02', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN' },
+  '10': { domain: '02', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN' },
+  '11': { domain: '02', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN' },
+  '12': { domain: '02', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN' },
+  '13': { domain: '03', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN' },
+  '14': { domain: '03', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN' },
+  '15': { domain: '03', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN' },
+  '16': { domain: '03', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN' },
+  '17': { domain: '03', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN' },
+  '18': { domain: '03', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN' },
+  '19': { domain: '04', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN' },
+  '20': { domain: '04', title: 'Vendor Risk: Buying Security Isn’t Enough', marker: '2ND & 7', time: '16 MIN' },
+  '21': { domain: '04', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN' },
+  '22': { domain: '04', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN' },
+  '23': { domain: '04', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN' },
+  '24': { domain: '05', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN' },
+  '25': { domain: '05', title: 'Building a Security Culture People Don’t Hate', marker: '3RD & LONG', time: '23 MIN' },
+  '26': { domain: '05', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN' },
+  '27': { domain: '05', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN' },
+  '28': { domain: '06', title: 'Compliance vs. Security: Why They’re Different', marker: '2ND & 7', time: '14 MIN' },
+  '29': { domain: '06', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN' },
+  '30': { domain: '06', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN' },
 };
 
 function buildLesson(lessonNum) {
@@ -1584,27 +1584,27 @@ function buildLesson(lessonNum) {
 }
 
 class Component extends DCLogic {
-  state = { drive: '02', lesson: '07', quizAnswers: {}, paletteOverride: null };
+  state = { domain: '02', lesson: '07', quizAnswers: {}, paletteOverride: null };
 
   componentDidMount() {
     this._utterance = null;
     this._progressTimer = null;
     const params = new URLSearchParams(window.location.search);
-    const drive = DRIVE_LESSON_ORDER[params.get('domain')] ? params.get('domain') : null;
+    const domain = DOMAIN_LESSON_ORDER[params.get('domain')] ? params.get('domain') : null;
     const lessonParam = params.get('lesson');
     const lesson = LESSON_META[lessonParam] ? lessonParam : null;
-    const resolvedDrive = drive || (lesson ? LESSON_META[lesson].drive : '02');
-    const lessonOrder = DRIVE_LESSON_ORDER[resolvedDrive];
-    const resolvedLesson = (lesson && LESSON_META[lesson].drive === resolvedDrive) ? lesson : lessonOrder[0];
+    const resolvedDomain = domain || (lesson ? LESSON_META[lesson].domain : '02');
+    const lessonOrder = DOMAIN_LESSON_ORDER[resolvedDomain];
+    const resolvedLesson = (lesson && LESSON_META[lesson].domain === resolvedDomain) ? lesson : lessonOrder[0];
 
     const completed = getProgress();
     const unlockedIdx = unlockedIndexFor(lessonOrder, completed);
     const requestedIdx = lessonOrder.indexOf(resolvedLesson);
     if (requestedIdx > unlockedIdx) {
-      window.location.href = `Drive Page.dc.html?domain=${resolvedDrive}`;
+      window.location.href = `Domain Page.dc.html?domain=${resolvedDomain}`;
       return;
     }
-    this.setState({ drive: resolvedDrive, lesson: resolvedLesson });
+    this.setState({ domain: resolvedDomain, lesson: resolvedLesson });
 
     const savedName = localStorage.getItem('cg-palette-name');
     const found = savedName && CG_PALETTES.find(p => p.name === savedName);
@@ -1699,52 +1699,52 @@ class Component extends DCLogic {
       select: () => { localStorage.setItem('cg-palette-name', pal.name); this.setState({ paletteOverride: pal.colors }, () => this.applyPalette()); },
     }));
 
-    const driveNum = this.state.drive;
+    const domainNum = this.state.domain;
     const lessonNum = this.state.lesson;
     const lesson = buildLesson(lessonNum);
-    const lessonOrder = DRIVE_LESSON_ORDER[driveNum];
-    const posInDrive = lessonOrder.indexOf(lessonNum) + 1;
-    const totalInDrive = lessonOrder.length;
-    const posIdx = posInDrive - 1;
+    const lessonOrder = DOMAIN_LESSON_ORDER[domainNum];
+    const posInDomain = lessonOrder.indexOf(lessonNum) + 1;
+    const totalInDomain = lessonOrder.length;
+    const posIdx = posInDomain - 1;
 
     let prevHref, prevLabel, prevTitle;
     if (posIdx > 0) {
       const prevNum = lessonOrder[posIdx - 1];
-      prevHref = `Lesson Page.dc.html?domain=${driveNum}&lesson=${prevNum}`;
+      prevHref = `Lesson Page.dc.html?domain=${domainNum}&lesson=${prevNum}`;
       prevLabel = `LESSON ${prevNum}`;
       prevTitle = LESSON_META[prevNum].title;
     } else {
-      const driveIdx = DRIVE_ORDER.indexOf(driveNum);
-      if (driveIdx > 0) {
-        const prevDriveNum = DRIVE_ORDER[driveIdx - 1];
-        const prevDriveLessons = DRIVE_LESSON_ORDER[prevDriveNum];
-        const prevNum = prevDriveLessons[prevDriveLessons.length - 1];
-        prevHref = `Lesson Page.dc.html?domain=${prevDriveNum}&lesson=${prevNum}`;
-        prevLabel = `DRIVE ${prevDriveNum}`;
+      const domainIdx = DOMAIN_ORDER.indexOf(domainNum);
+      if (domainIdx > 0) {
+        const prevDomainNum = DOMAIN_ORDER[domainIdx - 1];
+        const prevDomainLessons = DOMAIN_LESSON_ORDER[prevDomainNum];
+        const prevNum = prevDomainLessons[prevDomainLessons.length - 1];
+        prevHref = `Lesson Page.dc.html?domain=${prevDomainNum}&lesson=${prevNum}`;
+        prevLabel = `DOMAIN ${prevDomainNum}`;
         prevTitle = LESSON_META[prevNum].title;
       } else {
-        prevHref = `Drive Page.dc.html?domain=${driveNum}`;
+        prevHref = `Domain Page.dc.html?domain=${domainNum}`;
         prevLabel = 'DOMAIN OVERVIEW';
-        prevTitle = DRIVE_TITLES[driveNum];
+        prevTitle = DOMAIN_TITLES[domainNum];
       }
     }
 
     let nextHref, nextLabel, nextTitle;
-    if (posIdx < totalInDrive - 1) {
+    if (posIdx < totalInDomain - 1) {
       const nextNum = lessonOrder[posIdx + 1];
-      nextHref = `Lesson Page.dc.html?domain=${driveNum}&lesson=${nextNum}`;
+      nextHref = `Lesson Page.dc.html?domain=${domainNum}&lesson=${nextNum}`;
       nextLabel = `LESSON ${nextNum}`;
       nextTitle = LESSON_META[nextNum].title;
     } else {
-      const driveIdx = DRIVE_ORDER.indexOf(driveNum);
-      if (driveIdx < DRIVE_ORDER.length - 1) {
-        const nextDriveNum = DRIVE_ORDER[driveIdx + 1];
-        const nextNum = DRIVE_LESSON_ORDER[nextDriveNum][0];
-        nextHref = `Lesson Page.dc.html?domain=${nextDriveNum}&lesson=${nextNum}`;
-        nextLabel = `DRIVE ${nextDriveNum}`;
+      const domainIdx = DOMAIN_ORDER.indexOf(domainNum);
+      if (domainIdx < DOMAIN_ORDER.length - 1) {
+        const nextDomainNum = DOMAIN_ORDER[domainIdx + 1];
+        const nextNum = DOMAIN_LESSON_ORDER[nextDomainNum][0];
+        nextHref = `Lesson Page.dc.html?domain=${nextDomainNum}&lesson=${nextNum}`;
+        nextLabel = `DOMAIN ${nextDomainNum}`;
         nextTitle = LESSON_META[nextNum].title;
       } else {
-        nextHref = 'Drives.dc.html';
+        nextHref = 'Domains.dc.html';
         nextLabel = 'ALL DOMAINS';
         nextTitle = 'Back to Domains';
       }
@@ -1776,11 +1776,11 @@ class Component extends DCLogic {
 
     return {
       swatches,
-      driveHref: `Drive Page.dc.html?domain=${driveNum}`,
-      driveNum, driveTitle: DRIVE_TITLES[driveNum],
+      domainHref: `Domain Page.dc.html?domain=${domainNum}`,
+      domainNum, domainTitle: DOMAIN_TITLES[domainNum],
       lessonNum, lessonTitle: lesson.title, lessonSubtitle: lesson.subtitle,
-      positionInDrive: posInDrive, totalInDrive,
-      drivePercent: Math.round((posInDrive / totalInDrive) * 100),
+      positionInDomain: posInDomain, totalInDomain,
+      domainPercent: Math.round((posInDomain / totalInDomain) * 100),
       difficultyLabel: difficultyLabel(lesson.marker),
       readTime, listenTime,
       intro: lesson.intro || [], coreHeading: lesson.coreHeading, hasTable: (lesson.table || []).length > 0, table: lesson.table || [],
