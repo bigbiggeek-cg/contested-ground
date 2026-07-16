@@ -37,7 +37,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -51,10 +51,10 @@
   <!-- BREADCRUMB + PROGRESS -->
   <div style="max-width:820px; margin:0 auto; padding:28px 32px 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <a href="{{ driveHref }}" style="text-decoration:none; color:var(--cg-text-dim);">DRIVE {{ driveNum }} — {{ driveTitle }}</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON {{ lessonNum }}</span>
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DOMAINS</a> &nbsp;/&nbsp; <a href="{{ driveHref }}" style="text-decoration:none; color:var(--cg-text-dim);">DOMAIN {{ driveNum }} — {{ driveTitle }}</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">LESSON {{ lessonNum }}</span>
     </div>
     <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson {{ positionInDrive }} of {{ totalInDrive }} in this Drive</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-mute); text-transform:uppercase; white-space:nowrap;">Lesson {{ positionInDrive }} of {{ totalInDrive }} in this Domain</div>
       <div style="flex:1; height:4px; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:2px; overflow:hidden;">
         <div style="height:100%; width:{{ drivePercent }}%; background:var(--cg-accent);"></div>
       </div>
@@ -157,7 +157,7 @@
 
   <!-- RELATED / UP NEXT -->
   <div style="max-width:820px; margin:0 auto; padding:48px 32px 130px;">
-    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:20px;">Continue the Drive</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:20px;">Continue the Domain</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
       <a href="{{ prevHref }}" class="related-card" style="text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:22px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cg-text-dim); margin-bottom:8px;">← {{ prevLabel }}</div>
@@ -658,7 +658,7 @@ const LESSONS_DATA = {
     ],
     whyHeading: 'Cheap Wins That Punch Above Their Weight',
     closing: [
-      'Free and low-cost options exist for teams without SOC budgets: built-in OS logging turned up to a useful level, free tiers of cloud provider security tools, alerting on a short list of high-signal events (like the Event IDs covered earlier in this Drive), and simply reviewing admin account activity on a regular cadence. None of this replaces a mature detection program, but it closes the gap between "we’d never know" and "we’d probably notice."',
+      'Free and low-cost options exist for teams without SOC budgets: built-in OS logging turned up to a useful level, free tiers of cloud provider security tools, alerting on a short list of high-signal events (like the Event IDs covered earlier in this Domain), and simply reviewing admin account activity on a regular cadence. None of this replaces a mature detection program, but it closes the gap between "we’d never know" and "we’d probably notice."',
     ],
     takeaways: [
       'Most breaches, when caught at all, are caught by someone noticing something that seemed off — not by expensive tooling alone.',
@@ -1572,12 +1572,12 @@ function buildLesson(lessonNum) {
   return {
     ...meta,
     subtitle: 'This lesson is still being written — the outline below is a placeholder.',
-    intro: ['This lesson hasn’t been written yet. Check back soon — every Drive is being filled in lesson by lesson.'],
+    intro: ['This lesson hasn’t been written yet. Check back soon — every Domain is being filled in lesson by lesson.'],
     coreHeading: 'Coming Soon',
     table: [],
     body: [],
     whyHeading: 'In the Meantime',
-    closing: ['Head back to the Drive overview to see what’s already available, or jump to a finished lesson.'],
+    closing: ['Head back to the Domain overview to see what’s already available, or jump to a finished lesson.'],
     takeaways: ['This lesson’s content is in progress.'],
     quiz: [],
   };
@@ -1724,7 +1724,7 @@ class Component extends DCLogic {
         prevTitle = LESSON_META[prevNum].title;
       } else {
         prevHref = `Drive Page.dc.html?drive=${driveNum}`;
-        prevLabel = 'DRIVE OVERVIEW';
+        prevLabel = 'DOMAIN OVERVIEW';
         prevTitle = DRIVE_TITLES[driveNum];
       }
     }
@@ -1745,8 +1745,8 @@ class Component extends DCLogic {
         nextTitle = LESSON_META[nextNum].title;
       } else {
         nextHref = 'Drives.dc.html';
-        nextLabel = 'ALL DRIVES';
-        nextTitle = 'Back to Drives';
+        nextLabel = 'ALL DOMAINS';
+        nextTitle = 'Back to Domains';
       }
     }
 

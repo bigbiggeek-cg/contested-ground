@@ -35,7 +35,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Drives</a>
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Domains</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -49,7 +49,7 @@
   <!-- BREADCRUMB -->
   <div style="max-width:1100px; margin:0 auto; padding:28px 56px 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim);">
-      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DRIVES</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVE {{ driveNum }}</span>
+      <a href="Drives.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">DOMAINS</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DOMAIN {{ driveNum }}</span>
     </div>
   </div>
 
@@ -58,7 +58,7 @@
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:22px;">
       <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--cg-accent); border:1px solid var(--cg-accent); padding:5px 10px; border-radius:2px;">{{ driveDifficultyLabel }}</div>
     </div>
-    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DRIVE {{ driveNum }}</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cg-text-dim); letter-spacing:0.05em; margin-bottom:10px;">DOMAIN {{ driveNum }}</div>
     <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,58px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 22px; text-transform:uppercase; max-width:780px;">{{ driveTitle }}</h1>
     <p style="font-size:18px; line-height:1.65; color:var(--cg-text-mute); max-width:640px; margin:0 0 12px;">
       {{ driveDescription }}
@@ -98,7 +98,7 @@
 
   <!-- PLAY SEQUENCE -->
   <div style="max-width:1100px; margin:0 auto; padding:60px 56px 80px;">
-    <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0 0 40px;">The Drive · Lesson Sequence</h2>
+    <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0 0 40px;">The Domain · Lesson Sequence</h2>
 
     <div style="position:relative; padding-left:44px;">
       <div style="position:absolute; left:15px; top:8px; bottom:8px; width:1px; background-image:repeating-linear-gradient(to bottom, var(--cg-bg-line) 0, var(--cg-bg-line) 8px, transparent 8px, transparent 16px);"></div>
@@ -202,9 +202,9 @@ class Component extends DCLogic {
     const DRIVE_ORDER = ['01', '02', '03', '04', '05', '06'];
     const DRIVES_DATA_FULL = {
       '01': { title: 'Foundations', marker: '1ST & 10', description: 'The threat model, identity, patching, zero trust, and the CIA triad — as decision tools, not textbook definitions.', summary: 'Core concepts that make everything else make sense. Zero trust isn\'t about products; identity is your perimeter; patching is the only thing that actually works.', lessons: [{ number: '01', title: 'The Threat Model Nobody Teaches', marker: '1ST & 10', time: '18 MIN' }, { number: '02', title: 'Identity Is the Perimeter', marker: '1ST & 10', time: '16 MIN' }, { number: '03', title: 'Patching: The Only Thing That Actually Works', marker: '1ST & 10', time: '14 MIN' }, { number: '04', title: 'Zero Trust Decoded', marker: '2ND & 7', time: '20 MIN' }, { number: '05', title: 'CIA Triad: Confidentiality, Integrity, Availability', marker: '1ST & 10', time: '12 MIN' }] },
-      '03': { title: 'Cloud & Modern Surface', marker: '2ND & 7', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', summary: 'Your infrastructure is no longer four walls. This drive covers identity in the cloud, the attack surface you can\'t see, and why containers aren\'t the answer to everything.', lessons: [{ number: '13', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN' }, { number: '14', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN' }, { number: '15', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN' }, { number: '16', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN' }, { number: '17', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN' }, { number: '18', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN' }] },
+      '03': { title: 'Cloud & Modern Surface', marker: '2ND & 7', description: 'Cloud misconfigurations, MFA fatigue, shadow IT, SaaS sprawl, API basics, and container security.', summary: 'Your infrastructure is no longer four walls. This Domain covers identity in the cloud, the attack surface you can\'t see, and why containers aren\'t the answer to everything.', lessons: [{ number: '13', title: 'Cloud Misconfigurations 101', marker: '1ST & 10', time: '17 MIN' }, { number: '14', title: 'MFA Fatigue: When Your Best Defense Backfires', marker: '2ND & 7', time: '19 MIN' }, { number: '15', title: 'Shadow IT and SaaS Sprawl', marker: '2ND & 7', time: '15 MIN' }, { number: '16', title: 'API Security Basics', marker: '2ND & 7', time: '16 MIN' }, { number: '17', title: 'Container Security Without the Hype', marker: '3RD & LONG', time: '21 MIN' }, { number: '18', title: 'Kubernetes: What You Actually Need to Know', marker: '3RD & LONG', time: '20 MIN' }] },
       '04': { title: 'Practical Defense & Career', marker: '2ND & 7', description: 'Backup strategy, vendor risk, incident response basics, talking to leadership, and certs worth pursuing.', summary: 'Shift from theory to action. How to back up without fail, navigate the vendor maze, handle incidents on your own, and build a career without chasing every certification.', lessons: [{ number: '19', title: 'The Backup Strategy That Actually Works', marker: '1ST & 10', time: '18 MIN' }, { number: '20', title: 'Vendor Risk: Buying Security Isn\'t Enough', marker: '2ND & 7', time: '16 MIN' }, { number: '21', title: 'Incident Response Without a Team', marker: '2ND & 7', time: '22 MIN' }, { number: '22', title: 'Talking to Leadership About Security', marker: '2ND & 7', time: '14 MIN' }, { number: '23', title: 'Security Certifications: Which Ones Matter', marker: '3RD & LONG', time: '19 MIN' }] },
-      '05': { title: 'The Human Element', marker: '3RD & LONG', description: 'Social engineering, building a security culture people don\'t hate, insider threats, and phishing sims done right.', summary: 'Most breaches start with a person. This drive covers social engineering tactics, how to build a culture that doesn\'t resent security, recognizing insider risk, and running phishing campaigns that teach instead of punish.', lessons: [{ number: '24', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN' }, { number: '25', title: 'Building a Security Culture People Don\'t Hate', marker: '3RD & LONG', time: '23 MIN' }, { number: '26', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN' }, { number: '27', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN' }] },
+      '05': { title: 'The Human Element', marker: '3RD & LONG', description: 'Social engineering, building a security culture people don\'t hate, insider threats, and phishing sims done right.', summary: 'Most breaches start with a person. This Domain covers social engineering tactics, how to build a culture that doesn\'t resent security, recognizing insider risk, and running phishing campaigns that teach instead of punish.', lessons: [{ number: '24', title: 'Social Engineering: The Classics and New Tactics', marker: '2ND & 7', time: '17 MIN' }, { number: '25', title: 'Building a Security Culture People Don\'t Hate', marker: '3RD & LONG', time: '23 MIN' }, { number: '26', title: 'Insider Threats: Recognition and Response', marker: '3RD & LONG', time: '18 MIN' }, { number: '27', title: 'Phishing Simulations Done Right', marker: '2ND & 7', time: '15 MIN' }] },
       '06': { title: 'Compliance & Governance', marker: '3RD & LONG', description: 'Compliance isn\'t security, frameworks decoded (NIST, CIS, ISO), and surviving audit season.', summary: 'Compliance is a tool, not the goal. Understand NIST, CIS, and ISO without drowning in documentation. Map your work to frameworks and survive audits without losing your mind.', lessons: [{ number: '28', title: 'Compliance vs. Security: Why They\'re Different', marker: '2ND & 7', time: '14 MIN' }, { number: '29', title: 'NIST, CIS, ISO: Which Framework When', marker: '3RD & LONG', time: '21 MIN' }, { number: '30', title: 'Surviving Audit Season', marker: '3RD & LONG', time: '16 MIN' }] },
       '02': { title: 'Detection & Response', marker: '2ND & 7', description: 'What your SOC actually sees, reading logs like an analyst, lateral movement, and the first hour of ransomware.', summary: 'Firewalls and antivirus were never the finish line.', lessons: [{ number: '06', title: 'What Your SOC Actually Sees (and What It Doesn\u2019t)', marker: '1ST & 10', time: '12 MIN' }, { number: '07', title: 'Reading Logs Like an Analyst', marker: '2ND & 7', time: '15 MIN' }, { number: '08', title: 'Lateral Movement 101', marker: '2ND & 7', time: '14 MIN' }, { number: '09', title: 'Ransomware Playbook', marker: '3RD & LONG', time: '18 MIN' }, { number: '10', title: 'Building a Detection Mindset Without a SOC Budget', marker: '2ND & 7', time: '13 MIN' }, { number: '11', title: 'EDR vs. Antivirus', marker: '1ST & 10', time: '11 MIN' }, { number: '12', title: 'Tabletop Exercises', marker: '3RD & LONG', time: '16 MIN' }] },
     };
@@ -216,11 +216,11 @@ class Component extends DCLogic {
     const prevDrive = prevNum ? DRIVES_DATA_FULL[prevNum] : null;
     const nextDrive = nextNum ? DRIVES_DATA_FULL[nextNum] : null;
     const prevHref = prevDrive ? `Drive Page.dc.html?drive=${prevNum}` : 'Drives.dc.html';
-    const prevCaption = prevDrive ? '← PREVIOUS DRIVE' : '← BACK TO';
-    const prevLabel = prevDrive ? `${prevNum} — ${prevDrive.title}` : 'All Drives';
+    const prevCaption = prevDrive ? '← PREVIOUS DOMAIN' : '← BACK TO';
+    const prevLabel = prevDrive ? `${prevNum} — ${prevDrive.title}` : 'All Domains';
     const nextHref = nextDrive ? `Drive Page.dc.html?drive=${nextNum}` : 'Drives.dc.html';
-    const nextCaption = nextDrive ? 'NEXT DRIVE →' : 'BACK TO →';
-    const nextLabel = nextDrive ? `${nextNum} — ${nextDrive.title}` : 'All Drives';
+    const nextCaption = nextDrive ? 'NEXT DOMAIN →' : 'BACK TO →';
+    const nextLabel = nextDrive ? `${nextNum} — ${nextDrive.title}` : 'All Domains';
     const raw = drive.lessons;
     const completed = getProgress();
     let unlockedIndex = 0;

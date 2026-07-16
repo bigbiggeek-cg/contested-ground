@@ -39,7 +39,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
       <a href="#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -47,7 +47,7 @@
           <div onClick="{{ sw.select }}" title="{{ sw.name }}" style="width:22px; height:22px; border-radius:50%; cursor:pointer; background:{{ sw.gradient }}; border:2px solid {{ sw.ringColor }}; box-sizing:border-box;"></div>
         </sc-for>
       </div>
-      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:11px 22px; border-radius:2px;">Start a Drive</a>
+      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:11px 22px; border-radius:2px;">Start a Domain</a>
     </div>
   </div>
 
@@ -61,10 +61,10 @@
       The security knowledge nobody explicitly taught you.
     </h1>
     <p style="position:relative; font-size:19px; line-height:1.65; color:var(--cg-text-mute); max-width:600px; margin:0 0 40px;">
-      Practical, vendor-neutral cybersecurity training for IT professionals — written lessons and podcast-style audio, organized into Drives so you always know where you stand on the field.
+      Practical, vendor-neutral cybersecurity training for IT professionals — written lessons and podcast-style audio, organized into Domains so you always know exactly where you stand.
     </p>
     <div style="position:relative; display:flex; align-items:center; gap:18px;">
-      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:16px 30px; border-radius:2px;">Run the First Drive</a>
+      <a href="Drive Page.dc.html" class="cta-btn" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent); padding:16px 30px; border-radius:2px;">Start the First Domain</a>
       <a href="#flagship" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); padding:16px 8px; border-bottom:1px solid var(--cg-bg-line);">Read the Flagship Pieces →</a>
     </div>
   </div>
@@ -83,20 +83,20 @@
 
   <div class="yard-divider"></div>
 
-  <!-- DRIVES -->
+  <!-- DOMAINS -->
   <div id="drives" style="max-width:1280px; margin:0 auto; padding:90px 56px 70px;">
     <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
       <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cg-accent); margin:0;">The Playbook</h2>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">6 DRIVES · 30 LESSONS</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--cg-text-dim);">6 DOMAINS · 30 LESSONS</div>
     </div>
-    <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 30px; text-transform:uppercase; letter-spacing:-0.01em;">Every Drive Moves You Down the Field</h3>
+    <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:38px; margin:0 0 30px; text-transform:uppercase; letter-spacing:-0.01em;">Every Domain Builds Practical Skill</h3>
 
     <sc-if value="{{ continueLesson }}" hint-placeholder-val="{{ true }}">
       <a href="Lesson Page.dc.html" style="display:flex; align-items:center; justify-content:space-between; gap:24px; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-accent); border-radius:4px; padding:22px 28px; margin-bottom:36px;">
         <div style="display:flex; align-items:center; gap:20px; min-width:0;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--cg-accent-bright); border:1px solid var(--cg-accent-bright); padding:5px 9px; border-radius:2px; flex:none;">CONTINUE</div>
           <div style="min-width:0;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:4px;">DRIVE {{ continueLesson.driveNumber }} — {{ continueLesson.driveTitle }} · {{ continueLesson.lessonOf }}</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:4px;">DOMAIN {{ continueLesson.driveNumber }} — {{ continueLesson.driveTitle }} · {{ continueLesson.lessonOf }}</div>
             <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; text-transform:uppercase;">{{ continueLesson.lessonTitle }}</div>
           </div>
         </div>
@@ -113,7 +113,7 @@
       <sc-for list="{{ drives }}" as="drive" hint-placeholder-count="6">
         <a href="{{ drive.href }}" class="drive-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:220px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DRIVE {{ drive.number }}</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DOMAIN {{ drive.number }}</div>
             <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.04em; color:{{ drive.markerColor }}; border:1px solid {{ drive.markerColor }}; padding:4px 8px; border-radius:2px; white-space:nowrap;">{{ drive.difficultyLabel }}</div>
           </div>
           <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; margin:0 0 12px; text-transform:uppercase;">{{ drive.title }}</h4>
@@ -124,7 +124,7 @@
     </div>
 
     <div style="margin-top:32px; text-align:center;">
-      <a href="Drives.dc.html" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); border-bottom:1px solid var(--cg-bg-line); padding-bottom:2px;">View All Drives →</a>
+      <a href="Drives.dc.html" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); border-bottom:1px solid var(--cg-bg-line); padding-bottom:2px;">View All Domains →</a>
     </div>
   </div>
 
@@ -165,7 +165,7 @@
     <div style="display:flex; gap:64px;">
       <div style="display:flex; flex-direction:column; gap:10px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--cg-text-dim); text-transform:uppercase; margin-bottom:4px;">Site</div>
-        <a href="#drives" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Drives</a>
+        <a href="#drives" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Domains</a>
         <a href="#flagship" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
         <a href="#" style="font-size:14px; text-decoration:none; color:var(--cg-text-mute);">Podcast</a>
       </div>
@@ -231,7 +231,7 @@ class Component extends DCLogic {
     ];
     const stats = [
       { value: '30', label: 'Lessons' },
-      { value: '6', label: 'Drives' },
+      { value: '6', label: 'Domains' },
       { value: '4', label: 'Flagship Pieces' },
       { value: '100%', label: 'Vendor-Neutral' },
     ];

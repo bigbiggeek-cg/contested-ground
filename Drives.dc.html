@@ -31,7 +31,7 @@
       <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.02em; text-transform:uppercase;">Contested Ground</div>
     </a>
     <div style="display:flex; align-items:center; gap:36px;">
-      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Drives</a>
+      <a href="Drives.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text);">Domains</a>
       <a href="Homepage.dc.html#flagship" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Flagship</a>
       <a href="Homepage.dc.html#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
@@ -45,10 +45,10 @@
   <!-- HEADER -->
   <div style="max-width:1280px; margin:0 auto; padding:60px 56px 40px;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-text-dim); margin-bottom:16px;">
-      <a href="Homepage.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">HOME</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DRIVES</span>
+      <a href="Homepage.dc.html" style="text-decoration:none; color:var(--cg-text-dim);">HOME</a> &nbsp;/&nbsp; <span style="color:var(--cg-text-mute);">DOMAINS</span>
     </div>
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,56px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 16px; text-transform:uppercase;">Every Drive on the Field</h1>
-    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); max-width:640px; margin:0 0 14px;">Six tracks, ordered roughly by difficulty. Start wherever matches your role — each Drive stands on its own.</p>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(36px,5vw,56px); line-height:1.03; letter-spacing:-0.01em; margin:0 0 16px; text-transform:uppercase;">Every Domain in the Course</h1>
+    <p style="font-size:18px; line-height:1.6; color:var(--cg-text-mute); max-width:640px; margin:0 0 14px;">Six tracks, ordered roughly by difficulty. Start wherever matches your role — each Domain stands on its own.</p>
     <p style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.03em; color:var(--cg-text-dim); max-width:640px; margin:0;">Progress is saved in this browser only — it's not tied to an account, so it won't follow you to another device or browser.</p>
   </div>
 
@@ -60,7 +60,7 @@
       <sc-for list="{{ drives }}" as="drive" hint-placeholder-count="6">
         <a href="Drive Page.dc.html?drive={{ drive.number }}" class="drive-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:240px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DRIVE {{ drive.number }}</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DOMAIN {{ drive.number }}</div>
             <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.04em; color:{{ drive.markerColor }}; border:1px solid {{ drive.markerColor }}; padding:4px 8px; border-radius:2px;">{{ drive.difficultyLabel }}</div>
           </div>
           <h4 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; margin:0 0 12px; text-transform:uppercase;">{{ drive.title }}</h4>
