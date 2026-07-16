@@ -43,6 +43,7 @@
       <a href="#deep-dives" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Deep Dives</a>
       <a href="Blog.dc.html" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">Blog</a>
       <a href="#about" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-text-mute);">About</a>
+      <a href="contested-ground-course.pdf" class="nav-link" style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--cg-accent-bright); padding-bottom:2px; border-bottom:1px solid var(--cg-accent-bright);">PDF Book</a>
       <div style="display:flex; align-items:center; gap:8px; padding-right:4px;">
         <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="3">
           <div onClick="{{ sw.select }}" title="{{ sw.name }}" style="width:22px; height:22px; border-radius:50%; cursor:pointer; background:{{ sw.gradient }}; border:2px solid {{ sw.ringColor }}; box-sizing:border-box;"></div>
@@ -126,6 +127,29 @@
 
     <div style="margin-top:32px; text-align:center;">
       <a href="Domains.dc.html" style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; color:var(--cg-text); border-bottom:1px solid var(--cg-bg-line); padding-bottom:2px;">View All Domains →</a>
+    </div>
+  </div>
+
+  <div class="yard-divider"></div>
+
+  <!-- PDF BOOK DOWNLOAD -->
+  <div style="max-width:1280px; margin:0 auto; padding:70px 56px;">
+    <div style="background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:44px 40px; display:flex; align-items:center; justify-content:space-between; gap:40px;">
+      <div style="flex:1;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.05em; color:var(--cg-accent); text-transform:uppercase; margin-bottom:8px;">REFERENCE ASSET</div>
+        <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:28px; margin:0 0 12px; text-transform:uppercase;">Download the Course as a PDF</h3>
+        <p style="font-size:16px; line-height:1.6; color:var(--cg-text-mute); margin:0 0 16px; max-width:500px;">
+          Complete reference guide to all 30 lessons. Perfect for offline reading, printing, or sharing with your team. Includes key takeaways, lesson content, and appendix with deep dives.
+        </p>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim);">
+          29 pages · PDF · ~50 KB
+        </div>
+      </div>
+      <div style="flex:none;">
+        <a href="contested-ground-course.pdf" style="display:flex; align-items:center; gap:12px; font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; color:var(--cg-bg); background:var(--cg-accent-bright); padding:18px 32px; border-radius:2px; white-space:nowrap;">
+          <span>↓ Download PDF</span>
+        </a>
+      </div>
     </div>
   </div>
 
