@@ -1,0 +1,12 @@
+{
+  "name": "contested-ground-pdf",
+  "version": "1.0.0",
+  "description": "PDF book generator for Contested Ground course content",
+  "main": "generate-pdf.js",
+  "scripts": {
+    "generate-pdf": "node generate-pdf.js"
+  },
+  "dependencies": {
+    "pdfkit": "^0.13.0"
+  }
+}
