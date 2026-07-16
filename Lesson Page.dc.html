@@ -1640,27 +1640,41 @@ class Component extends DCLogic {
 
     const lesson = buildLesson(this.state.lesson);
     const articleText = [lesson.title, ...(lesson.intro || []), ...(lesson.body || []), ...(lesson.closing || [])].join('. ');
-    synth.cancel();
-    const utter = new SpeechSynthesisUtterance(articleText);
-    utter.rate = 1.0;
-    const estimatedMs = (articleText.length / 14) * 1000;
-    const startedAt = Date.now();
 
-    utter.onend = () => {
-      if (this._progressTimer) clearInterval(this._progressTimer);
-      this.setState({ isPlaying: false, playProgress: 0 });
+    const speakNow = () => {
+      const utter = new SpeechSynthesisUtterance(articleText);
+      utter.rate = 1.0;
+      utter.lang = 'en-US';
+      const estimatedMs = (articleText.length / 14) * 1000;
+      const startedAt = Date.now();
+
+      utter.onend = () => {
+        if (this._progressTimer) clearInterval(this._progressTimer);
+        this.setState({ isPlaying: false, playProgress: 0 });
+      };
+      utter.onerror = () => {
+        if (this._progressTimer) clearInterval(this._progressTimer);
+        this.setState({ isPlaying: false, playProgress: 0 });
+      };
+
+      this._progressTimer = setInterval(() => {
+        const pct = Math.min(99, ((Date.now() - startedAt) / estimatedMs) * 100);
+        this.setState({ playProgress: pct });
+      }, 200);
+
+      synth.speak(utter);
     };
-    utter.onerror = () => {
-      if (this._progressTimer) clearInterval(this._progressTimer);
-      this.setState({ isPlaying: false, playProgress: 0 });
-    };
 
-    this._progressTimer = setInterval(() => {
-      const pct = Math.min(99, ((Date.now() - startedAt) / estimatedMs) * 100);
-      this.setState({ playProgress: pct });
-    }, 200);
-
-    synth.speak(utter);
+    // iOS Safari silently drops speak() if it's called in the same tick as
+    // cancel() — only cancel (with a short delay before re-speaking) when
+    // something is actually mid-utterance, so the common fresh-play case
+    // calls speak() synchronously within this click handler.
+    if (synth.speaking || synth.pending) {
+      synth.cancel();
+      setTimeout(speakNow, 50);
+    } else {
+      speakNow();
+    }
     this.setState({ isPlaying: true, playProgress: 0 });
   };
 
