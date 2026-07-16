@@ -58,7 +58,7 @@
   <div style="max-width:1280px; margin:0 auto; padding:56px 56px 90px;">
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
       <sc-for list="{{ drives }}" as="drive" hint-placeholder-count="6">
-        <a href="Drive Page.dc.html?drive={{ drive.number }}" class="drive-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:240px;">
+        <a href="Drive Page.dc.html?domain={{ drive.number }}" class="drive-card" style="display:block; text-decoration:none; color:inherit; background:var(--cg-bg-mid); border:1px solid var(--cg-bg-line); border-radius:4px; padding:28px; min-height:240px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
             <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cg-text-dim); letter-spacing:0.05em; white-space:nowrap;">DOMAIN {{ drive.number }}</div>
             <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.04em; color:{{ drive.markerColor }}; border:1px solid {{ drive.markerColor }}; padding:4px 8px; border-radius:2px;">{{ drive.difficultyLabel }}</div>

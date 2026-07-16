@@ -1590,7 +1590,7 @@ class Component extends DCLogic {
     this._utterance = null;
     this._progressTimer = null;
     const params = new URLSearchParams(window.location.search);
-    const drive = DRIVE_LESSON_ORDER[params.get('drive')] ? params.get('drive') : null;
+    const drive = DRIVE_LESSON_ORDER[params.get('domain')] ? params.get('domain') : null;
     const lessonParam = params.get('lesson');
     const lesson = LESSON_META[lessonParam] ? lessonParam : null;
     const resolvedDrive = drive || (lesson ? LESSON_META[lesson].drive : '02');
@@ -1601,7 +1601,7 @@ class Component extends DCLogic {
     const unlockedIdx = unlockedIndexFor(lessonOrder, completed);
     const requestedIdx = lessonOrder.indexOf(resolvedLesson);
     if (requestedIdx > unlockedIdx) {
-      window.location.href = `Drive Page.dc.html?drive=${resolvedDrive}`;
+      window.location.href = `Drive Page.dc.html?domain=${resolvedDrive}`;
       return;
     }
     this.setState({ drive: resolvedDrive, lesson: resolvedLesson });
@@ -1710,7 +1710,7 @@ class Component extends DCLogic {
     let prevHref, prevLabel, prevTitle;
     if (posIdx > 0) {
       const prevNum = lessonOrder[posIdx - 1];
-      prevHref = `Lesson Page.dc.html?drive=${driveNum}&lesson=${prevNum}`;
+      prevHref = `Lesson Page.dc.html?domain=${driveNum}&lesson=${prevNum}`;
       prevLabel = `LESSON ${prevNum}`;
       prevTitle = LESSON_META[prevNum].title;
     } else {
@@ -1719,11 +1719,11 @@ class Component extends DCLogic {
         const prevDriveNum = DRIVE_ORDER[driveIdx - 1];
         const prevDriveLessons = DRIVE_LESSON_ORDER[prevDriveNum];
         const prevNum = prevDriveLessons[prevDriveLessons.length - 1];
-        prevHref = `Lesson Page.dc.html?drive=${prevDriveNum}&lesson=${prevNum}`;
+        prevHref = `Lesson Page.dc.html?domain=${prevDriveNum}&lesson=${prevNum}`;
         prevLabel = `DRIVE ${prevDriveNum}`;
         prevTitle = LESSON_META[prevNum].title;
       } else {
-        prevHref = `Drive Page.dc.html?drive=${driveNum}`;
+        prevHref = `Drive Page.dc.html?domain=${driveNum}`;
         prevLabel = 'DOMAIN OVERVIEW';
         prevTitle = DRIVE_TITLES[driveNum];
       }
@@ -1732,7 +1732,7 @@ class Component extends DCLogic {
     let nextHref, nextLabel, nextTitle;
     if (posIdx < totalInDrive - 1) {
       const nextNum = lessonOrder[posIdx + 1];
-      nextHref = `Lesson Page.dc.html?drive=${driveNum}&lesson=${nextNum}`;
+      nextHref = `Lesson Page.dc.html?domain=${driveNum}&lesson=${nextNum}`;
       nextLabel = `LESSON ${nextNum}`;
       nextTitle = LESSON_META[nextNum].title;
     } else {
@@ -1740,7 +1740,7 @@ class Component extends DCLogic {
       if (driveIdx < DRIVE_ORDER.length - 1) {
         const nextDriveNum = DRIVE_ORDER[driveIdx + 1];
         const nextNum = DRIVE_LESSON_ORDER[nextDriveNum][0];
-        nextHref = `Lesson Page.dc.html?drive=${nextDriveNum}&lesson=${nextNum}`;
+        nextHref = `Lesson Page.dc.html?domain=${nextDriveNum}&lesson=${nextNum}`;
         nextLabel = `DRIVE ${nextDriveNum}`;
         nextTitle = LESSON_META[nextNum].title;
       } else {
@@ -1776,7 +1776,7 @@ class Component extends DCLogic {
 
     return {
       swatches,
-      driveHref: `Drive Page.dc.html?drive=${driveNum}`,
+      driveHref: `Drive Page.dc.html?domain=${driveNum}`,
       driveNum, driveTitle: DRIVE_TITLES[driveNum],
       lessonNum, lessonTitle: lesson.title, lessonSubtitle: lesson.subtitle,
       positionInDrive: posInDrive, totalInDrive,

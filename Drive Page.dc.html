@@ -163,7 +163,7 @@ class Component extends DCLogic {
   state = { paletteOverride: null, driveNum: '02' };
 
   componentDidMount() {
-    const driveNum = new URLSearchParams(window.location.search).get('drive') || '02';
+    const driveNum = new URLSearchParams(window.location.search).get('domain') || '02';
     this.setState({ driveNum });
     const savedName = localStorage.getItem('cg-palette-name');
     const found = savedName && CG_PALETTES.find(p => p.name === savedName);
@@ -215,10 +215,10 @@ class Component extends DCLogic {
     const nextNum = driveIdx >= 0 && driveIdx < DRIVE_ORDER.length - 1 ? DRIVE_ORDER[driveIdx + 1] : null;
     const prevDrive = prevNum ? DRIVES_DATA_FULL[prevNum] : null;
     const nextDrive = nextNum ? DRIVES_DATA_FULL[nextNum] : null;
-    const prevHref = prevDrive ? `Drive Page.dc.html?drive=${prevNum}` : 'Drives.dc.html';
+    const prevHref = prevDrive ? `Drive Page.dc.html?domain=${prevNum}` : 'Drives.dc.html';
     const prevCaption = prevDrive ? '← PREVIOUS DOMAIN' : '← BACK TO';
     const prevLabel = prevDrive ? `${prevNum} — ${prevDrive.title}` : 'All Domains';
-    const nextHref = nextDrive ? `Drive Page.dc.html?drive=${nextNum}` : 'Drives.dc.html';
+    const nextHref = nextDrive ? `Drive Page.dc.html?domain=${nextNum}` : 'Drives.dc.html';
     const nextCaption = nextDrive ? 'NEXT DOMAIN →' : 'BACK TO →';
     const nextLabel = nextDrive ? `${nextNum} — ${nextDrive.title}` : 'All Domains';
     const raw = drive.lessons;
@@ -237,7 +237,7 @@ class Component extends DCLogic {
       return {
         ...l,
         difficultyLabel: difficultyLabel(l.marker),
-        href: isLocked ? '#' : `Lesson Page.dc.html?drive=${driveNum}&lesson=${l.number}`,
+        href: isLocked ? '#' : `Lesson Page.dc.html?domain=${driveNum}&lesson=${l.number}`,
         dotLabel: isDone ? '✓' : String(i + 1),
         dotBg: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-bg-mid)' : 'var(--cg-bg-mid)'),
         dotBorder: isDone ? 'var(--cg-accent)' : (isCurrent ? 'var(--cg-accent-bright)' : 'var(--cg-bg-line)'),
