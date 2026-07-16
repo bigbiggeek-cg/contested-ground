@@ -9,19 +9,20 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.colors import HexColor
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 
-# Color scheme from brand
+# Print palette: dark text on white page (the site's light-on-navy colors
+# are illegible on a white PDF background, so this is a distinct print scheme
+# using the same brand hues, darkened/adjusted for contrast on paper).
 COLORS = {
-    'navy': HexColor('#0B1F33'),
-    'navy_mid': HexColor('#142C46'),
-    'navy_line': HexColor('#2A4361'),
-    'accent': HexColor('#D2571E'),
-    'accent_bright': HexColor('#F2894E'),
-    'text': HexColor('#F5EFE6'),
-    'text_mute': HexColor('#8CA2BC'),
-    'text_dim': HexColor('#5E7591'),
+    'navy': HexColor('#0B1F33'),        # headings, primary text
+    'accent': HexColor('#B84A18'),      # darkened burnt orange - passes contrast on white
+    'accent_bright': HexColor('#9C3D14'),  # darker still, for body-sized accent text
+    'text': HexColor('#1A1A1A'),        # body copy - near-black
+    'text_mute': HexColor('#4A4A4A'),   # secondary text
+    'text_dim': HexColor('#6B6B6B'),    # tertiary/meta text
+    'rule': HexColor('#D8D2C4'),        # divider lines
 }
 
 DOMAIN_TITLES = {
@@ -36,6 +37,35 @@ DOMAIN_TITLES = {
 DOMAIN_ORDER = ['01', '02', '03', '04', '05', '06']
 
 
+def find_matching_brace(text, open_pos):
+    """Given the index of an opening '{', return the index of its matching '}'."""
+    depth = 0
+    pos = open_pos
+    in_string = False
+    string_char = None
+    escape_next = False
+    while pos < len(text):
+        char = text[pos]
+        if escape_next:
+            escape_next = False
+        elif char == '\\':
+            escape_next = True
+        elif in_string:
+            if char == string_char:
+                in_string = False
+        elif char in ("'", '"'):
+            in_string = True
+            string_char = char
+        elif char == '{':
+            depth += 1
+        elif char == '}':
+            depth -= 1
+            if depth == 0:
+                return pos
+        pos += 1
+    return -1
+
+
 def extract_lessons_from_html(html_path):
     """Extract lesson data from Lesson Page.dc.html."""
     with open(html_path, 'r') as f:
@@ -48,26 +78,24 @@ def extract_lessons_from_html(html_path):
     if start == -1:
         return lessons
 
-    # Find matching closing brace
-    depth = 0
-    pos = start + len('const LESSONS_DATA = ')
-    while pos < len(content):
-        if content[pos] == '{':
-            depth += 1
-        elif content[pos] == '}':
-            depth -= 1
-            if depth == 0:
-                break
-        pos += 1
+    obj_open = start + len('const LESSONS_DATA = ')
+    obj_close = find_matching_brace(content, obj_open)
+    data_block = content[obj_open:obj_close + 1]
 
-    data_block = content[start + len('const LESSONS_DATA = '):pos + 1]
+    # Find each top-level lesson key ('01', '02', ...) and use brace-depth
+    # counting (not regex) to find its block boundaries. Lessons contain a
+    # `quiz` array with nested option objects — two levels of nested braces —
+    # which a single-level regex silently truncates through, dropping every
+    # field that follows (body/whyHeading/closing/takeaways).
+    key_pattern = re.compile(r"'(\d{2})':\s*\{")
 
-    # Extract each lesson by its numeric key
-    lesson_pattern = r"'(\d{2})':\s*\{([^}]*(?:\{[^}]*\}[^}]*)*)\}"
-
-    for match in re.finditer(lesson_pattern, data_block, re.DOTALL):
-        lesson_id = match.group(1)
-        lesson_block = match.group(2)
+    for key_match in key_pattern.finditer(data_block):
+        lesson_id = key_match.group(1)
+        block_open = key_match.end() - 1  # index of the lesson's opening '{'
+        block_close = find_matching_brace(data_block, block_open)
+        if block_close == -1:
+            continue
+        lesson_block = data_block[block_open + 1:block_close]
 
         lesson = {'id': lesson_id}
 
@@ -116,6 +144,19 @@ def extract_lessons_from_html(html_path):
                     elif in_string:
                         current += char
                 lesson[array_field] = items
+
+        # Extract the optional 'table' field: an array of { a: '...', b: '...' } rows
+        table_match = re.search(r"table:\s*\[(.*?)\](?=\s*,\s*(?:body|whyHeading|closing|takeaways|quiz)\s*:)", lesson_block, re.DOTALL)
+        if table_match:
+            rows_str = table_match.group(1)
+            rows = []
+            for row_match in re.finditer(r"\{\s*a:\s*'([^']*(?:\\'[^']*)*)',\s*b:\s*'([^']*(?:\\'[^']*)*)'\s*\}", rows_str):
+                rows.append((
+                    row_match.group(1).replace("\\'", "'"),
+                    row_match.group(2).replace("\\'", "'"),
+                ))
+            if rows:
+                lesson['table'] = rows
 
         lessons[lesson_id] = lesson
 
@@ -170,23 +211,26 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
     story = []
     styles = getSampleStyleSheet()
 
-    # Define custom styles
+    # Define custom styles. Every style sets `leading` (line height) explicitly —
+    # the base 'Normal' style's leading is a fixed 12pt, which is shorter than
+    # most of these font sizes and causes text to visually overlap the flowable
+    # that follows it if left unset.
     title_style = ParagraphStyle(
         'CustomTitle',
         parent=styles['Normal'],
-        fontSize=44,
-        bold=True,
-        textColor=COLORS['accent'],
+        fontSize=40,
+        leading=46,
+        textColor=COLORS['navy'],
         alignment=TA_CENTER,
         spaceAfter=12,
         fontName='Helvetica-Bold',
-        letterSpacing=2,
     )
 
     subtitle_style = ParagraphStyle(
         'CustomSubtitle',
         parent=styles['Normal'],
         fontSize=18,
+        leading=24,
         textColor=COLORS['text_mute'],
         alignment=TA_CENTER,
         spaceAfter=24,
@@ -195,23 +239,22 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
     section_style = ParagraphStyle(
         'SectionTitle',
         parent=styles['Normal'],
-        fontSize=28,
-        bold=True,
+        fontSize=26,
+        leading=32,
         textColor=COLORS['accent'],
-        spaceAfter=12,
-        spaceBefore=24,
+        spaceAfter=16,
+        spaceBefore=0,
         fontName='Helvetica-Bold',
-        pageBreakBefore=True,
     )
 
     lesson_style = ParagraphStyle(
         'LessonTitle',
         parent=styles['Normal'],
-        fontSize=18,
-        bold=True,
-        textColor=COLORS['accent_bright'],
-        spaceAfter=6,
-        spaceBefore=12,
+        fontSize=17,
+        leading=21,
+        textColor=COLORS['accent'],
+        spaceAfter=4,
+        spaceBefore=20,
         fontName='Helvetica-Bold',
     )
 
@@ -219,6 +262,7 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
         'LessonMeta',
         parent=styles['Normal'],
         fontSize=9,
+        leading=13,
         textColor=COLORS['text_dim'],
         spaceAfter=8,
     )
@@ -249,6 +293,7 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
         'TOC',
         parent=styles['Normal'],
         fontSize=11,
+        leading=15,
         textColor=COLORS['text'],
         spaceAfter=6,
     )
@@ -269,7 +314,9 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
     story.append(PageBreak())
 
     # Content: Domains and Lessons
-    for domain_num in DOMAIN_ORDER:
+    for i, domain_num in enumerate(DOMAIN_ORDER):
+        if i > 0:
+            story.append(PageBreak())
         domain_title = DOMAIN_TITLES.get(domain_num, '')
         story.append(Paragraph(f"Domain {domain_num}: {domain_title}", section_style))
 
@@ -303,9 +350,34 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
             # Core section
             if 'coreHeading' in lesson:
                 story.append(Paragraph(lesson['coreHeading'], ParagraphStyle(
-                    'H3', parent=styles['Normal'], fontSize=13, bold=True,
-                    textColor=COLORS['accent_bright'], spaceAfter=10, spaceBefore=10,
+                    'H3', parent=styles['Normal'], fontSize=13, leading=17, fontName='Helvetica-Bold',
+                    textColor=COLORS['navy'], spaceAfter=8, spaceBefore=14,
                 )))
+
+            # Reference table (e.g. asset/actor pairs, framework comparisons)
+            if 'table' in lesson:
+                table_label_style = ParagraphStyle(
+                    'TableLabel', parent=styles['Normal'], fontSize=10, leading=13,
+                    fontName='Helvetica-Bold', textColor=COLORS['accent'],
+                )
+                table_value_style = ParagraphStyle(
+                    'TableValue', parent=styles['Normal'], fontSize=10, leading=13,
+                    textColor=COLORS['text'],
+                )
+                table_rows = [
+                    [Paragraph(a, table_label_style), Paragraph(b, table_value_style)]
+                    for a, b in lesson['table']
+                ]
+                tbl = Table(table_rows, colWidths=[1.4*inch, 4.6*inch])
+                tbl.setStyle(TableStyle([
+                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                    ('LINEBELOW', (0, 0), (-1, -2), 0.5, COLORS['rule']),
+                    ('TOPPADDING', (0, 0), (-1, -1), 8),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
+                    ('LEFTPADDING', (0, 0), (-1, -1), 0),
+                ]))
+                story.append(tbl)
+                story.append(Spacer(1, 0.15*inch))
 
             if 'body' in lesson:
                 for para in lesson['body']:
@@ -314,8 +386,8 @@ def create_pdf(lessons, deepdives, output_path='contested-ground-course.pdf'):
             # Why section
             if 'whyHeading' in lesson:
                 story.append(Paragraph(lesson['whyHeading'], ParagraphStyle(
-                    'H3', parent=styles['Normal'], fontSize=13, bold=True,
-                    textColor=COLORS['accent_bright'], spaceAfter=10, spaceBefore=10,
+                    'H3b', parent=styles['Normal'], fontSize=13, leading=17, fontName='Helvetica-Bold',
+                    textColor=COLORS['navy'], spaceAfter=8, spaceBefore=14,
                 )))
 
             if 'closing' in lesson:
